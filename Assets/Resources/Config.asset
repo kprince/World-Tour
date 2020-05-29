@@ -1,0 +1,380 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450361538cc6ac8478f0f7611712486b, type: 3}
+  m_Name: Config
+  m_EditorClassIdentifier: 
+  Range: 00000000e8030000d0070000b80b0000a00f00008813000070170000581b00004c1d0000401f000034210000282300001c25000080250000
+  ExtraBonusConfigs:
+  - rangeIndex: 0
+    needTargetStep: 3
+    goldBonusRate: 0
+    cashBonusRate: 100
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 1800
+    minCashBonus: 1500
+  - rangeIndex: 1
+    needTargetStep: 3
+    goldBonusRate: 0
+    cashBonusRate: 100
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 300
+    minCashBonus: 250
+  - rangeIndex: 2
+    needTargetStep: 3
+    goldBonusRate: 0
+    cashBonusRate: 100
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 240
+    minCashBonus: 200
+  - rangeIndex: 3
+    needTargetStep: 3
+    goldBonusRate: 0
+    cashBonusRate: 100
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 180
+    minCashBonus: 150
+  - rangeIndex: 4
+    needTargetStep: 5
+    goldBonusRate: 0
+    cashBonusRate: 100
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 120
+    minCashBonus: 100
+  - rangeIndex: 5
+    needTargetStep: 6
+    goldBonusRate: 0
+    cashBonusRate: 100
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 60
+    minCashBonus: 50
+  - rangeIndex: 6
+    needTargetStep: 8
+    goldBonusRate: 0
+    cashBonusRate: 100
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 30
+    minCashBonus: 25
+  - rangeIndex: 7
+    needTargetStep: 10
+    goldBonusRate: 0
+    cashBonusRate: 100
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 12
+    minCashBonus: 10
+  - rangeIndex: 8
+    needTargetStep: 15
+    goldBonusRate: 0
+    cashBonusRate: 100
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 5
+    minCashBonus: 3
+  - rangeIndex: 9
+    needTargetStep: 15
+    goldBonusRate: 30
+    cashBonusRate: 70
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 3
+    minCashBonus: 2
+  - rangeIndex: 10
+    needTargetStep: 20
+    goldBonusRate: 50
+    cashBonusRate: 50
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 2
+    minCashBonus: 1
+  - rangeIndex: 11
+    needTargetStep: 20
+    goldBonusRate: 50
+    cashBonusRate: 50
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 2
+    minCashBonus: 1
+  - rangeIndex: 12
+    needTargetStep: 25
+    goldBonusRate: 50
+    cashBonusRate: 50
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 1
+    minCashBonus: 1
+  - rangeIndex: 13
+    needTargetStep: 25
+    goldBonusRate: 100
+    cashBonusRate: 0
+    maxGoldBonus: 500
+    minGoldBonus: 200
+    maxCashBonus: 0
+    minCashBonus: 0
+  SpecialPropsConfigs:
+  - rangeIndex: 0
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 2400
+    minCashReward: 2000
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+  - rangeIndex: 1
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 300
+    minCashReward: 250
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+  - rangeIndex: 2
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 300
+    minCashReward: 250
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+  - rangeIndex: 3
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 300
+    minCashReward: 250
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+  - rangeIndex: 4
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 150
+    minCashReward: 125
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+  - rangeIndex: 5
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 60
+    minCashReward: 50
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+  - rangeIndex: 6
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 30
+    minCashReward: 25
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+  - rangeIndex: 7
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 12
+    minCashReward: 10
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+  - rangeIndex: 8
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 5
+    minCashReward: 3
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+  - rangeIndex: 9
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 3
+    minCashReward: 2
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+  - rangeIndex: 10
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 2
+    minCashReward: 1
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+    - 1.5
+    - 2
+    - 3
+    - 5
+  - rangeIndex: 11
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 2
+    minCashReward: 1
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+    - 1.5
+    - 2
+    - 3
+    - 5
+  - rangeIndex: 12
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 1
+    minCashReward: 1
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+    - 1.5
+    - 2
+    - 3
+    - 5
+  - rangeIndex: 13
+    maxGoldReward: 500
+    minGoldReward: 200
+    maxCashReward: 0
+    minCashReward: 0
+    goldMutiple:
+    - 1
+    - 1.5
+    - 3
+    - 5
+    cashMutiple:
+    - 1
+  JackpotConfigConfigs:
+  - noRewardRate: 50
+    goldRewardRate: 0
+    cashRewardRate: 50
+    goldPool: f4010000e8030000
+    cashPool: 3200000064000000
+  - noRewardRate: 50
+    goldRewardRate: 0
+    cashRewardRate: 50
+    goldPool: f4010000e8030000
+    cashPool: 3200000064000000
+  - noRewardRate: 50
+    goldRewardRate: 0
+    cashRewardRate: 50
+    goldPool: f4010000e8030000
+    cashPool: 3200000064000000
+  - noRewardRate: 50
+    goldRewardRate: 0
+    cashRewardRate: 50
+    goldPool: f4010000e8030000
+    cashPool: 3200000064000000
+  - noRewardRate: 50
+    goldRewardRate: 0
+    cashRewardRate: 50
+    goldPool: f4010000e8030000
+    cashPool: 3200000064000000
+  - noRewardRate: 50
+    goldRewardRate: 5
+    cashRewardRate: 45
+    goldPool: f4010000e8030000
+    cashPool: 1900000032000000
+  - noRewardRate: 50
+    goldRewardRate: 20
+    cashRewardRate: 30
+    goldPool: f4010000e8030000
+    cashPool: 050000000a000000
+  - noRewardRate: 50
+    goldRewardRate: 30
+    cashRewardRate: 20
+    goldPool: f4010000e803000088130000
+    cashPool: 050000000a000000
+  - noRewardRate: 50
+    goldRewardRate: 40
+    cashRewardRate: 10
+    goldPool: f4010000e803000088130000
+    cashPool: 050000000a000000
+  - noRewardRate: 50
+    goldRewardRate: 45
+    cashRewardRate: 5
+    goldPool: f4010000e803000088130000
+    cashPool: 050000000a000000
+  - noRewardRate: 50
+    goldRewardRate: 50
+    cashRewardRate: 0
+    goldPool: f4010000e803000088130000
+    cashPool: 00000000
+  - noRewardRate: 50
+    goldRewardRate: 50
+    cashRewardRate: 0
+    goldPool: f4010000e803000088130000
+    cashPool: 00000000
+  - noRewardRate: 50
+    goldRewardRate: 50
+    cashRewardRate: 0
+    goldPool: f4010000e803000088130000
+    cashPool: 00000000
+  - noRewardRate: 50
+    goldRewardRate: 50
+    cashRewardRate: 0
+    goldPool: f4010000e803000088130000
+    cashPool: 00000000

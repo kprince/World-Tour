@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SigninPanel
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 3c91590d68ce4a346a180b8efefa741c, type: 3}
+    totalSpriteSurfaceArea: 1670723
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 076749e0f4b9f59409492b89bfa00838, type: 3}
+  - {fileID: 21300000, guid: 156b70a22cebeb9438451147ca003a81, type: 3}
+  - {fileID: 21300000, guid: a2f095e268a425046861174c68a00606, type: 3}
+  - {fileID: 21300000, guid: 7cdb48d3b581b7b42898937f79e87a86, type: 3}
+  - {fileID: 21300000, guid: 520ead6413e04cd419dc5b81328ddd46, type: 3}
+  - {fileID: 21300000, guid: 6757dc36820f10c429394cbaf738c34b, type: 3}
+  - {fileID: 21300000, guid: 45dbf046418ad9b4caaf00d12072d9cc, type: 3}
+  - {fileID: 21300000, guid: c5d40b38f96880f4081ae5cc994b46d3, type: 3}
+  - {fileID: 21300000, guid: dcf20b58860215c4ca724066050bf525, type: 3}
+  - {fileID: 21300000, guid: eef390a9b5746834b94b986e1b78c093, type: 3}
+  - {fileID: 21300000, guid: 19044eea67808984fbf93a96b83465be, type: 3}
+  - {fileID: 21300000, guid: a9e9a40bcac1c42409d830c216ebb049, type: 3}
+  - {fileID: 21300000, guid: 2a02f36b3b9f0534a93cac2bfa419fad, type: 3}
+  - {fileID: 21300000, guid: 6ef294dbfcb851e48b74167843924504, type: 3}
+  - {fileID: 21300000, guid: 1fc8140dd93a3e749b33d8955559242e, type: 3}
+  - {fileID: 21300000, guid: 8038a25d1a99f404591b93bda89afd4a, type: 3}
+  - {fileID: 21300000, guid: 9c24a9dd3c4f00849b0057bfb50707fd, type: 3}
+  - {fileID: 21300000, guid: 2afa1a6eedf56cb4bb2dd7248b00969d, type: 3}
+  - {fileID: 21300000, guid: 272b567ed9957ac40bf6fe9b0463c867, type: 3}
+  - {fileID: 21300000, guid: 7b33f89e9d92bcc4aa73819aa66f5f27, type: 3}
+  - {fileID: 21300000, guid: 39c2450f879d5f441a2ef83a19eeb649, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - get
+  - finalgoldbg
+  - ungetbg
+  - signin
+  - dailycash
+  - mutiple1
+  - thanks
+  - base
+  - finaldailybase
+  - gold
+  - hasgetbg
+  - title
+  - finalcashbg
+  - sliderbg
+  - mutiple
+  - mutiple5
+  - handle
+  - mutiple3
+  - todaybg
+  - dailybase
+  - mutiple1.5
+  m_Tag: SigninPanel
+  m_IsVariant: 0

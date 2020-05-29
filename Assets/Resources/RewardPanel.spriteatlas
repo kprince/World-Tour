@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RewardPanel
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 93a9627aa2498664faf5216b3e71e080, type: 3}
+    totalSpriteSurfaceArea: 3012396
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d0079ad104bc37e4c99c72cfcc836a16, type: 3}
+  - {fileID: 21300000, guid: 6bf432936b6059d44b31af17cffed3d7, type: 3}
+  - {fileID: 21300000, guid: 48ced4a4625fbea4aa60e28fdf622baa, type: 3}
+  - {fileID: 21300000, guid: 44d63bf562bc4bc4d8c9f9c4ec6a269c, type: 3}
+  - {fileID: 21300000, guid: 357588c6e6a568b498f581db896f31fe, type: 3}
+  - {fileID: 21300000, guid: 0d5b11f7667198347ab1dfead01377ac, type: 3}
+  - {fileID: 21300000, guid: cb45c9397b842b64bba9945f8faef381, type: 3}
+  - {fileID: 21300000, guid: 0bf99f79ecde42445b4c3976fcaf35d0, type: 3}
+  - {fileID: 21300000, guid: a2a349994d003fb41aac30f946777942, type: 3}
+  - {fileID: 21300000, guid: 1128aeb9b1113cb49ae6df52d8b4b48d, type: 3}
+  - {fileID: 21300000, guid: 9cc67fc9ee42b204fb469c3f17acb4ae, type: 3}
+  - {fileID: 21300000, guid: 331b068ac0b4adf4f8281922ebbb5d29, type: 3}
+  - {fileID: 21300000, guid: f636c91bf6d6e9e469c2085e395c00e1, type: 3}
+  - {fileID: 21300000, guid: e0ecc9abcea07714e865e4e458d1e891, type: 3}
+  - {fileID: 21300000, guid: 902d9dcb59ef4774889ebd35e8f6e276, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - adget
+  - light
+  - gift
+  - get
+  - gold
+  - extrabonus
+  - manycash
+  - manygold
+  - cash
+  - handle
+  - sliderBg
+  - congratulations
+  - adopen
+  - ok
+  - sliderNum
+  m_Tag: RewardPanel
+  m_IsVariant: 0
