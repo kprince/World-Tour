@@ -709,10 +709,12 @@ public class GameManager : MonoBehaviour
     }
     public int GetOfflineEnergyAndNextRevertTime(out int seconds)
     {
-        System.TimeSpan interval= System.DateTime.Now- save.player.lastRevertEnergyDate;
+        System.DateTime now = System.DateTime.Now;
+        System.TimeSpan interval= now- save.player.lastRevertEnergyDate;
         int total = (int)interval.TotalSeconds;
         seconds = total % SaveManager.PLAYER_SECOND;
         save.player.energy += total / SaveManager.PLAYER_SECOND;
+        save.player.lastRevertEnergyDate = System.DateTime.Now.AddSeconds(-seconds);
         if (save.player.energy > SaveManager.PLAYER_MAXENERGY)
             save.player.energy = SaveManager.PLAYER_MAXENERGY;
         return save.player.energy;

@@ -58,7 +58,7 @@ public class SaveManager : MonoBehaviour
                 brickRewardGet = new bool[28],
                 nextsigninDay = 0,
                 lastRevertEnergyDate = now,
-                lastSigninDate = new DateTime(now.Year, now.Month, now.Day - 1),
+                lastSigninDate = now.AddDays(-1),
                 soundOn = true,
                 musicOn = true,
             };
