@@ -713,8 +713,10 @@ public class GameManager : MonoBehaviour
         System.TimeSpan interval= now- save.player.lastRevertEnergyDate;
         int total = (int)interval.TotalSeconds;
         seconds = total % SaveManager.PLAYER_SECOND;
-        save.player.energy += total / SaveManager.PLAYER_SECOND;
-        save.player.lastRevertEnergyDate = System.DateTime.Now.AddSeconds(-seconds);
+        int offlineAddEnergy= total / SaveManager.PLAYER_SECOND;
+        save.player.energy += offlineAddEnergy;
+        if (offlineAddEnergy > 0)
+            save.player.lastRevertEnergyDate = now.AddSeconds(-seconds);
         if (save.player.energy > SaveManager.PLAYER_MAXENERGY)
             save.player.energy = SaveManager.PLAYER_MAXENERGY;
         return save.player.energy;
@@ -869,6 +871,14 @@ public class GameManager : MonoBehaviour
     {
         save.player.soundOn = value;
         audio.SetSound(value);
+    }
+    public bool GetShowExchange()
+    {
+        return save.player.showExchange;
+    }
+    public void SetShowExchange(bool value)
+    {
+        save.player.showExchange = value;
     }
     Config config;
     int GetConfigIndex()

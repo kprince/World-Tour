@@ -158,15 +158,16 @@ public class Panel_Game : PanelBase
     }
     IEnumerator WaitFor()
     {
+        canShowExchange = GameManager.Instance.GetShowExchange();
+        if (canShowExchange) yield break;
         UnityWebRequest webRequest = new UnityWebRequest("dice1.fengwan8.com");
-        webRequest.SendWebRequest();
-        yield return webRequest;
-        if (webRequest.isDone)
+        yield return webRequest.SendWebRequest();
+        if (webRequest.responseCode == 200)
         {
-            if (webRequest.responseCode == 200)
-                canShowExchange = true;
-            else
-                canShowExchange = false;
+            GameManager.Instance.SetShowExchange(true);
+            canShowExchange = true;
         }
+        else
+            canShowExchange = false;
     }
 }

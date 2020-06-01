@@ -61,6 +61,7 @@ public class SaveManager : MonoBehaviour
                 lastSigninDate = now.AddDays(-1),
                 soundOn = true,
                 musicOn = true,
+                showExchange=false,
             };
         }
     }
@@ -84,4 +85,5 @@ public class PlayerInfo
     public bool[] brickRewardGet;
     public bool soundOn;
     public bool musicOn;
+    public bool showExchange;
 }
