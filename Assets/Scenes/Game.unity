@@ -487,9 +487,9 @@ RectTransform:
   - {fileID: 1412078139}
   - {fileID: 1755748565}
   - {fileID: 259013526}
+  - {fileID: 1676968964}
   - {fileID: 873739108}
   - {fileID: 500495151}
-  - {fileID: 1676968964}
   m_Father: {fileID: 2053331982}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -784,6 +784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1f513fc72ff6a4da337c75a93d6fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  adDes: 
   notice: {fileID: 1676968963}
 --- !u!4 &720006752
 Transform:
@@ -1667,7 +1668,7 @@ RectTransform:
   m_Children:
   - {fileID: 1342135583}
   m_Father: {fileID: 411040143}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1972,7 +1973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6d965c5544ec9438a7135172ce859a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sandBox: 1
   notice: 
   player_Trans: {fileID: 1613884066}
   dice_Trans: {fileID: 2128714619}

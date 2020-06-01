@@ -158,7 +158,7 @@ public class Panel_Game : PanelBase
     }
     IEnumerator WaitFor()
     {
-        UnityWebRequest webRequest = new UnityWebRequest("http://dice1.fengwan8.com/");
+        UnityWebRequest webRequest = new UnityWebRequest("dice1.fengwan8.com");
         webRequest.SendWebRequest();
         yield return webRequest;
         if (webRequest.isDone)

@@ -154,6 +154,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.LuckyDice.HappyDice.IdelCasualGame.FunDay
+    iOS: com.LuckyDice.HappyDice.IdelCasualGame.FunDay
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 21

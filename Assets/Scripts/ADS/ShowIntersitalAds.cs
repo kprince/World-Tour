@@ -35,12 +35,12 @@ public class ShowIntersitalAds : MonoBehaviour
     private void InterstitialAdShowFailedEvent(IronSourceError obj)
     {
         IronSource.Agent.loadInterstitial();
-        GameManager.Instance.SendAdjustPlayAdEvent(false, false, IronSource.Agent.getAdvertiserId());
+        GameManager.Instance.SendAdjustPlayAdEvent(false, false, adM.adDes);
     }
 
     private void InterstitialAdShowSucceededEvent()
     {
-        GameManager.Instance.SendAdjustPlayAdEvent(true, false, IronSource.Agent.getAdvertiserId());
+        GameManager.Instance.SendAdjustPlayAdEvent(true, false, adM.adDes);
     }
 
     private void InterstitialAdLoadFailedEvent(IronSourceError obj)

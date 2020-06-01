@@ -8,6 +8,7 @@ public class Ads : MonoBehaviour
 {
 	private const string APP_KEY = "c63c67d5";
 	public static Ads _instance;
+	public string adDes = string.Empty;
 	private void Awake()
 	{
 		_instance = this;
@@ -38,7 +39,6 @@ public class Ads : MonoBehaviour
 		else
 		{
 			StartCoroutine(WaitLoadAD(true));
-			GameManager.Instance.SendAdjustPlayAdEvent(false, true, IronSource.Agent.getAdvertiserId());
 			return false;
 		}
 	}
@@ -54,7 +54,7 @@ public class Ads : MonoBehaviour
 		}
 		else
 		{
-			GameManager.Instance.SendAdjustPlayAdEvent(false, false, IronSource.Agent.getAdvertiserId());
+			GameManager.Instance.SendAdjustPlayAdEvent(false, false, adDes);
 		}
 	}
 	void OnApplicationPause(bool isPaused)
@@ -74,8 +74,8 @@ public class Ads : MonoBehaviour
 		yield return new WaitForSeconds(3);
 		if (isRewardedAd && IronSource.Agent.isRewardedVideoAvailable())
 			IronSource.Agent.showRewardedVideo();
-		else if (!isRewardedAd && IronSource.Agent.isInterstitialReady())
-			IronSource.Agent.showInterstitial();
+		else
+			GameManager.Instance.SendAdjustPlayAdEvent(false, true, adDes);
 		notice.SetActive(false);
 	}
 	Action rewardCallback;

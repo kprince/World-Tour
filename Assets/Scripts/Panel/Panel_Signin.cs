@@ -58,6 +58,11 @@ public class Panel_Signin : PanelBase
                 go_allDailyTog[i].SetActive(false);
             }
         }
+        StartCoroutine(StartRotateTodayEffect());
+    }
+    private void OnDisable()
+    {
+        StopCoroutine(StartRotateTodayEffect());
     }
     public override void OnEnter()
     {
@@ -146,5 +151,14 @@ public class Panel_Signin : PanelBase
         todayEffect.SetAsFirstSibling();
 
         isRandom = false;
+    }
+    IEnumerator StartRotateTodayEffect()
+    {
+        float speed = 100;
+        while (true)
+        {
+            yield return null;
+            todayEffect.Rotate(todayEffect.forward * Time.deltaTime * speed);
+        }
     }
 }

@@ -63,7 +63,12 @@ public class Panel_Jackpot : PanelBase
         if (isSpining) return;
         if (needShowAd)
         {
+#if UNITY_EDITOR
+            OnRewardedCallback();
+            return;
+#endif
             Ads._instance.SetRewardedCallBack(OnRewardedCallback);
+            Ads._instance.adDes = "老虎机的广告";
             Ads._instance.ShowRewardVideo();
         }
         else
@@ -293,6 +298,7 @@ public class Panel_Jackpot : PanelBase
     {
         base.Close();
         if (isSpining) return;
+        Ads._instance.adDes = "老虎机的nothanks";
         Ads._instance.ShowInterstialAd();
         AudioManager.Instance.PlayerSound("Button");
         PanelManager.Instance.ClosePanel(PanelType.Jackpot);
@@ -305,6 +311,7 @@ public class Panel_Jackpot : PanelBase
         text_nothanks.color = new Color(1, 1, 1, 0);
         text_nothanks.raycastTarget = false;
         canSpin = true;
+        needShowAd = false;
         img_Spin.sprite = spinSprite;
         img_Spin.color = Color.white;
     }

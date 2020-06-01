@@ -988,10 +988,16 @@ public class GameManager : MonoBehaviour
 
     public void SendAdjustGameStartEvent()
     {
+#if UNITY_EDITOR
+        return;
+#endif
         AdjustEventLogger.Instance.AdjustEventNoParam(AdjustEventLogger.TOKEN_open);
     }
-    public void SendAdjustPlayAdEvent(bool hasAd,bool isRewardAd,string ad_id)
+    public void SendAdjustPlayAdEvent(bool hasAd,bool isRewardAd,string adByWay)
     {
+#if UNITY_EDITOR
+        return;
+#endif
         AdjustEventLogger.Instance.AdjustEvent(hasAd ? AdjustEventLogger.TOKEN_ad : AdjustEventLogger.TOKEN_noads,
             //累计美元
             ("value", save.player.cash.ToString()),
@@ -1000,13 +1006,16 @@ public class GameManager : MonoBehaviour
             //累计体力
             ("stage_id", save.player.totalWasteEnergy.ToString()),
             //广告id
-            ("id", ad_id),
+            ("id", adByWay),
             //广告类型，0插屏1奖励视频
             ("type", isRewardAd ? "1" : "0")
             );
     }
     public void SendAdjustDiceEvent()
     {
+#if UNITY_EDITOR
+        return;
+#endif
         AdjustEventLogger.Instance.AdjustEvent(AdjustEventLogger.TOKEN_stage_end,
             //累计美元
             ("value", save.player.cash.ToString()),
@@ -1020,6 +1029,9 @@ public class GameManager : MonoBehaviour
     }
     public void SendFBAttributeEvent()
     {
+#if UNITY_EDITOR
+        return;
+#endif
         AdjustEventLogger.Instance.AdjustEvent(AdjustEventLogger.TOKEN_deeplink,
             //累计美元
             ("value", save.player.cash.ToString()),

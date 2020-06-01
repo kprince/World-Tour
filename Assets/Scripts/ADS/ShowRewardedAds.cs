@@ -22,7 +22,7 @@ public class ShowRewardedAds : MonoBehaviour
 
     private void RewardedVideoAdShowFailedEvent(IronSourceError obj)
     {
-        GameManager.Instance.SendAdjustPlayAdEvent(false, true, IronSource.Agent.getAdvertiserId());
+        GameManager.Instance.SendAdjustPlayAdEvent(false, true, adM.adDes);
     }
 
     private void RewardedVideoAdClickedEvent(IronSourcePlacement obj)
@@ -32,7 +32,7 @@ public class ShowRewardedAds : MonoBehaviour
 
     private void RewardedVideoAdRewardedEvent(IronSourcePlacement obj)
     {
-        GameManager.Instance.SendAdjustPlayAdEvent(true, true, IronSource.Agent.getAdvertiserId());
+        GameManager.Instance.SendAdjustPlayAdEvent(true, true, adM.adDes);
         Ads._instance.GetReward();
     }
 

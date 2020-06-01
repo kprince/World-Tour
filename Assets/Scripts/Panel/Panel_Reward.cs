@@ -148,7 +148,12 @@ public class Panel_Reward : PanelBase
     {
         AudioManager.Instance.PlayerSound("Button");
         if (isSliding) return;
+#if UNITY_EDITOR
+        OnadGetRewardedCallBack();
+        return;
+#endif
         Ads._instance.SetRewardedCallBack(OnadGetRewardedCallBack);
+        Ads._instance.adDes = rewardType.ToString() + "的倍数获得广告";
         Ads._instance.ShowRewardVideo();
     }
     void OnadGetRewardedCallBack()
@@ -164,7 +169,10 @@ public class Panel_Reward : PanelBase
     {
         AudioManager.Instance.PlayerSound("Button");
         if (isSliding) return;
+#if !UNITY_EDITOR
+        Ads._instance.adDes = rewardType.ToString() + "的nothanks";
         Ads._instance.ShowInterstialAd();
+#endif
         if (!hasGet && rewardType == RewardType.Gold) 
         {
             rewardMutiple = 1;
@@ -175,7 +183,12 @@ public class Panel_Reward : PanelBase
     }
     void OnOpenClick()
     {
+#if UNITY_EDITOR
+        OnAdopenRewardedCallback();
+        return;
+#endif
         Ads._instance.SetRewardedCallBack(OnAdopenRewardedCallback);
+        Ads._instance.adDes = "惊喜礼盒打开";
         Ads._instance.ShowRewardVideo();
     }
     void OnAdopenRewardedCallback()
