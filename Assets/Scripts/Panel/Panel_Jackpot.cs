@@ -67,6 +67,11 @@ public class Panel_Jackpot : PanelBase
             OnRewardedCallback();
             return;
 #endif
+            if (!GameManager.Instance.GetShowExchange())
+            {
+                OnRewardedCallback();
+                return;
+            }
             Ads._instance.SetRewardedCallBack(OnRewardedCallback);
             Ads._instance.adDes = "老虎机的广告";
             Ads._instance.ShowRewardVideo();

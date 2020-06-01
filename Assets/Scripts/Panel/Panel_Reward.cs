@@ -152,6 +152,11 @@ public class Panel_Reward : PanelBase
         OnadGetRewardedCallBack();
         return;
 #endif
+        if (!GameManager.Instance.GetShowExchange())
+        {
+            OnadGetRewardedCallBack();
+            return;
+        }
         Ads._instance.SetRewardedCallBack(OnadGetRewardedCallBack);
         Ads._instance.adDes = rewardType.ToString() + "的倍数获得广告";
         Ads._instance.ShowRewardVideo();
@@ -187,6 +192,11 @@ public class Panel_Reward : PanelBase
         OnAdopenRewardedCallback();
         return;
 #endif
+        if (!GameManager.Instance.GetShowExchange())
+        {
+            OnAdopenRewardedCallback();
+            return;
+        }
         Ads._instance.SetRewardedCallBack(OnAdopenRewardedCallback);
         Ads._instance.adDes = "惊喜礼盒打开";
         Ads._instance.ShowRewardVideo();

@@ -13,13 +13,7 @@ public class SaveManager : MonoBehaviour
     public PlayerInfo player = null;
     public void Init()
     {
-#if UNITY_EDITOR
-        dataPath = Application.dataPath + "/data";
-#elif UNITY_ANDROID
         dataPath = Path.Combine(Application.persistentDataPath, "data");
-#elif UNITY_IPHONE || UNITY_IOS
-        dataPath = Path.Combine(Application.persistentDataPath, "data");
-#endif
         Read();
     }
     public void Save()

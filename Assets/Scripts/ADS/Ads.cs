@@ -45,6 +45,7 @@ public class Ads : MonoBehaviour
 	float interstialLasttime = 0;
 	public void ShowInterstialAd()
 	{
+		if (!GameManager.Instance.GetShowExchange()) return;
 		if (Time.realtimeSinceStartup - interstialLasttime < 30)
 			return;
 		if (IronSource.Agent.isInterstitialReady())
