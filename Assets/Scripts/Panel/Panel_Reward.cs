@@ -264,7 +264,7 @@ public class Panel_Reward : PanelBase
             yield break;
         }
         float endX = posX[index];
-        int turns = 3;
+        int turns = 2;
         int slideSpeed = 2000;
         while (true)
         {

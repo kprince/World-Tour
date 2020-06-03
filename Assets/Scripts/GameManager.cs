@@ -59,19 +59,22 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public Transform cashTrans;
     public GameObject coinCollect;
+    [HideInInspector]
+    public bool loadEnd = false;
     private void Awake()
     {
         Instance = this;
         panelManager = GetComponent<PanelManager>();
-        panelManager.ShowPanel(PanelType.Loading);
         config = Resources.Load<Config>("Config");
-        Application.targetFrameRate = 60;
         save = GetComponent<SaveManager>();
+        save.Init();
+        //save.player.showExchange = true;
+        save.player.gameTimes++;
+        panelManager.ShowPanel(PanelType.Loading);
+        Application.targetFrameRate = 60;
         audio = GetComponent<AudioManager>();
         dice_Render = dice_Trans.GetComponent<MeshRenderer>();
         player_Animator = player_Trans.GetComponent<Animator>();
-        save.Init();
-        save.player.gameTimes++;
         audio.Init(save.player.musicOn);
         panelManager.PreLoadPanel(PanelType.Game);
     }
@@ -133,12 +136,10 @@ public class GameManager : MonoBehaviour
         prefab_gold = Resources.Load<GameObject>("SpecialBrick/GoldBrick");
         prefab_cash = Resources.Load<GameObject>("SpecialBrick/CashBrick");
         prefab_jackpot = Resources.Load<GameObject>("SpecialBrick/JackpotBrick");
-        Texture2D cashTex = Resources.Load<Texture2D>("SpecialBrick/" + (GetShowExchange() ? "coinB" : "coinA"));
 
         for (int i = 0; i < go_golds.Length; i++)
         {
             go_golds[i] = Instantiate(prefab_gold, specialBrickParent);
-            go_golds[i].GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", cashTex);
             go_golds[i].SetActive(false);
         }
 
@@ -147,7 +148,6 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < go_cashs.Length; i++)
         {
             go_cashs[i] = Instantiate(prefab_cash, specialBrickParent);
-            go_cashs[i].GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", cashTex);
             go_cashs[i].SetActive(false);
         }
         for(int i = 0; i < go_jackpots.Length; i++)
@@ -227,6 +227,19 @@ public class GameManager : MonoBehaviour
             }
 
         img_Scene.sprite = Resources.Load<Sprite>("Scenes/Scene" + save.player.sceneIndex);
+    }
+    public void SetCashBrickTex()
+    {
+        Texture2D cashTex = Resources.Load<Texture2D>("SpecialBrick/" + (GetShowExchange() ? "coinB" : "coinA"));
+
+        for (int i = 0; i < go_golds.Length; i++)
+        {
+            go_golds[i].GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", cashTex);
+        }
+        for (int i = 0; i < go_cashs.Length; i++)
+        {
+            go_cashs[i].GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", cashTex);
+        }
     }
     static readonly Vector3 player_StartPos = new Vector3(3.42f, -0.131f, -2.14f);
     static readonly Quaternion player_LeftRotation = new Quaternion(0, 1, 0.2f, 0);

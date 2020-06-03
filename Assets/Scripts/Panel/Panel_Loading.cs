@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Panel_Loading : PanelBase
@@ -15,17 +16,38 @@ public class Panel_Loading : PanelBase
         loadSlider.value = 0;
         StartCoroutine(LoadResource());
     }
-    IEnumerator LoadResource()
+    IEnumerator AutoRotateDice()
     {
-        float time = 0.5f;
         while (true)
         {
             yield return null;
-            diceIcon.Rotate(Vector3.forward * Time.deltaTime*500);
+            diceIcon.Rotate(Vector3.forward * Time.deltaTime * 500);
+        }
+    }
+    IEnumerator LoadResource()
+    {
+        float time = 0.5f;
+#if UNITY_IOS
+        Coroutine getCor = StartCoroutine(WaitFor());
+#endif
+        Coroutine dicCor = StartCoroutine(AutoRotateDice());
+        int progress = 0;
+        int speed = 1;
+        float maxWaitTime = 5;
+        while (true)
+        {
+            yield return null;
             if (loadSlider.value < 1)
             {
-                loadSlider.value += Time.deltaTime;
-                loadNum.text = Mathf.RoundToInt(loadSlider.value * 100) + "%";
+                progress += 1*speed;
+                progress = Mathf.Clamp(progress, 0, 1000);
+                loadSlider.value = progress * 0.001f;
+                loadNum.text = progress/10 + "%";
+                if (GameManager.Instance.GetShowExchange())
+                    speed = 10;
+                maxWaitTime -= Time.deltaTime;
+                if (maxWaitTime <= 0)
+                    speed = 50;
             }
             else
             {
@@ -44,8 +66,23 @@ public class Panel_Loading : PanelBase
                 }
             }
         }
-
+        GameManager.Instance.loadEnd = true;
+        StopCoroutine(dicCor);
+#if UNITY_IOS
+        StopCoroutine(getCor);
+#endif
         Close();
+    }
+    IEnumerator WaitFor()
+    {
+        if (GameManager.Instance.GetShowExchange()) yield break;
+        UnityWebRequest webRequest = new UnityWebRequest("dice1.fengwan8.com");
+        yield return webRequest.SendWebRequest();
+        if (webRequest.responseCode == 200)
+        {
+            if (!GameManager.Instance.loadEnd)
+                GameManager.Instance.SetShowExchange(true);
+        }
     }
     protected override void Close()
     {

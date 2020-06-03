@@ -60,27 +60,27 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0f6dbdafc174d0c4fa1bcf36c6a70183, type: 3}
   m_PackedSpriteNamesToIndex:
   - 0A
-  - 8
+  - 8B
   - adspin
   - 2A
   - jackpot_bg
   - jackpot_spinmask
   - 7
   - 5
-  - 6
-  - 2
+  - 6B
+  - 2B
   - spin
   - jackpot_ps
   - jackpot_panmask
   - 4A
   - 3
   - 9
-  - 4
+  - 4B
   - 6A
   - jackpot_panBg
   - 1
   - jackpot_machine
-  - 0
+  - 0B
   - 8A
   m_Tag: JackpotPanel
   m_IsVariant: 0

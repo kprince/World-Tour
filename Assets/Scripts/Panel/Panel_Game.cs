@@ -32,8 +32,6 @@ public class Panel_Game : PanelBase
         btn_Cash.onClick.AddListener(OnCashClick);
         if (gameAltas is null)
             gameAltas = Resources.Load<SpriteAtlas>("GamePanel");
-        img_cashIcon.sprite = GameManager.Instance.GetShowExchange() ? 
-            gameAltas.GetSprite("cashB") : gameAltas.GetSprite("cashA");
 
         GameManager.Instance.goldTrans = text_Gold.transform;
         GameManager.Instance.cashTrans = text_Cash.transform;
@@ -60,9 +58,6 @@ public class Panel_Game : PanelBase
         sld_Energy.value = (float)offlineEnergy / SaveManager.PLAYER_MAXENERGY;
         text_NextEnergy.text = "1 ROLL IN " + (nextEnergyTime / 60) + ":" + (nextEnergyTime % 60);
         StartCoroutine(TimeClock());
-#if UNITY_IOS
-        StartCoroutine(WaitFor());
-#endif
     }
     void OnRollClick()
     {
@@ -93,16 +88,15 @@ public class Panel_Game : PanelBase
         AudioManager.Instance.PlayerSound("Button");
         PanelManager.Instance.ShowPanel(PanelType.Signin);
     }
-    bool canShowExchange = false;
     void OnGoldClick()
     {
-        if (!canShowExchange) return;
+        if (!GameManager.Instance.GetShowExchange()) return;
         AudioManager.Instance.PlayerSound("Button");
         PanelManager.Instance.ShowPanel(PanelType.Exchange);
     }
     void OnCashClick()
     {
-        if (!canShowExchange) return;
+        if (!GameManager.Instance.GetShowExchange()) return;
         AudioManager.Instance.PlayerSound("Button");
         PanelManager.Instance.ShowPanel(PanelType.Exchange);
     }
@@ -167,17 +161,8 @@ public class Panel_Game : PanelBase
         {
             GameManager.Instance.GetExtraBonus();
         }
-    }
-    IEnumerator WaitFor()
-    {
-        canShowExchange = GameManager.Instance.GetShowExchange();
-        if (canShowExchange) yield break;
-        UnityWebRequest webRequest = new UnityWebRequest("dice1.fengwan8.com");
-        yield return webRequest.SendWebRequest();
-        if (webRequest.responseCode == 200)
-        {
-            GameManager.Instance.SetShowExchange(true);
-            canShowExchange = true;
-        }
+        img_cashIcon.sprite = GameManager.Instance.GetShowExchange() ?
+            gameAltas.GetSprite("cashB") : gameAltas.GetSprite("cashA");
+        GameManager.Instance.SetCashBrickTex();
     }
 }

@@ -35,11 +35,8 @@ public class Panel_Jackpot : PanelBase
             if (i % 2 == 0)
                 spriteName = canShowExchange ? i + "B" : i + "A";
             Sprite temp = jackpotAltas.GetSprite(spriteName);
-            left_Icons[i].localPosition = new Vector3(0, Min_Y + i * Interval_Y, 0);
             left_Icons[i].GetComponent<Image>().sprite = temp;
-            right_Icons[i].localPosition = new Vector3(0, Min_Y + i * Interval_Y, 0);
             right_Icons[i].GetComponent<Image>().sprite = temp;
-            mid_Icons[i].localPosition = new Vector3(0, Min_Y + i * Interval_Y, 0);
             mid_Icons[i].GetComponent<Image>().sprite = temp;
         }
         canSpin = true;
@@ -49,12 +46,6 @@ public class Panel_Jackpot : PanelBase
     const float Interval_Y = 248;
     static readonly Vector3 Interval = new Vector3(0, Interval_Y, 0);
     static readonly Vector3 selectPos = new Vector3(0, 10, 0);
-    private void Update()
-    {
-        Spin( firsttime, SpinPlace.Left, ref startSpinL, ref needFixPos_L, ref canSelected_L, ref spinSpeed_L, ref hasTime_L, ref frontIndex_L);
-        Spin( secondtime, SpinPlace.Middle, ref startSpinM, ref needFixPos_M, ref canSelected_M, ref spinSpeed_M, ref hasTime_M, ref frontIndex_M);
-        Spin( thirdtime, SpinPlace.Right, ref startSpinR, ref needFixPos_R, ref canSelected_R, ref spinSpeed_R, ref hasTime_R, ref frontIndex_R);
-    }
     bool isSpining = false;
     AudioSource spinAS = null;
     RewardType rewardType = RewardType.Null;
@@ -67,6 +58,7 @@ public class Panel_Jackpot : PanelBase
         if (isSpining) return;
         if (needShowAd)
         {
+            ResetRewardIconPos();
 #if UNITY_EDITOR
             OnRewardedCallback();
             return;
@@ -156,6 +148,7 @@ public class Panel_Jackpot : PanelBase
                 rewardIndex_R = Random.Range(0, Reward_Num);
             }
         }
+        StartCoroutine(SpinReward());
     }
     enum SpinPlace
     {
@@ -167,9 +160,9 @@ public class Panel_Jackpot : PanelBase
     int rewardIndex_L = 0;
     int rewardIndex_M = 0;
     int rewardIndex_R = 0;
-    int firsttime = 2;
-    int secondtime = 3;
-    const int thirdtime = 4;
+    int firsttime = 1;
+    int secondtime = 2;
+    const int thirdtime = 3;
     bool startSpinL = false;
     bool startSpinM = false;
     bool startSpinR = false;
@@ -273,7 +266,7 @@ public class Panel_Jackpot : PanelBase
             if (canSelected && i == rewardIndex)
             {
                 float distance = Vector3.Distance(temp.localPosition, selectPos);
-                if (distance <= 15)
+                if (distance <= 50)
                 {
                     startSpin = false;
                     needFixPos = true;
@@ -293,13 +286,195 @@ public class Panel_Jackpot : PanelBase
                 hasTime++;
                 if (hasTime >= spinTime)
                 {
-                    spinSpeed = 1200;
+                    //spinSpeed = 1200;
                     canSelected = true;
                 }
             }
             frontIndex++;
             if (frontIndex > Reward_Num - 1)
                 frontIndex = 0;
+        }
+    }
+    IEnumerator SpinReward()
+    {
+        float time = 0;
+        float maxTime_L = 1;
+        float maxTime_M = 2.5f;
+        float maxTime_R = 3f;
+        float spinSpeed = 3000;
+        Vector3 bottomPos = new Vector3(0, Min_Y, 0);
+        bool hasSetRewardPos_L = false;
+        bool hasSetRewardPos_M = false;
+        bool hasSetRewardPos_R = false;
+        while (true)
+        {
+            yield return null;
+            time += Time.deltaTime;
+
+            Transform bottom_L_Trans = left_Icons[frontIndex_L];
+            Transform bottom_M_Trans = mid_Icons[frontIndex_M];
+            Transform bottom_R_Trans = right_Icons[frontIndex_R];
+            if (time < maxTime_L)
+                bottom_L_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime;
+            else
+            {
+                if (!hasSetRewardPos_L)
+                {
+                    hasSetRewardPos_L = true;
+                    foreach(Transform temp in left_Icons)
+                    {
+                        temp.localPosition = bottomPos;
+                    }
+                    int frontRewardIndex = rewardIndex_L - 1 < 0 ? Reward_Num - 1 + rewardIndex_L : rewardIndex_L - 1;
+                    int behindRewardIndex = rewardIndex_L + 1 > Reward_Num - 1 ? rewardIndex_L + 1 - Reward_Num : rewardIndex_L + 1;
+                    left_Icons[rewardIndex_L].localPosition = selectPos;
+                    left_Icons[frontRewardIndex].localPosition = selectPos - Interval;
+                    left_Icons[behindRewardIndex].localPosition = selectPos + Interval;
+                }
+            }
+            if (time < maxTime_M)
+                bottom_M_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime;
+            else
+            {
+                if (!hasSetRewardPos_M)
+                {
+                    hasSetRewardPos_M = true;
+                    foreach (Transform temp in mid_Icons)
+                    {
+                        temp.localPosition = bottomPos;
+                    }
+                    int frontRewardIndex = rewardIndex_M - 1 < 0 ? Reward_Num - 1 + rewardIndex_M : rewardIndex_M - 1;
+                    int behindRewardIndex = rewardIndex_M + 1 > Reward_Num - 1 ? rewardIndex_M + 1 - Reward_Num : rewardIndex_M + 1;
+                    mid_Icons[rewardIndex_M].localPosition = selectPos;
+                    mid_Icons[frontRewardIndex].localPosition = selectPos - Interval;
+                    mid_Icons[behindRewardIndex].localPosition = selectPos + Interval;
+                }
+            }
+            if (time < maxTime_R)
+                bottom_R_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime;
+            else
+            {
+                if (!hasSetRewardPos_R)
+                {
+                    hasSetRewardPos_R = true;
+                    foreach (Transform temp in right_Icons)
+                    {
+                        temp.localPosition = bottomPos;
+                    }
+                    int frontRewardIndex = rewardIndex_R - 1 < 0 ? Reward_Num - 1 + rewardIndex_R : rewardIndex_R - 1;
+                    int behindRewardIndex = rewardIndex_R + 1 > Reward_Num - 1 ? rewardIndex_R + 1 - Reward_Num : rewardIndex_R + 1;
+                    right_Icons[rewardIndex_R].localPosition = selectPos;
+                    right_Icons[frontRewardIndex].localPosition = selectPos - Interval;
+                    right_Icons[behindRewardIndex].localPosition = selectPos + Interval;
+                }
+            }
+            float frontY_L = left_Icons[frontIndex_L].localPosition.y;
+            float frontY_M = mid_Icons[frontIndex_M].localPosition.y;
+            float frontY_R = right_Icons[frontIndex_R].localPosition.y;
+            for(int i = 0; i < Reward_Num; i++)
+            {
+                Transform temp_L_Trans = left_Icons[i];
+                Transform temp_M_Trans = mid_Icons[i];
+                Transform temp_R_Trans = right_Icons[i];
+                float offsetY_L = temp_L_Trans.localPosition.y - frontY_L;
+                float offsetY_M = temp_M_Trans.localPosition.y - frontY_M;
+                float offsetY_R = temp_R_Trans.localPosition.y - frontY_R;
+
+                if (!hasSetRewardPos_L)
+                {
+                    if (offsetY_L > 0)
+                        temp_L_Trans.localPosition = left_Icons[i - 1 == -1 ? Reward_Num - 1 : i - 1].localPosition + Interval;
+                    else if (offsetY_L < 0)
+                        temp_L_Trans.localPosition = left_Icons[i + 1 == Reward_Num ? 0 : i + 1].localPosition - Interval;
+                }
+
+                if (!hasSetRewardPos_M)
+                {
+                    if (offsetY_M > 0)
+                        temp_M_Trans.localPosition = mid_Icons[i - 1 == -1 ? Reward_Num - 1 : i - 1].localPosition + Interval;
+                    else if (offsetY_M < 0)
+                        temp_M_Trans.localPosition = mid_Icons[i + 1 == Reward_Num ? 0 : i + 1].localPosition - Interval;
+                }
+
+                if (!hasSetRewardPos_R)
+                {
+                    if (offsetY_R > 0)
+                        temp_R_Trans.localPosition = right_Icons[i - 1 == -1 ? Reward_Num - 1 : i - 1].localPosition + Interval;
+                    else if (offsetY_R < 0)
+                        temp_R_Trans.localPosition = right_Icons[i + 1 == Reward_Num ? 0 : i + 1].localPosition - Interval;
+                }
+            }
+
+
+            if (frontY_L <= Min_Y&&!hasSetRewardPos_L)
+            {
+                if (frontIndex_L > 0)
+                    bottom_L_Trans.localPosition = left_Icons[frontIndex_L - 1].localPosition + Interval;
+                else
+                    bottom_L_Trans.localPosition = left_Icons[Reward_Num - 1].localPosition + Interval;
+                frontIndex_L++;
+                if (frontIndex_L > Reward_Num - 1)
+                    frontIndex_L = 0;
+            }
+
+            if (frontY_M <= Min_Y&&!hasSetRewardPos_M)
+            {
+                if (frontIndex_M > 0)
+                    bottom_M_Trans.localPosition = mid_Icons[frontIndex_M - 1].localPosition + Interval;
+                else
+                    bottom_M_Trans.localPosition = mid_Icons[Reward_Num - 1].localPosition + Interval;
+                frontIndex_M++;
+                if (frontIndex_M > Reward_Num - 1)
+                    frontIndex_M = 0;
+            }
+
+            if (frontY_R <= Min_Y&&!hasSetRewardPos_R)
+            {
+                if (frontIndex_R > 0)
+                    bottom_R_Trans.localPosition = right_Icons[frontIndex_R - 1].localPosition + Interval;
+                else
+                    bottom_R_Trans.localPosition = right_Icons[Reward_Num - 1].localPosition + Interval;
+                frontIndex_R++;
+                if (frontIndex_R > Reward_Num - 1)
+                    frontIndex_R = 0;
+            }
+
+            if (hasSetRewardPos_L && hasSetRewardPos_M && hasSetRewardPos_R)
+            {
+                break;
+            }
+        }
+        yield return new WaitForSeconds(0.5f);
+
+        if (rewardIndex_L == rewardIndex_M && rewardIndex_L == rewardIndex_R)
+        {
+            img_Spin.color = Color.grey;
+            canSpin = false;
+            PanelManager.Instance.ClosePanel(PanelType.Jackpot);
+            //GetReward
+            PanelManager.Instance.ShowPanel(PanelType.Reward);
+        }
+        else
+        {
+            img_Spin.sprite = adSprite;
+            needShowAd = true;
+            StartCoroutine("DelayShowNothanks");
+        }
+        btn_Spin.transform.localPosition -= Vector3.down * 40;
+        spinAS.Stop();
+        spinAS = null;
+        isSpining = false;
+    }
+    void ResetRewardIconPos()
+    {
+        frontIndex_L = 0;
+        frontIndex_M = 0;
+        frontIndex_R = 0;
+        for (int i = 0; i < Reward_Num; i++)
+        {
+            left_Icons[i].localPosition = new Vector3(0, Min_Y + i * Interval_Y, 0);
+            right_Icons[i].localPosition = new Vector3(0, Min_Y + i * Interval_Y, 0);
+            mid_Icons[i].localPosition = new Vector3(0, Min_Y + i * Interval_Y, 0);
         }
     }
     #endregion
@@ -323,6 +498,7 @@ public class Panel_Jackpot : PanelBase
         needShowAd = false;
         img_Spin.sprite = spinSprite;
         img_Spin.color = Color.white;
+        ResetRewardIconPos();
     }
     public override void OnExit()
     {
