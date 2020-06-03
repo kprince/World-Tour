@@ -23,12 +23,18 @@ public class CoinCollect : MonoBehaviour
             allCoinsImg[i] = child.GetComponent<Image>();
             allCoinsOriginPos[i] = child.localPosition;
         }
-        cashSprite = Resources.Load<Sprite>("cash");
         goldSprite = Resources.Load<Sprite>("gold");
     }
     bool isGold = false;
     private void OnEnable()
     {
+        if(cashSprite is null)
+        {
+            if (GameManager.Instance.GetShowExchange())
+                cashSprite = Resources.Load<Sprite>("cashB");
+            else
+                cashSprite = Resources.Load<Sprite>("cashA");
+        }
         isGold = GameManager.Instance.coinCollectIsGold;
         int count = allCoinsTrans.Length;
         for(int i = 0; i < count; i++)

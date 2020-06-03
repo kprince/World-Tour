@@ -28,9 +28,13 @@ public class Panel_Jackpot : PanelBase
         img_Spin.sprite = spinSprite;
         img_Spin.color = Color.white;
         btn_Spin.onClick.AddListener(StartSpin);
+        bool canShowExchange = GameManager.Instance.GetShowExchange();
         for(int i = 0; i < Reward_Num; i++)
         {
-            Sprite temp = jackpotAltas.GetSprite(i.ToString());
+            string spriteName = i.ToString();
+            if (i % 2 == 0)
+                spriteName = canShowExchange ? i + "B" : i + "A";
+            Sprite temp = jackpotAltas.GetSprite(spriteName);
             left_Icons[i].localPosition = new Vector3(0, Min_Y + i * Interval_Y, 0);
             left_Icons[i].GetComponent<Image>().sprite = temp;
             right_Icons[i].localPosition = new Vector3(0, Min_Y + i * Interval_Y, 0);

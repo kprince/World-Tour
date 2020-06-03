@@ -39,7 +39,7 @@ public class Panel_Loading : PanelBase
                     if (diceIcon.gameObject.activeSelf)
                         diceIcon.gameObject.SetActive(false);
                     bg.localScale -= Vector3.one * Time.deltaTime;
-                    if (bg.localScale.x < 0.854f)
+                    if (bg.localScale.x < 0.775f)
                         break;
                 }
             }

@@ -20,9 +20,9 @@ void getDeepLink(const char *name){
         NSLog(@"Received error while fetching deferred app link %@", error);
       }
       if (url) {
-    NSString* value =url.scheme;
+    NSString* value =url.absoluteString;
           NSLog(@"值 %@", value);
-        UnitySendMessage("DeepLink", "ReceiveURI", value.UTF8String);
+        UnitySendMessage("Medium", "ReceiveURI", value.UTF8String);
       }
     }];
 }

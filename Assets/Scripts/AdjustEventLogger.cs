@@ -6,6 +6,10 @@ using UnityEngine.Networking;
 
 public class AdjustEventLogger : MonoBehaviour
 {
+#if UNITY_IOS && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    private static extern string Getidfa();
+#endif
     public const string APP_TOKEN = "stg63h4jumtc";
     public const string TOKEN_open = "outopv";
     public const string TOKEN_ad = "9jhkm5";
@@ -13,7 +17,6 @@ public class AdjustEventLogger : MonoBehaviour
     public const string TOKEN_stage_end = "g53a9y";
     public const string TOKEN_deeplink = "95sha9";
     public static AdjustEventLogger Instance;
-    bool sandbox = true;
     private void Awake()
     {
         Instance = this;
@@ -66,12 +69,8 @@ public class AdjustEventLogger : MonoBehaviour
         {
             if (web.downloadHandler.text.Equals("1"))
             {
-#if UNITY_ANDROID
-                //SetToB();
-#endif
-                GameManager.Instance.SendFBAttributeEvent();
+                //GameManager.Instance.SendFBAttributeEvent();
             }
-            PlayerPrefs.SetInt("GetUnityAttributeTo", 1);
         }
     }
     private void GetAdID()
@@ -84,7 +83,7 @@ public class AdjustEventLogger : MonoBehaviour
            }
        );
 #elif UNITY_IOS && !UNITY_EDITOR
-        //ifa = Getidfa();
+        ifa = Getidfa();
 #endif
     }
 }

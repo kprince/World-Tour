@@ -31,12 +31,14 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 19d232ac4f743174a9cb9cbcab92c59b, type: 3}
-    totalSpriteSurfaceArea: 1371897
+    totalSpriteSurfaceArea: 1457702
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 86afd9b0bfd9e2a43a35ff97d7c72be0, type: 3}
   - {fileID: 21300000, guid: 9aabffb0e70fec44eb48bf7ee18261e5, type: 3}
   - {fileID: 21300000, guid: c1831f511cf4b9b4285460681ede9a30, type: 3}
+  - {fileID: 21300000, guid: ec176d13fd3a2ac4a8b1920040953a67, type: 3}
   - {fileID: 21300000, guid: 192c6d63573937e41bb9fe5d868f8622, type: 3}
   - {fileID: 21300000, guid: 35391ec3d51453e45868b88b947ec891, type: 3}
   - {fileID: 21300000, guid: cba783e3f6999bd4c87cb1196f2d8214, type: 3}
@@ -46,16 +48,21 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c137f3669ecdb704f9a4a11309362c7e, type: 3}
   - {fileID: 21300000, guid: a819e267b5cfaf243adc53f26a965853, type: 3}
   - {fileID: 21300000, guid: 818b8a1827f78c2499eb5c2bb7437f52, type: 3}
+  - {fileID: 21300000, guid: 3995c1c929f828645b269ac5f8f4b876, type: 3}
   - {fileID: 21300000, guid: e0edbb1b9afdb604b8d1ca109183d885, type: 3}
   - {fileID: 21300000, guid: 45dc526bfe16bcb48b1bab61bdbbb03b, type: 3}
   - {fileID: 21300000, guid: 277505fb46f059b4a9d8fce1d30dd080, type: 3}
+  - {fileID: 21300000, guid: 946932ec4704d6b47ab45b9303f23072, type: 3}
   - {fileID: 21300000, guid: 0533c84df8e2f6c409176f0ef3eed0a1, type: 3}
   - {fileID: 21300000, guid: a134239da562ff9479112beefbe8def6, type: 3}
   - {fileID: 21300000, guid: e7005a3e21687b04ab6360c52419adf7, type: 3}
   - {fileID: 21300000, guid: 958e87af6ffa7274a83bf56ba2ec482f, type: 3}
+  - {fileID: 21300000, guid: 0f6dbdafc174d0c4fa1bcf36c6a70183, type: 3}
   m_PackedSpriteNamesToIndex:
+  - 0A
   - 8
   - adspin
+  - 2A
   - jackpot_bg
   - jackpot_spinmask
   - 7
@@ -65,12 +72,15 @@ SpriteAtlas:
   - spin
   - jackpot_ps
   - jackpot_panmask
+  - 4A
   - 3
   - 9
   - 4
+  - 6A
   - jackpot_panBg
   - 1
   - jackpot_machine
   - 0
+  - 8A
   m_Tag: JackpotPanel
   m_IsVariant: 0

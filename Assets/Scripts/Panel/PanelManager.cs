@@ -39,7 +39,24 @@ public class PanelManager : MonoBehaviour
     {
         Instance = this;
     }
-
+    public void PreLoadPanel(PanelType panel)
+    {
+        int panelIndex = (int)panel;
+        if (PanelDic.ContainsKey(panelIndex))
+            return;
+        string loadPath = string.Empty;
+        if(PanelPathDic.TryGetValue(panelIndex,out loadPath) && !string.IsNullOrEmpty(loadPath))
+        {
+            GameObject tempPanelGo = Instantiate(Resources.Load<GameObject>(loadPath), panelRoot);
+            tempPanelGo.GetComponent<CanvasGroup>().alpha = 0;
+            tempPanelGo.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            PanelDic.Add(panelIndex, tempPanelGo);
+        }
+        else
+        {
+            Debug.LogError("尚未配置加载路径，预加载失败，面板：" + panel.ToString());
+        }
+    }
     public void ShowPanel(PanelType panel)
     {
         int index = (int)panel;
@@ -67,8 +84,8 @@ public class PanelManager : MonoBehaviour
                         topPanel.OnPause();
                     }
                     PanelStack.Push(newPanel);
-                    newPanel.OnEnter();
                     newPanel.transform.SetAsLastSibling();
+                    newPanel.OnEnter();
                 }
             }
         }

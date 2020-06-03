@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class Panel_Game : PanelBase
@@ -19,7 +20,9 @@ public class Panel_Game : PanelBase
     public Slider sld_Energy;
     public Text text_Energy;
     public Text text_NextEnergy;
+    public Image img_cashIcon;
     private int nextEnergyTime;
+    private SpriteAtlas gameAltas;
     protected override void Awake()
     {
         btn_Roll.onClick.AddListener(OnRollClick);
@@ -27,6 +30,10 @@ public class Panel_Game : PanelBase
         btn_Signin.onClick.AddListener(OnSignInClick);
         btn_Gold.onClick.AddListener(OnGoldClick);
         btn_Cash.onClick.AddListener(OnCashClick);
+        if (gameAltas is null)
+            gameAltas = Resources.Load<SpriteAtlas>("GamePanel");
+        img_cashIcon.sprite = GameManager.Instance.GetShowExchange() ? 
+            gameAltas.GetSprite("cashB") : gameAltas.GetSprite("cashA");
 
         GameManager.Instance.goldTrans = text_Gold.transform;
         GameManager.Instance.cashTrans = text_Cash.transform;
@@ -54,13 +61,6 @@ public class Panel_Game : PanelBase
         text_NextEnergy.text = "1 ROLL IN " + (nextEnergyTime / 60) + ":" + (nextEnergyTime % 60);
         StartCoroutine(TimeClock());
         StartCoroutine(WaitFor());
-    }
-    private void Start()
-    {
-        if (GameManager.Instance.CheckFirstSignin())
-        {
-            GameManager.Instance.GetExtraBonus();
-        }
     }
     void OnRollClick()
     {
@@ -155,6 +155,16 @@ public class Panel_Game : PanelBase
     {
         base.OnResume();
         go_signRedpoint.SetActive(GameManager.Instance.CheckCanSignin());
+    }
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
+        if (GameManager.Instance.CheckFirstSignin())
+        {
+            GameManager.Instance.GetExtraBonus();
+        }
     }
     IEnumerator WaitFor()
     {

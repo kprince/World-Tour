@@ -1681,3 +1681,4 @@ MonoBehaviour:
   sld_Energy: {fileID: 8716198794081494667}
   text_Energy: {fileID: 8716198792942215343}
   text_NextEnergy: {fileID: 8716198792489361214}
+  img_cashIcon: {fileID: 8716198793807325276}

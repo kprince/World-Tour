@@ -53,6 +53,7 @@ public class Panel_Reward : PanelBase
         text_nothanks1.raycastTarget = false;
         text_nothanks2.color = new Color(1, 1, 1, 0);
         text_nothanks2.raycastTarget = false;
+        bool canShowExchange = GameManager.Instance.GetShowExchange();
         switch (rewardType)
         {
             case RewardType.Gold:
@@ -76,8 +77,9 @@ public class Panel_Reward : PanelBase
                 bounusNoticeCG.alpha = 0;
                 bounusNoticeCG.blocksRaycasts = false;
                 img_title.sprite = rewardAtlas.GetSprite("congratulations");
-                img_mid.sprite = rewardAtlas.GetSprite("manycash");
-                img_rewardicon.sprite = rewardAtlas.GetSprite("cash");
+                img_mid.sprite = rewardAtlas.GetSprite(canShowExchange ? "manycashB" : "manycashA");
+                img_rewardicon.sprite = rewardAtlas.GetSprite(canShowExchange ?
+                    "cashB" : "cashA");
 
                 string cashString = rewardNum.ToString();
                 if (rewardNum < 10)
@@ -114,8 +116,9 @@ public class Panel_Reward : PanelBase
                 bounusNoticeCG.alpha = 1;
                 bounusNoticeCG.blocksRaycasts = true;
                 img_title.sprite = rewardAtlas.GetSprite("extrabonus");
-                img_mid.sprite = rewardAtlas.GetSprite("manycash");
-                img_rewardicon.sprite = rewardAtlas.GetSprite("cash");
+                img_mid.sprite = rewardAtlas.GetSprite(canShowExchange ? "manycashB" : "manycashA");
+                img_rewardicon.sprite = rewardAtlas.GetSprite(canShowExchange ?
+                    "cashB" : "cashA");
 
                 string cashString1 = rewardNum.ToString();
                 if (rewardNum < 10)
@@ -188,6 +191,7 @@ public class Panel_Reward : PanelBase
     }
     void OnOpenClick()
     {
+        AudioManager.Instance.PlayerSound("Button");
 #if UNITY_EDITOR
         OnAdopenRewardedCallback();
         return;
@@ -210,6 +214,7 @@ public class Panel_Reward : PanelBase
     }
     void OnGetClick()
     {
+        AudioManager.Instance.PlayerSound("Button");
         if (hasGet) return;
         rewardMutiple = 1;
         GetReward();

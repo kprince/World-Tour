@@ -3,10 +3,7 @@
     <package>com.android.support:appcompat-v7:25.3.1</package>
     <package>com.android.support:cardview-v7:25.3.1</package>
     <package>com.android.support:customtabs:25.3.1</package>
-    <package>com.android.support:customtabs:28.0.0</package>
-    <package>com.android.support:recyclerview-v7:28.0.0</package>
     <package>com.android.support:support-v4:25.3.1</package>
-    <package>com.android.support:support-v4:28.0.0</package>
     <package>com.facebook.android:audience-network-sdk:5.9.0</package>
     <package>com.facebook.android:facebook-applinks:[6.2.0, 7)</package>
     <package>com.facebook.android:facebook-core:[6.2.0, 7)</package>
@@ -15,11 +12,9 @@
     <package>com.facebook.android:facebook-share:[6.2.0, 7)</package>
     <package>com.google.android.gms:play-services-ads:19.1.0</package>
     <package>com.google.android.gms:play-services-ads-identifier:17.0.0</package>
-    <package>com.inmobi.monetization:inmobi-ads:9.0.4</package>
     <package>com.ironsource.adapters:admobadapter:4.3.9</package>
     <package>com.ironsource.adapters:applovinadapter:4.3.11@jar</package>
     <package>com.ironsource.adapters:facebookadapter:4.3.15</package>
-    <package>com.ironsource.adapters:inmobiadapter:4.3.3</package>
     <package>com.ironsource.adapters:mintegraladapter:4.3.2@jar</package>
     <package>com.ironsource.adapters:unityadsadapter:4.3.3</package>
     <package>com.ironsource.sdk:mediationsdk:6.16.1</package>
@@ -33,7 +28,6 @@
     <package>com.mintegral.msdk:videocommon:13.0.41</package>
     <package>com.mintegral.msdk:videojs:13.0.41</package>
     <package>com.parse.bolts:bolts-android:1.4.0</package>
-    <package>com.squareup.picasso:picasso:2.71828</package>
   </packages>
   <files>
     <file>Assets/Plugins/Android/androidx.annotation.annotation-1.0.0.jar</file>
@@ -50,7 +44,6 @@
     <file>Assets/Plugins/Android/androidx.customview.customview-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.documentfile.documentfile-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.drawerlayout.drawerlayout-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.exifinterface.exifinterface-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.fragment.fragment-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.interpolator.interpolator-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.legacy.legacy-support-core-ui-1.0.0.aar</file>
@@ -65,7 +58,6 @@
     <file>Assets/Plugins/Android/androidx.localbroadcastmanager.localbroadcastmanager-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.media.media-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.print.print-1.0.0.aar</file>
-    <file>Assets/Plugins/Android/androidx.recyclerview.recyclerview-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.slidingpanelayout.slidingpanelayout-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.swiperefreshlayout.swiperefreshlayout-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.vectordrawable.vectordrawable-1.0.0.aar</file>
@@ -90,11 +82,9 @@
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-measurement-sdk-api-17.1.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-tasks-17.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.zxing.core-3.3.3.jar</file>
-    <file>Assets/Plugins/Android/com.inmobi.monetization.inmobi-ads-9.0.4.aar</file>
     <file>Assets/Plugins/Android/com.ironsource.adapters.admobadapter-4.3.9.jar</file>
     <file>Assets/Plugins/Android/com.ironsource.adapters.applovinadapter-4.3.11.jar</file>
     <file>Assets/Plugins/Android/com.ironsource.adapters.facebookadapter-4.3.15.jar</file>
-    <file>Assets/Plugins/Android/com.ironsource.adapters.inmobiadapter-4.3.3.jar</file>
     <file>Assets/Plugins/Android/com.ironsource.adapters.mintegraladapter-4.3.2.jar</file>
     <file>Assets/Plugins/Android/com.ironsource.adapters.unityadsadapter-4.3.3.jar</file>
     <file>Assets/Plugins/Android/com.ironsource.sdk.mediationsdk-6.16.1.aar</file>
@@ -110,13 +100,10 @@
     <file>Assets/Plugins/Android/com.parse.bolts.bolts-android-1.4.0.jar</file>
     <file>Assets/Plugins/Android/com.parse.bolts.bolts-applinks-1.4.0.jar</file>
     <file>Assets/Plugins/Android/com.parse.bolts.bolts-tasks-1.4.0.jar</file>
-    <file>Assets/Plugins/Android/com.squareup.okhttp3.okhttp-3.10.0.jar</file>
-    <file>Assets/Plugins/Android/com.squareup.okio.okio-1.14.0.jar</file>
-    <file>Assets/Plugins/Android/com.squareup.picasso.picasso-2.71828.aar</file>
   </files>
   <settings>
     <setting name="androidAbis" value="arm64-v8a,armeabi-v7a" />
-    <setting name="bundleId" value="com.LuckyDice.HappyDice.IdelCasualGame.FunDay" />
+    <setting name="bundleId" value="com.LuckyDice.HappyDice.IdleCasualGame.FunDay" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradleTemplateEnabled" value="False" />

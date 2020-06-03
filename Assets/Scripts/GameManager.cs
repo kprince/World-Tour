@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     private SaveManager save;
+    private PanelManager panelManager;
     private new AudioManager audio;
     public string notice = string.Empty;
     public Transform player_Trans;
@@ -61,9 +62,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        panelManager = GetComponent<PanelManager>();
+        panelManager.ShowPanel(PanelType.Loading);
         config = Resources.Load<Config>("Config");
         Application.targetFrameRate = 60;
-        PanelManager.Instance.ShowPanel(PanelType.Loading);
         save = GetComponent<SaveManager>();
         audio = GetComponent<AudioManager>();
         dice_Render = dice_Trans.GetComponent<MeshRenderer>();
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviour
         save.Init();
         save.player.gameTimes++;
         audio.Init(save.player.musicOn);
+        panelManager.PreLoadPanel(PanelType.Game);
     }
     private void Start()
     {
@@ -130,15 +133,21 @@ public class GameManager : MonoBehaviour
         prefab_gold = Resources.Load<GameObject>("SpecialBrick/GoldBrick");
         prefab_cash = Resources.Load<GameObject>("SpecialBrick/CashBrick");
         prefab_jackpot = Resources.Load<GameObject>("SpecialBrick/JackpotBrick");
+        Texture2D cashTex = Resources.Load<Texture2D>("SpecialBrick/" + (GetShowExchange() ? "coinB" : "coinA"));
 
-        for(int i = 0; i < go_golds.Length; i++)
+        for (int i = 0; i < go_golds.Length; i++)
         {
             go_golds[i] = Instantiate(prefab_gold, specialBrickParent);
+            go_golds[i].GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", cashTex);
             go_golds[i].SetActive(false);
         }
+
+
+
         for(int i = 0; i < go_cashs.Length; i++)
         {
             go_cashs[i] = Instantiate(prefab_cash, specialBrickParent);
+            go_cashs[i].GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", cashTex);
             go_cashs[i].SetActive(false);
         }
         for(int i = 0; i < go_jackpots.Length; i++)
@@ -445,15 +454,15 @@ public class GameManager : MonoBehaviour
                         canRollDice = true;
                         break;
                     case 1:
-                        PanelManager.Instance.ShowPanel(PanelType.Jackpot, 0.3f);
+                        panelManager.ShowPanel(PanelType.Jackpot, 0.3f);
                         break;
                     case 2:
                         GetSpecialPropsRandom(false);
-                        PanelManager.Instance.ShowPanel(PanelType.Reward, 0.3f);
+                        panelManager.ShowPanel(PanelType.Reward, 0.3f);
                         break;
                     case 3:
                         GetSpecialPropsRandom(true);
-                        PanelManager.Instance.ShowPanel(PanelType.Reward, 0.3f);
+                        panelManager.ShowPanel(PanelType.Reward, 0.3f);
                         break;
                     default:
                         break;
@@ -685,7 +694,7 @@ public class GameManager : MonoBehaviour
         nextRewardNum = GetExtraBonusRandom(out RewardType newRewardType);
         nextRewardType = newRewardType;
         nextRewardMutiple = 1;
-        PanelManager.Instance.ShowPanel(PanelType.Reward);
+        panelManager.ShowPanel(PanelType.Reward);
     }
     public int GetGold()
     {
@@ -735,14 +744,14 @@ public class GameManager : MonoBehaviour
         if (save.player.gold + num < 0)
         {
             notice = "You have not enough gold";
-            PanelManager.Instance.ShowPanel(PanelType.Notice);
+            panelManager.ShowPanel(PanelType.Notice);
             return false;
         }
         else
         {
             save.player.gold += num;
             if (gamePanel is null)
-                gamePanel = PanelManager.Instance.GetPanel(PanelType.Game).GetComponent<Panel_Game>();
+                gamePanel = panelManager.GetPanel(PanelType.Game).GetComponent<Panel_Game>();
             gamePanel.RefreshGold();
             if (num > 0)
             {
@@ -758,14 +767,14 @@ public class GameManager : MonoBehaviour
         if (save.player.cash + num < 0)
         {
             notice = "You have not enough cash";
-            PanelManager.Instance.ShowPanel(PanelType.Notice);
+            panelManager.ShowPanel(PanelType.Notice);
             return false;
         }
         else
         {
             save.player.cash += num;
             if (gamePanel is null)
-                gamePanel = PanelManager.Instance.GetPanel(PanelType.Game).GetComponent<Panel_Game>();
+                gamePanel = panelManager.GetPanel(PanelType.Game).GetComponent<Panel_Game>();
             gamePanel.RefreshCash();
             if (num > 0)
             {
@@ -784,7 +793,7 @@ public class GameManager : MonoBehaviour
         {
             save.player.energy -= value;
             if (gamePanel is null)
-                gamePanel = PanelManager.Instance.GetPanel(PanelType.Game).GetComponent<Panel_Game>();
+                gamePanel = panelManager.GetPanel(PanelType.Game).GetComponent<Panel_Game>();
             gamePanel.RefreshEnergy();
             save.player.totalWasteEnergy += value;
             return true;
@@ -796,7 +805,7 @@ public class GameManager : MonoBehaviour
         if (save.player.energy > SaveManager.PLAYER_MAXENERGY)
             save.player.energy = SaveManager.PLAYER_MAXENERGY;
         if (gamePanel is null)
-            gamePanel = PanelManager.Instance.GetPanel(PanelType.Game).GetComponent<Panel_Game>();
+            gamePanel = panelManager.GetPanel(PanelType.Game).GetComponent<Panel_Game>();
         gamePanel.RefreshEnergy();
         return save.player.energy;
     }

@@ -31,18 +31,20 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 93a9627aa2498664faf5216b3e71e080, type: 3}
-    totalSpriteSurfaceArea: 3012396
+    totalSpriteSurfaceArea: 3727731
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: d0079ad104bc37e4c99c72cfcc836a16, type: 3}
   - {fileID: 21300000, guid: 6bf432936b6059d44b31af17cffed3d7, type: 3}
   - {fileID: 21300000, guid: 48ced4a4625fbea4aa60e28fdf622baa, type: 3}
+  - {fileID: 21300000, guid: c888667568409e94795f1d158824f936, type: 3}
   - {fileID: 21300000, guid: 44d63bf562bc4bc4d8c9f9c4ec6a269c, type: 3}
   - {fileID: 21300000, guid: 357588c6e6a568b498f581db896f31fe, type: 3}
   - {fileID: 21300000, guid: 0d5b11f7667198347ab1dfead01377ac, type: 3}
   - {fileID: 21300000, guid: cb45c9397b842b64bba9945f8faef381, type: 3}
   - {fileID: 21300000, guid: 0bf99f79ecde42445b4c3976fcaf35d0, type: 3}
+  - {fileID: 21300000, guid: e1fb3989daef1ef499414f3de697642c, type: 3}
   - {fileID: 21300000, guid: a2a349994d003fb41aac30f946777942, type: 3}
   - {fileID: 21300000, guid: 1128aeb9b1113cb49ae6df52d8b4b48d, type: 3}
   - {fileID: 21300000, guid: 9cc67fc9ee42b204fb469c3f17acb4ae, type: 3}
@@ -54,12 +56,14 @@ SpriteAtlas:
   - adget
   - light
   - gift
+  - cashA
   - get
   - gold
   - extrabonus
-  - manycash
+  - manycashB
   - manygold
-  - cash
+  - manycashA
+  - cashB
   - handle
   - sliderBg
   - congratulations
