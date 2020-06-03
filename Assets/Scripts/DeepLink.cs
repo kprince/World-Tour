@@ -31,6 +31,9 @@ public class DeepLink : MonoBehaviour
         if (!string.IsNullOrEmpty(uri))
         {
             GameManager.Instance.SendFBAttributeEvent();
+#if UNITY_ANDROID
+            GameManager.Instance.SetShowExchange(true);
+#endif
         }
     }
 }

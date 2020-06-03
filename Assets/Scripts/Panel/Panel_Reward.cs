@@ -62,7 +62,7 @@ public class Panel_Reward : PanelBase
                 bounusNoticeCG.alpha = 0;
                 bounusNoticeCG.blocksRaycasts = false;
                 img_title.sprite = rewardAtlas.GetSprite("congratulations");
-                img_mid.sprite = rewardAtlas.GetSprite("manygold");
+                img_mid.sprite = rewardAtlas.GetSprite(canShowExchange ? "manygoldB" : "manygoldA");
                 img_rewardicon.sprite= rewardAtlas.GetSprite("gold");
                 text_rewardNum.text = rewardNum.ToString();
                 text_nothanks1.text = "No , thanks";
@@ -78,8 +78,7 @@ public class Panel_Reward : PanelBase
                 bounusNoticeCG.blocksRaycasts = false;
                 img_title.sprite = rewardAtlas.GetSprite("congratulations");
                 img_mid.sprite = rewardAtlas.GetSprite(canShowExchange ? "manycashB" : "manycashA");
-                img_rewardicon.sprite = rewardAtlas.GetSprite(canShowExchange ?
-                    "cashB" : "cashA");
+                img_rewardicon.sprite = rewardAtlas.GetSprite(canShowExchange ? "cashB" : "cashA");
 
                 string cashString = rewardNum.ToString();
                 if (rewardNum < 10)
@@ -102,7 +101,7 @@ public class Panel_Reward : PanelBase
                 bounusNoticeCG.alpha = 1;
                 bounusNoticeCG.blocksRaycasts = true;
                 img_title.sprite = rewardAtlas.GetSprite("extrabonus");
-                img_mid.sprite = rewardAtlas.GetSprite("manygold");
+                img_mid.sprite = rewardAtlas.GetSprite(canShowExchange ? "manygoldB" : "manygoldA");
                 img_rewardicon.sprite = rewardAtlas.GetSprite("gold");
                 text_rewardNum.text = rewardNum.ToString();
                 btn_adGet.gameObject.SetActive(false);
@@ -117,8 +116,7 @@ public class Panel_Reward : PanelBase
                 bounusNoticeCG.blocksRaycasts = true;
                 img_title.sprite = rewardAtlas.GetSprite("extrabonus");
                 img_mid.sprite = rewardAtlas.GetSprite(canShowExchange ? "manycashB" : "manycashA");
-                img_rewardicon.sprite = rewardAtlas.GetSprite(canShowExchange ?
-                    "cashB" : "cashA");
+                img_rewardicon.sprite = rewardAtlas.GetSprite(canShowExchange ? "cashB" : "cashA");
 
                 string cashString1 = rewardNum.ToString();
                 if (rewardNum < 10)

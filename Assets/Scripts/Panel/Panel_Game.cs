@@ -60,7 +60,9 @@ public class Panel_Game : PanelBase
         sld_Energy.value = (float)offlineEnergy / SaveManager.PLAYER_MAXENERGY;
         text_NextEnergy.text = "1 ROLL IN " + (nextEnergyTime / 60) + ":" + (nextEnergyTime % 60);
         StartCoroutine(TimeClock());
+#if UNITY_IOS
         StartCoroutine(WaitFor());
+#endif
     }
     void OnRollClick()
     {
@@ -177,7 +179,5 @@ public class Panel_Game : PanelBase
             GameManager.Instance.SetShowExchange(true);
             canShowExchange = true;
         }
-        else
-            canShowExchange = false;
     }
 }

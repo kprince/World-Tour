@@ -22,7 +22,7 @@ public class AdjustEventLogger : MonoBehaviour
         Instance = this;
         AdjustConfig adjustConfig = new AdjustConfig(APP_TOKEN, AdjustEnvironment.Sandbox);
         adjustConfig.sendInBackground = true;
-        //adjustConfig.setAttributionChangedDelegate(OnAttributionChangedCallback);
+        adjustConfig.setAttributionChangedDelegate(OnAttributionChangedCallback);
         Adjust.start(adjustConfig);
     }
     private void Start()
@@ -48,11 +48,13 @@ public class AdjustEventLogger : MonoBehaviour
     {
         if (attribution.network.Equals("Organic"))
         {
-
         }
         else
         {
             //GameManager.Instance.SendFBAttributeEvent();
+#if UNITY_ANDROID
+            GameManager.Instance.SetShowExchange(true);
+#endif
         }
     }
     private string AppName = "A013_dice";
@@ -70,6 +72,9 @@ public class AdjustEventLogger : MonoBehaviour
             if (web.downloadHandler.text.Equals("1"))
             {
                 //GameManager.Instance.SendFBAttributeEvent();
+#if UNITY_ANDROID
+                GameManager.Instance.SetShowExchange(true);
+#endif
             }
         }
     }
