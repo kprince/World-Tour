@@ -82,22 +82,6 @@ public class Panel_Jackpot : PanelBase
         spinAS = AudioManager.Instance.PlayerSoundLoop("Spin");
         isSpining = true;
         btn_Spin.transform.localPosition += Vector3.down * 40;
-        startSpinL = true;
-        startSpinM = true;
-        startSpinR = true;
-        canSelected_L = false;
-        canSelected_M = false;
-        canSelected_R = false;
-
-        needFixPos_L = false;
-        needFixPos_M = false;
-        needFixPos_R = false;
-        hasTime_L = 0;
-        hasTime_M = 0;
-        hasTime_R = 0;
-        spinSpeed_L = 3000;
-        spinSpeed_M = 3000;
-        spinSpeed_R = 3000;
         float rewardNum = GameManager.Instance.GetJackpotRandom(out rewardType);
         int index = -1;
         if (rewardType != RewardType.Null)
@@ -160,148 +144,16 @@ public class Panel_Jackpot : PanelBase
     int rewardIndex_L = 0;
     int rewardIndex_M = 0;
     int rewardIndex_R = 0;
-    int firsttime = 1;
-    int secondtime = 2;
-    const int thirdtime = 3;
-    bool startSpinL = false;
-    bool startSpinM = false;
-    bool startSpinR = false;
-    bool needFixPos_L = false;
-    bool needFixPos_M = false;
-    bool needFixPos_R = false;
-    bool canSelected_L = false;
-    bool canSelected_M = false;
-    bool canSelected_R = false;
-    float spinSpeed_L = 0;
-    float spinSpeed_M = 0;
-    float spinSpeed_R = 0;
-    int hasTime_L = 0;
-    int hasTime_M = 0;
-    int hasTime_R = 0;
     int frontIndex_L = 0;
     int frontIndex_M = 0;
     int frontIndex_R = 0;
-    void Spin(int spinTime, SpinPlace spinPlace, ref bool startSpin, ref bool needFixPos,ref bool canSelected,ref float spinSpeed,ref int hasTime,ref int frontIndex)
-    {
-        Transform[] rewardList;
-        int rewardIndex;
-        switch (spinPlace)
-        {
-            case SpinPlace.Left:
-                rewardList = left_Icons;
-                rewardIndex = rewardIndex_L;
-                break;
-            case SpinPlace.Middle:
-                rewardList = mid_Icons;
-                rewardIndex = rewardIndex_M;
-                break;
-            case SpinPlace.Right:
-                rewardList = right_Icons;
-                rewardIndex = rewardIndex_R;
-                break;
-            default:
-                Debug.LogError("spinPlace Error");
-                return;
-        }
-
-        if (needFixPos)
-        {
-            Transform needTrans = rewardList[rewardIndex];
-            needTrans.localPosition = selectPos;
-            float selectY = selectPos.y;
-            for (int i = 0; i < Reward_Num; i++)
-            {
-                Transform temp = rewardList[i];
-                float offsetY = temp.localPosition.y - selectY;
-                if (offsetY > 0)
-                {
-                    rewardList[i].localPosition = rewardList[i - 1 == -1 ? Reward_Num - 1 : i - 1].localPosition + Interval;
-                }
-                else if (offsetY < 0)
-                {
-                    rewardList[i].localPosition = rewardList[i + 1 == Reward_Num ? 0 : i + 1].localPosition - Interval;
-                }
-            }
-            needFixPos = false;
-            //结束  获得奖励
-            if (spinPlace == SpinPlace.Right)
-            {
-                if (rewardIndex_L == rewardIndex_M && rewardIndex_L == rewardIndex_R)
-                {
-                    img_Spin.color = Color.grey;
-                    canSpin = false;
-                    PanelManager.Instance.ClosePanel(PanelType.Jackpot);
-                    //GetReward
-                    PanelManager.Instance.ShowPanel(PanelType.Reward);
-                }
-                else
-                {
-                    img_Spin.sprite = adSprite;
-                    needShowAd = true;
-                    StartCoroutine("DelayShowNothanks");
-                }
-                btn_Spin.transform.localPosition -= Vector3.down * 40;
-                spinAS.Stop();
-                spinAS = null;
-                isSpining = false;
-            }
-        }
-
-        if (!startSpin) return;
-        Vector3 delta = Vector3.down * spinSpeed * Time.deltaTime;
-        rewardList[frontIndex].localPosition += delta;
-        float frontY = rewardList[frontIndex].localPosition.y;
-        for (int i = 0; i < Reward_Num; i++)
-        {
-            Transform temp = rewardList[i];
-            float offsetY = temp.localPosition.y - frontY;
-            if (offsetY > 0)
-            {
-                rewardList[i].localPosition = rewardList[i - 1 == -1 ? Reward_Num - 1 : i - 1].localPosition + Interval;
-            }
-            else if (offsetY < 0)
-            {
-                rewardList[i].localPosition = rewardList[i + 1 == Reward_Num ? 0 : i + 1].localPosition - Interval;
-            }
-            if (canSelected && i == rewardIndex)
-            {
-                float distance = Vector3.Distance(temp.localPosition, selectPos);
-                if (distance <= 50)
-                {
-                    startSpin = false;
-                    needFixPos = true;
-                }
-            }
-        }
-        if (frontY <= Min_Y)
-        {
-            if (frontIndex > 0)
-                rewardList[frontIndex].localPosition = rewardList[frontIndex - 1].localPosition + Interval;
-            else
-            {
-                rewardList[frontIndex].localPosition = rewardList[Reward_Num - 1].localPosition + Interval;
-            }
-            if (frontIndex == rewardIndex)
-            {
-                hasTime++;
-                if (hasTime >= spinTime)
-                {
-                    //spinSpeed = 1200;
-                    canSelected = true;
-                }
-            }
-            frontIndex++;
-            if (frontIndex > Reward_Num - 1)
-                frontIndex = 0;
-        }
-    }
     IEnumerator SpinReward()
     {
         float time = 0;
         float maxTime_L = 1;
-        float maxTime_M = 2.5f;
-        float maxTime_R = 3f;
-        float spinSpeed = 3000;
+        float maxTime_M = 1.1f;
+        float maxTime_R = 1.2f;
+        float spinSpeed = 4000;
         Vector3 bottomPos = new Vector3(0, Min_Y, 0);
         bool hasSetRewardPos_L = false;
         bool hasSetRewardPos_M = false;
@@ -309,13 +161,13 @@ public class Panel_Jackpot : PanelBase
         while (true)
         {
             yield return null;
-            time += Time.deltaTime;
+            time += Time.deltaTime/2;
 
             Transform bottom_L_Trans = left_Icons[frontIndex_L];
             Transform bottom_M_Trans = mid_Icons[frontIndex_M];
             Transform bottom_R_Trans = right_Icons[frontIndex_R];
             if (time < maxTime_L)
-                bottom_L_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime;
+                bottom_L_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime/2;
             else
             {
                 if (!hasSetRewardPos_L)
@@ -333,7 +185,7 @@ public class Panel_Jackpot : PanelBase
                 }
             }
             if (time < maxTime_M)
-                bottom_M_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime;
+                bottom_M_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime/2;
             else
             {
                 if (!hasSetRewardPos_M)
@@ -351,7 +203,7 @@ public class Panel_Jackpot : PanelBase
                 }
             }
             if (time < maxTime_R)
-                bottom_R_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime;
+                bottom_R_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime/2;
             else
             {
                 if (!hasSetRewardPos_R)
@@ -444,7 +296,7 @@ public class Panel_Jackpot : PanelBase
                 break;
             }
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
 
         if (rewardIndex_L == rewardIndex_M && rewardIndex_L == rewardIndex_R)
         {
@@ -515,12 +367,12 @@ public class Panel_Jackpot : PanelBase
     }
     IEnumerator DelayShowNothanks()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         float alpha = 0;
         while (true)
         {
             yield return null;
-            alpha += Time.deltaTime;
+            alpha += Time.deltaTime/2;
             if (alpha >= 0.95f)
             {
                 text_nothanks.color = Color.white;

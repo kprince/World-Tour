@@ -72,7 +72,7 @@ public class Ads : MonoBehaviour
 	{
 		notice.SetActive(true);
 		notice.GetComponentInChildren<Text>().text = "Loading...";
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(6);
 		if (isRewardedAd && IronSource.Agent.isRewardedVideoAvailable())
 			IronSource.Agent.showRewardedVideo();
 		else

@@ -265,12 +265,12 @@ public class Panel_Reward : PanelBase
         }
         float endX = posX[index];
         int turns = 2;
-        int slideSpeed = 2000;
+        int slideSpeed = 4000;
         while (true)
         {
             yield return null;
-            slidervalue1.localPosition += Vector3.left * Time.deltaTime * slideSpeed;
-            slidervalue2.localPosition += Vector3.left * Time.deltaTime * slideSpeed;
+            slidervalue1.localPosition += Vector3.left * Time.deltaTime * slideSpeed/2;
+            slidervalue2.localPosition += Vector3.left * Time.deltaTime * slideSpeed/2;
             if (slidervalue1.localPosition.x <= -1000)
                 slidervalue1.localPosition = slidervalue2.localPosition + Vector3.right * twoSliderInterval;
             if (slidervalue2.localPosition.x <= -1000)
@@ -279,26 +279,26 @@ public class Panel_Reward : PanelBase
                 turns--;
                 if (turns == 0)
                 {
-                    slideSpeed = 1000;
+                    slidervalue1.localPosition = new Vector3(endX, 0, 0);
+                    slidervalue2.localPosition = slidervalue1.localPosition + (index < 2 ? Vector3.left : Vector3.right) * twoSliderInterval;
+                    break;
                 }
             }
-            if (turns <= 0 && (Mathf.Abs(slidervalue2.localPosition.x - endX) <= 10f || Mathf.Abs(slidervalue1.localPosition.x - endX) <= 10f))
-                break;
         }
+        yield return new WaitForSeconds(1);
         GetReward();
         spinAS.Stop();
         spinAS = null;
-        yield return new WaitForSeconds(0.3f);
         PanelManager.Instance.ClosePanel(PanelType.Reward);
     }
     IEnumerator DelayShowNothanks1()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         float alpha = 0;
         while (true)
         {
             yield return null;
-            alpha += Time.deltaTime;
+            alpha += Time.deltaTime/2;
             if (alpha >= 0.95f)
             {
                 text_nothanks1.color = Color.white;
@@ -310,12 +310,12 @@ public class Panel_Reward : PanelBase
     }
     IEnumerator DelayShowNothanks2()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         float alpha = 0;
         while (true)
         {
             yield return null;
-            alpha += Time.deltaTime;
+            alpha += Time.deltaTime/2;
             if (alpha >= 0.95f)
             {
                 text_nothanks2.color = Color.white;

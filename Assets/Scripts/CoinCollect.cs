@@ -61,7 +61,7 @@ public class CoinCollect : MonoBehaviour
         while (true)
         {
             yield return null;
-            time += Time.deltaTime*4;
+            time += Time.deltaTime*4/2;
             for(int i = 0; i < count; i++)
             {
                 allCoinsTrans[i].localPosition = Vector3.Lerp(Vector3.zero, allCoinsOriginPos[i], time);
@@ -69,7 +69,7 @@ public class CoinCollect : MonoBehaviour
             if (time > 1)
                 break;
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.4f);
         Vector3 targetPos = target.position;
         int num = 0;
         while (true)

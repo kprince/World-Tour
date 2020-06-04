@@ -124,7 +124,7 @@ public class Panel_Signin : PanelBase
         while (true)
         {
             yield return null;
-            handle.localPosition += Vector3.left * Time.deltaTime * speed;
+            handle.localPosition += Vector3.left * Time.deltaTime * speed/2;
             if (handle.transform.localPosition.x <= minX)
             {
                 turns++;
@@ -158,7 +158,7 @@ public class Panel_Signin : PanelBase
         while (true)
         {
             yield return null;
-            todayEffect.Rotate(todayEffect.forward * Time.deltaTime * speed);
+            todayEffect.Rotate(todayEffect.forward * Time.deltaTime * speed/2);
         }
     }
 }

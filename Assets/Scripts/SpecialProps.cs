@@ -23,7 +23,7 @@ public class SpecialProps : MonoBehaviour
         while (true)
         {
             yield return null;
-            coin.localPosition += (moveUp ? Vector3.up : Vector3.down) * Time.deltaTime*0.5f;
+            coin.localPosition += (moveUp ? Vector3.up : Vector3.down) * Time.deltaTime*0.5f/2;
             float upOffset = coin.localPosition.y - 0.39f;
             float downOffset = 0.65f - coin.localPosition.y;
             if (upOffset <= 0.02f)

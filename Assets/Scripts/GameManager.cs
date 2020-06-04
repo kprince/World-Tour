@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public string notice = string.Empty;
     public Transform player_Trans;
     public Transform dice_Trans;
-    private MeshRenderer dice_Render;
+    private Rigidbody dice_Rig;
     private Animator player_Animator;
     public List<GameObject> Go_bricks = new List<GameObject>();
     public List<int> cornor_index = new List<int>();
@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        Time.timeScale = 2;
         panelManager = GetComponent<PanelManager>();
         config = Resources.Load<Config>("Config");
         save = GetComponent<SaveManager>();
@@ -73,7 +74,7 @@ public class GameManager : MonoBehaviour
         panelManager.ShowPanel(PanelType.Loading);
         Application.targetFrameRate = 60;
         audio = GetComponent<AudioManager>();
-        dice_Render = dice_Trans.GetComponent<MeshRenderer>();
+        dice_Rig = dice_Trans.GetComponent<Rigidbody>();
         player_Animator = player_Trans.GetComponent<Animator>();
         audio.Init(save.player.musicOn);
         panelManager.PreLoadPanel(PanelType.Game);
@@ -451,7 +452,7 @@ public class GameManager : MonoBehaviour
                 currentStep = 0;
                 ChangeSceneBg();
             }
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.3f);
             if (i == step - 1)
             {
                 //获得奖励
@@ -632,17 +633,60 @@ public class GameManager : MonoBehaviour
         //Debug.Log("步数 : " + step);
         return step;
     }
-    static readonly Vector3 dice_EndPos = new Vector3(0.18f, 0.835f, -1.46f);
     static readonly Vector3 dice_StartPos = new Vector3(0.18f, 3.04f, -11.79f);
-    static readonly Quaternion dice_EndRotation = new Quaternion(0, 0.3f, 0, 1);
     static readonly Quaternion dice_StartRotation = new Quaternion(0.5f, -0.5f, 0.5f, 0f);
-    static readonly Vector2 dice_1 = new Vector2(1 / 3f, 1);
-    static readonly Vector2 dice_2 = new Vector2(2 / 3f, 1);
-    static readonly Vector2 dice_3 = new Vector2(1 / 3f, 1 / 3f);
-    static readonly Vector2 dice_4 = new Vector2(2 / 3f, 1 / 3f);
-    static readonly Vector2 dice_5 = new Vector2(1, 1);
-    static readonly Vector2 dice_6 = new Vector2(1, 1 / 3f);
-    const string dice_Shader = "_MainTex";
+    public Vector3 dice_anglarV;
+    public Vector3 dice_moveV;
+    static readonly Vector3[][,] dice_angular_move_V = new Vector3[][,]
+    {
+        //骰子1
+        new Vector3[,]
+        {
+            { new Vector3(10, 0 , 0) , new Vector3(0,0,8) },
+            { new Vector3(8, 2,2),new Vector3(0,0,8) },
+            { new Vector3(10,5,-5),new Vector3(0,0,7) },
+        },
+        //骰子2
+        new Vector3[,]
+        {
+            { new Vector3(5, 5, 10),new Vector3(0, 0, 8)},
+            { new Vector3(10, 10, 10),new Vector3(0, 0, 8) },
+            { new Vector3(0,0,10),new Vector3(0,0,6) },
+            { new Vector3(10,10,10), new Vector3(0,0,6)},
+            { new Vector3(5,5,-5),new Vector3(0,0,8) },
+        },
+        //骰子3
+        new Vector3[,]
+        {
+            { new Vector3(10,0,0), new Vector3(0,0,7) },
+            { new Vector3(10,0,-5),new Vector3(0,0,7) },
+            { new Vector3(10,-5,0),new Vector3(0,0,9) },
+            { new Vector3(5,5,-1),new Vector3(-2,0,8) },
+        },
+        //骰子4
+        new Vector3[,]
+        {
+            { new Vector3(0, 0, 10),new Vector3(0, 0, 8) },
+            { new Vector3(0, 0, 10),new Vector3(0, 0, 7) },
+            { new Vector3(10,5,0),new Vector3(0,0,7) },
+            { new Vector3(5,-5,5), new Vector3(0,0,6)},
+        },
+        //骰子5
+        new Vector3[,]
+        {
+            { new Vector3(10,0,0), new Vector3(0,0,9)},
+            {new Vector3(10,0,-10),  new Vector3(0,0,7)},
+            { new Vector3(2,-5,2),new Vector3(0,0,7)},
+            {new Vector3(5,5,0), new Vector3(0,0,11)},
+        },
+        //骰子6
+        new Vector3[,]
+        {
+            { new Vector3(5,0,-10), new Vector3(0, 0, 7) },
+            {new Vector3(10,-5,5),new Vector3(0,0,8) },
+            { new Vector3(3,0,0),new Vector3(-1,0,7)},
+        }
+    };
     public void RollDice()
     {
         if (!canRollDice) return;
@@ -651,45 +695,22 @@ public class GameManager : MonoBehaviour
         dice_Trans.position = dice_StartPos;
         dice_Trans.rotation = dice_StartRotation;
         int diceValue = RandomStep();
-        switch (diceValue)
-        {
-            case 1:
-                dice_Render.material.SetTextureOffset(dice_Shader, dice_1);
-                break;
-            case 2:
-                dice_Render.material.SetTextureOffset(dice_Shader, dice_2);
-                break;
-            case 3:
-                dice_Render.material.SetTextureOffset(dice_Shader, dice_3);
-                break;
-            case 4:
-                dice_Render.material.SetTextureOffset(dice_Shader, dice_4);
-                break;
-            case 5:
-                dice_Render.material.SetTextureOffset(dice_Shader, dice_5);
-                break;
-            case 6:
-                dice_Render.material.SetTextureOffset(dice_Shader, dice_6);
-                break;
-        }
         StartCoroutine(RollDice(diceValue));
     }
     public bool canRollDice = true;
     IEnumerator RollDice(int diceValue)
     {
+        Vector3[,] tempDiceData = dice_angular_move_V[diceValue - 1];
+        int randomIndex = Random.Range(0, tempDiceData.Rank);
+        dice_Rig.angularVelocity = tempDiceData[randomIndex, 0];
+        dice_Rig.velocity = tempDiceData[randomIndex, 1];
         while (true)
         {
             yield return null;
-            dice_Trans.position = Vector3.Lerp(dice_Trans.position, dice_EndPos, 2 * Time.deltaTime);
-            dice_Trans.rotation = Quaternion.Lerp(dice_Trans.rotation, dice_EndRotation, 2 * Time.deltaTime);
-            if (Vector3.Distance(dice_Trans.position, dice_EndPos) < 1.5f)
-            {
-                dice_Trans.GetComponent<Rigidbody>().isKinematic = false;
+            if (dice_Rig.angularVelocity == Vector3.zero && dice_Rig.velocity == Vector3.zero)
                 break;
-            }
         }
-        yield return new WaitForSeconds(1);
-        dice_Trans.GetComponent<Rigidbody>().isKinematic = true;
+        canRollDice = true;
         yield return JumpForStep(diceValue);
     }
     public Image img_Scene;
