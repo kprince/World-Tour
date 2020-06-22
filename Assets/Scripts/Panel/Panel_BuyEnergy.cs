@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class Panel_BuyEnergy : PanelBase
 {
     public Button btn_ad;
-    const int adEnergy = 5;
+    const int adEnergy = 10;
+    int clickAdTime = 0;
     protected override void Awake()
     {
         base.Awake();
@@ -15,6 +16,23 @@ public class Panel_BuyEnergy : PanelBase
     void OnAdClick()
     {
         AudioManager.Instance.PlayerSound("Button");
+#if UNITY_EDITOR
+        OnRewardedCallback();
+        return;
+#endif
+#if UNITY_IOS
+        if (!GameManager.Instance.GetShowExchange())
+        {
+            OnRewardedCallback();
+            return;
+        }
+#endif
+        clickAdTime++;
+        Ads._instance.SetRewardedCallBack(OnRewardedCallback);
+        Ads._instance.ShowRewardVideo(clickAdTime);
+    }
+    void OnRewardedCallback()
+    {
         GameManager.Instance.AddEnergy(adEnergy);
     }
     protected override void Close()
@@ -26,6 +44,7 @@ public class Panel_BuyEnergy : PanelBase
     public override void OnEnter()
     {
         base.OnEnter();
+        clickAdTime = 0;
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
     }

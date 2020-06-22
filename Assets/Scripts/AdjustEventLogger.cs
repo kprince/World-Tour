@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+#if UNITY_IOS && !UNITY_EDITOR
+using System.Runtime.InteropServices;
+#endif
 
 public class AdjustEventLogger : MonoBehaviour
 {
@@ -10,17 +13,32 @@ public class AdjustEventLogger : MonoBehaviour
     [DllImport("__Internal")]
     private static extern string Getidfa();
 #endif
+#if UNITY_IOS
     public const string APP_TOKEN = "stg63h4jumtc";
     public const string TOKEN_open = "outopv";
     public const string TOKEN_ad = "9jhkm5";
     public const string TOKEN_noads = "12bgiw";
     public const string TOKEN_stage_end = "g53a9y";
     public const string TOKEN_deeplink = "95sha9";
+    public const string TOKEN_packb = "sn9jkr";
+#elif UNITY_ANDROID
+    public const string APP_TOKEN = "tpupja970gsg";
+    public const string TOKEN_open = "dgtq96";
+    public const string TOKEN_ad = "pb1czc";
+    public const string TOKEN_noads = "nup1h8";
+    public const string TOKEN_stage_end = "mvnzh1";
+    public const string TOKEN_deeplink = "olvj3w";
+    public const string TOKEN_packb = "vpt6vo";
+#endif
     public static AdjustEventLogger Instance;
     private void Awake()
     {
         Instance = this;
+#if UNITY_EDITOR
         AdjustConfig adjustConfig = new AdjustConfig(APP_TOKEN, AdjustEnvironment.Sandbox);
+#else
+        AdjustConfig adjustConfig = new AdjustConfig(APP_TOKEN, AdjustEnvironment.Production);
+#endif
         adjustConfig.sendInBackground = true;
         adjustConfig.setAttributionChangedDelegate(OnAttributionChangedCallback);
         Adjust.start(adjustConfig);
@@ -29,6 +47,7 @@ public class AdjustEventLogger : MonoBehaviour
     {
         GetAdID();
         StartCoroutine(CheckAttributeTo());
+        GameManager.Instance.SendAdjustGameStartEvent();
     }
     public void AdjustEventNoParam(string token)
     {
@@ -52,10 +71,10 @@ public class AdjustEventLogger : MonoBehaviour
         else
         {
             //GameManager.Instance.SendFBAttributeEvent();
-#if UNITY_ANDROID
+//#if UNITY_ANDROID
             if (!GameManager.Instance.loadEnd)
                 GameManager.Instance.SetShowExchange(true);
-#endif
+//#endif
         }
     }
     private string AppName = "A013_dice";
@@ -73,10 +92,10 @@ public class AdjustEventLogger : MonoBehaviour
             if (web.downloadHandler.text.Equals("1"))
             {
                 //GameManager.Instance.SendFBAttributeEvent();
-#if UNITY_ANDROID
+//#if UNITY_ANDROID
                 if (!GameManager.Instance.loadEnd)
                     GameManager.Instance.SetShowExchange(true);
-#endif
+//#endif
             }
         }
     }

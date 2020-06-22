@@ -8,12 +8,17 @@ public class Panel_Reward : PanelBase
 {
     public CanvasGroup rewardCG;
     public CanvasGroup bounusNoticeCG;
-    private SpriteAtlas rewardAtlas;
+    private SpriteAtlas Atlas;
     public GameObject slider;
-    public Transform slidervalue1;
-    public Transform slidervalue2;
+    public Transform trans_handle;
     public Image img_title;
     public Image img_mid;
+    private RectTransform rect_mid;
+    public Image img_midMutiple;
+    public Image img_Light;
+    public Transform trans_bgLight;
+    public Transform trans_giftLight;
+
     public Image img_rewardicon;
     public Text text_rewardNum;
     public Text text_nothanks1;
@@ -24,35 +29,47 @@ public class Panel_Reward : PanelBase
     private int rewardNum = 0;
     private RewardType rewardType = RewardType.Null;
     private float rewardMutiple = 0;
-    private const float twoSliderInterval = 1046;
+    const string Atlas_UnknownMutiple_Key = "Mutiple_Unknown";
+    const string Atlas_TwoMutiple_Key = "Mutiple_2";
+    const string Atlas_ManyGold_Key = "ManyGold";
+    const string Atlas_ManyCash_A_Key = "ManyCashA";
+    const string Atlas_ManyCash_B_Key = "ManyCashB";
+    const string Atlas_Light_A_Key = "LightA";
+    const string Atlas_Light_B_Key = "LightB";
+    const string Atlas_GoldIcon_Key = "Gold";
+    const string Atlas_CashAIcon_Key = "CashA";
+    const string Atlas_CashBIcon_Key = "CashB";
     protected override void Awake()
     {
         base.Awake();
-        slidervalue1.localPosition = Vector3.zero;
-        slidervalue2.localPosition = slidervalue1.localPosition + Vector3.right * twoSliderInterval;
         btn_adGet.onClick.AddListener(OnAdGetClick);
         btn_adOpen.onClick.AddListener(OnOpenClick);
         btn_get.onClick.AddListener(OnGetClick);
+        rect_mid = img_mid.GetComponent<RectTransform>();
 
-        text_nothanks1.GetComponent<Button>().onClick.AddListener(OnNothanksClick);
+        text_nothanks1.GetComponent<Button>().onClick.AddListener(Close);
         text_nothanks2.GetComponent<Button>().onClick.AddListener(Close);
     }
     public override void OnEnter()
     {
         base.OnEnter();
+        clickAdTime = 0;
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
-        if (rewardAtlas is null)
-            rewardAtlas = Resources.Load<SpriteAtlas>("RewardPanel");
+        if (Atlas is null)
+            Atlas = Resources.Load<SpriteAtlas>("RewardPanel");
         rewardType = GameManager.Instance.nextRewardType;
         rewardNum = GameManager.Instance.nextRewardNum;
         rewardMutiple = GameManager.Instance.nextRewardMutiple;
         isSliding = false;
         hasGet = false;
         text_nothanks1.color = new Color(1, 1, 1, 0);
-        text_nothanks1.raycastTarget = false;
         text_nothanks2.color = new Color(1, 1, 1, 0);
         text_nothanks2.raycastTarget = false;
+        img_midMutiple.sprite = Atlas.GetSprite(Atlas_UnknownMutiple_Key);
+        img_Light.sprite = Atlas.GetSprite(Atlas_Light_A_Key);
+        btn_close.gameObject.SetActive(false);
+        StartCoroutine("RotateLight");
         bool canShowExchange = GameManager.Instance.GetShowExchange();
         switch (rewardType)
         {
@@ -61,24 +78,21 @@ public class Panel_Reward : PanelBase
                 rewardCG.blocksRaycasts = true;
                 bounusNoticeCG.alpha = 0;
                 bounusNoticeCG.blocksRaycasts = false;
-                img_title.sprite = rewardAtlas.GetSprite("congratulations");
-                img_mid.sprite = rewardAtlas.GetSprite(canShowExchange ? "manygoldB" : "manygoldA");
-                img_rewardicon.sprite= rewardAtlas.GetSprite("gold");
+                img_mid.sprite = Atlas.GetSprite(Atlas_ManyGold_Key);
+                img_rewardicon.sprite= Atlas.GetSprite(Atlas_GoldIcon_Key);
                 text_rewardNum.text = rewardNum.ToString();
-                text_nothanks1.text = "No , thanks";
                 btn_adGet.gameObject.SetActive(true);
                 btn_get.gameObject.SetActive(false);
+                StartCoroutine(DelayShowCloseBtn());
                 slider.SetActive(true);
-                StartCoroutine("DelayShowNothanks1");
                 break;
             case RewardType.Cash:
                 rewardCG.alpha = 1;
                 rewardCG.blocksRaycasts = true;
                 bounusNoticeCG.alpha = 0;
                 bounusNoticeCG.blocksRaycasts = false;
-                img_title.sprite = rewardAtlas.GetSprite("congratulations");
-                img_mid.sprite = rewardAtlas.GetSprite(canShowExchange ? "manycashB" : "manycashA");
-                img_rewardicon.sprite = rewardAtlas.GetSprite(canShowExchange ? "cashB" : "cashA");
+                img_mid.sprite = Atlas.GetSprite(canShowExchange ? Atlas_ManyCash_B_Key : Atlas_ManyCash_A_Key);
+                img_rewardicon.sprite = Atlas.GetSprite(canShowExchange ? Atlas_CashBIcon_Key : Atlas_CashAIcon_Key);
 
                 string cashString = rewardNum.ToString();
                 if (rewardNum < 10)
@@ -89,34 +103,32 @@ public class Panel_Reward : PanelBase
                     cashString = cashString.Insert(cashString.Length - 2, ".");
                 text_rewardNum.text = cashString;
 
-                text_nothanks1.text = "Give up";
                 btn_adGet.gameObject.SetActive(true);
                 btn_get.gameObject.SetActive(false);
+
+                StartCoroutine(DelayShowNothanks(text_nothanks1, 0.53f));
                 slider.SetActive(true);
-                StartCoroutine("DelayShowNothanks1");
                 break;
             case RewardType.ExtraBonusGold:
                 rewardCG.alpha = 0;
                 rewardCG.blocksRaycasts = false;
                 bounusNoticeCG.alpha = 1;
                 bounusNoticeCG.blocksRaycasts = true;
-                img_title.sprite = rewardAtlas.GetSprite("extrabonus");
-                img_mid.sprite = rewardAtlas.GetSprite(canShowExchange ? "manygoldB" : "manygoldA");
-                img_rewardicon.sprite = rewardAtlas.GetSprite("gold");
+                img_mid.sprite = Atlas.GetSprite(Atlas_ManyGold_Key);
+                img_rewardicon.sprite = Atlas.GetSprite(Atlas_GoldIcon_Key);
                 text_rewardNum.text = rewardNum.ToString();
                 btn_adGet.gameObject.SetActive(false);
                 btn_get.gameObject.SetActive(true);
                 slider.SetActive(false);
-                StartCoroutine("DelayShowNothanks2");
+                StartCoroutine(DelayShowNothanks(text_nothanks2));
                 break;
             case RewardType.ExtraBonusCash:
                 rewardCG.alpha = 0;
                 rewardCG.blocksRaycasts = false;
                 bounusNoticeCG.alpha = 1;
                 bounusNoticeCG.blocksRaycasts = true;
-                img_title.sprite = rewardAtlas.GetSprite("extrabonus");
-                img_mid.sprite = rewardAtlas.GetSprite(canShowExchange ? "manycashB" : "manycashA");
-                img_rewardicon.sprite = rewardAtlas.GetSprite(canShowExchange ? "cashB" : "cashA");
+                img_mid.sprite = Atlas.GetSprite(canShowExchange ? Atlas_ManyCash_B_Key : Atlas_ManyCash_A_Key);
+                img_rewardicon.sprite = Atlas.GetSprite(canShowExchange ? Atlas_CashBIcon_Key : Atlas_CashAIcon_Key);
 
                 string cashString1 = rewardNum.ToString();
                 if (rewardNum < 10)
@@ -130,21 +142,60 @@ public class Panel_Reward : PanelBase
                 btn_adGet.gameObject.SetActive(false);
                 btn_get.gameObject.SetActive(true);
                 slider.SetActive(false);
-                StartCoroutine("DelayShowNothanks2");
+                if (!GameManager.Instance.CheckFirstSignin(true))
+                    StartCoroutine(DelayShowNothanks(text_nothanks2));
                 break;
             case RewardType.NoticeBonus:
-                rewardCG.alpha = 0;
-                rewardCG.blocksRaycasts = false;
-                bounusNoticeCG.alpha = 1;
-                bounusNoticeCG.blocksRaycasts = true;
+                break;
+            case RewardType.SigninGold:
+                rewardCG.alpha = 1;
+                rewardCG.blocksRaycasts = true;
+                bounusNoticeCG.alpha = 0;
+                bounusNoticeCG.blocksRaycasts = false;
+                img_mid.sprite = Atlas.GetSprite(Atlas_ManyGold_Key);
+                img_rewardicon.sprite = Atlas.GetSprite(Atlas_GoldIcon_Key);
+                text_rewardNum.text = string.Format("{0}  <size=150><color=#FFE100>x{1}</color></size>", rewardNum, rewardMutiple);
+
+                rewardNum = (int)(rewardNum * rewardMutiple);
+
+                btn_adGet.gameObject.SetActive(false);
+                btn_get.gameObject.SetActive(true);
+                slider.SetActive(false);
+                break;
+            case RewardType.SigninCash:
+                rewardCG.alpha = 1;
+                rewardCG.blocksRaycasts = true;
+                bounusNoticeCG.alpha = 0;
+                bounusNoticeCG.blocksRaycasts = false;
+                img_mid.sprite = Atlas.GetSprite(canShowExchange ? Atlas_ManyCash_B_Key : Atlas_ManyCash_A_Key);
+                img_rewardicon.sprite = Atlas.GetSprite(canShowExchange ? Atlas_CashBIcon_Key : Atlas_CashAIcon_Key);
+
+                string cashString2 = (rewardNum * rewardMutiple).ToString();
+                if (rewardNum < 10)
+                    cashString2 = cashString2.Insert(0, "0.0");
+                else if (rewardNum < 100)
+                    cashString2 = cashString2.Insert(0, "0.");
+                else
+                    cashString2 = cashString2.Insert(cashString2.Length - 2, ".");
+                text_rewardNum.text = cashString2;
+
+                rewardNum = (int)(rewardNum * rewardMutiple);
+
+                btn_adGet.gameObject.SetActive(false);
+                btn_get.gameObject.SetActive(true);
+                slider.SetActive(false);
                 break;
             default:
                 PanelManager.Instance.ClosePanel(PanelType.Reward);
                 break;
         }
+        trans_handle.localPosition = new Vector3(posX[2], 0);
+        img_mid.SetNativeSize();
+        rect_mid.sizeDelta *= 1.5f;
     }
     bool isSliding = false;
     bool hasGet = false;
+    int clickAdTime = 0;
     void OnAdGetClick()
     {
         AudioManager.Instance.PlayerSound("Button");
@@ -153,14 +204,17 @@ public class Panel_Reward : PanelBase
         OnadGetRewardedCallBack();
         return;
 #endif
+#if UNITY_IOS
         if (!GameManager.Instance.GetShowExchange())
         {
             OnadGetRewardedCallBack();
             return;
         }
+#endif
+        clickAdTime++;
         Ads._instance.SetRewardedCallBack(OnadGetRewardedCallBack);
         Ads._instance.adDes = rewardType.ToString() + "的倍数获得广告";
-        Ads._instance.ShowRewardVideo();
+        Ads._instance.ShowRewardVideo(clickAdTime);
     }
     void OnadGetRewardedCallBack()
     {
@@ -168,6 +222,7 @@ public class Panel_Reward : PanelBase
         if (!hasGet)
         {
             hasGet = true;
+            img_midMutiple.sprite = Atlas.GetSprite(Atlas_TwoMutiple_Key);
             StartCoroutine(StartSliding());
         }
     }
@@ -190,18 +245,26 @@ public class Panel_Reward : PanelBase
     void OnOpenClick()
     {
         AudioManager.Instance.PlayerSound("Button");
+        if (GameManager.Instance.CheckFirstSignin(false))
+        {
+            OnAdopenRewardedCallback();
+            return;
+        }
 #if UNITY_EDITOR
         OnAdopenRewardedCallback();
         return;
 #endif
+#if UNITY_IOS
         if (!GameManager.Instance.GetShowExchange())
         {
             OnAdopenRewardedCallback();
             return;
         }
+#endif
+        clickAdTime++;
         Ads._instance.SetRewardedCallBack(OnAdopenRewardedCallback);
         Ads._instance.adDes = "惊喜礼盒打开";
-        Ads._instance.ShowRewardVideo();
+        Ads._instance.ShowRewardVideo(clickAdTime);
     }
     void OnAdopenRewardedCallback()
     {
@@ -236,6 +299,12 @@ public class Panel_Reward : PanelBase
             case RewardType.ExtraBonusCash:
                 GameManager.Instance.AddCash(result);
                 break;
+            case RewardType.SigninGold:
+                GameManager.Instance.AddGold(result);
+                break;
+            case RewardType.SigninCash:
+                GameManager.Instance.AddCash(result);
+                break;
             default:
                 break;
         }
@@ -243,7 +312,7 @@ public class Panel_Reward : PanelBase
     }
 
     readonly float[] mutiples = new float[5] { 1, 1.5f, 2, 3, 5 };
-    readonly float[] posX = new float[5] { 430, 215, 0, -215, -428 };
+    readonly float[] posX = new float[5] { -535.1305f, -267.3916f, 0.3474121f, 268.0863f, 535.8253f };
     IEnumerator StartSliding()
     {
         AudioSource spinAS = AudioManager.Instance.PlayerSoundLoop("Spin");
@@ -263,83 +332,97 @@ public class Panel_Reward : PanelBase
             Debug.LogError("倍率配置错误 : " + rewardMutiple);
             yield break;
         }
-        float endX = posX[index];
+        int handleIndex = 0;
+        int maxHandleIndex = posX.Length - 1;
         int turns = 2;
-        int slideSpeed = 4000;
+        WaitForSeconds interval = new WaitForSeconds(0.2f);
+        Coroutine lighting = StartCoroutine(StartShiningLight());
         while (true)
         {
-            yield return null;
-            slidervalue1.localPosition += Vector3.left * Time.deltaTime * slideSpeed/2;
-            slidervalue2.localPosition += Vector3.left * Time.deltaTime * slideSpeed/2;
-            if (slidervalue1.localPosition.x <= -1000)
-                slidervalue1.localPosition = slidervalue2.localPosition + Vector3.right * twoSliderInterval;
-            if (slidervalue2.localPosition.x <= -1000)
+            yield return interval;
+            trans_handle.localPosition = new Vector3(posX[handleIndex], 0);
+            handleIndex++;
+            if (handleIndex > maxHandleIndex)
             {
-                slidervalue2.localPosition = slidervalue1.localPosition + Vector3.right * twoSliderInterval;
                 turns--;
-                if (turns == 0)
-                {
-                    slidervalue1.localPosition = new Vector3(endX, 0, 0);
-                    slidervalue2.localPosition = slidervalue1.localPosition + (index < 2 ? Vector3.left : Vector3.right) * twoSliderInterval;
-                    break;
-                }
+                handleIndex = 0;
+            }
+            if (turns < 0 && handleIndex == index)
+            {
+                break;
             }
         }
+        spinAS.Stop();
+        StopCoroutine(lighting);
+        spinAS = null;
         yield return new WaitForSeconds(1);
         GetReward();
-        spinAS.Stop();
-        spinAS = null;
         PanelManager.Instance.ClosePanel(PanelType.Reward);
     }
-    IEnumerator DelayShowNothanks1()
+    IEnumerator DelayShowNothanks(Text needFadeText,float endAlpha=1)
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         float alpha = 0;
         while (true)
         {
             yield return null;
-            alpha += Time.deltaTime/2;
-            if (alpha >= 0.95f)
+            alpha += Time.deltaTime;
+            if (alpha >= endAlpha)
             {
-                text_nothanks1.color = Color.white;
-                text_nothanks1.raycastTarget = true;
+                needFadeText.color = new Color(1, 1, 1, endAlpha);
+                needFadeText.raycastTarget = true;
                 yield break;
             }
-            text_nothanks1.color = new Color(1, 1, 1, alpha);
+            needFadeText.color = new Color(1, 1, 1, alpha);
         }
     }
-    IEnumerator DelayShowNothanks2()
+    IEnumerator DelayShowCloseBtn()
     {
-        yield return new WaitForSeconds(2);
-        float alpha = 0;
+        yield return new WaitForSeconds(1);
+        btn_close.gameObject.SetActive(true);
+    }
+    IEnumerator RotateLight()
+    {
+        float rotateSpeed = 25;
         while (true)
         {
             yield return null;
-            alpha += Time.deltaTime/2;
-            if (alpha >= 0.95f)
-            {
-                text_nothanks2.color = Color.white;
-                text_nothanks2.raycastTarget = true;
-                yield break;
-            }
-            text_nothanks2.color = new Color(1, 1, 1, alpha);
+            trans_bgLight.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime);
+            trans_giftLight.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime);
+        }
+    }
+    IEnumerator StartShiningLight()
+    {
+        Sprite lightA = Atlas.GetSprite(Atlas_Light_A_Key);
+        Sprite lightB = Atlas.GetSprite(Atlas_Light_B_Key);
+        WaitForSeconds wait = new WaitForSeconds(0.2f);
+        bool isLightA = false;
+        while (true)
+        {
+            yield return wait;
+            img_Light.sprite = isLightA ? lightA : lightB;
+            isLightA = !isLightA;
         }
     }
     protected override void Close()
     {
         base.Close();
-        PanelManager.Instance.ClosePanel(PanelType.Reward);
+        OnNothanksClick();
     }
     public override void OnExit()
     {
         base.OnExit();
-        StopCoroutine("DelayShowNothanks");
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
+        StopAllCoroutines();
         if (GameManager.Instance.canGetExtraBonus)
         {
             GameManager.Instance.GetExtraBonus();
             GameManager.Instance.canGetExtraBonus = false;
+        }
+        else if (GameManager.Instance.needRateUs)
+        {
+            PanelManager.Instance.ShowPanel(PanelType.RateUs);
         }
         else
             GameManager.Instance.canRollDice = true;

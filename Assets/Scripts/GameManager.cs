@@ -12,6 +12,8 @@ public enum RewardType
     ExtraBonusGold = 4,
     ExtraBonusCash = 5,
     NoticeBonus = 6,
+    SigninGold = 7,
+    SigninCash = 8,
 }
 public class GameManager : MonoBehaviour
 {
@@ -61,6 +63,8 @@ public class GameManager : MonoBehaviour
     public GameObject coinCollect;
     [HideInInspector]
     public bool loadEnd = false;
+    [HideInInspector]
+    public bool needRateUs = false;
     private void Awake()
     {
         Instance = this;
@@ -451,6 +455,11 @@ public class GameManager : MonoBehaviour
                 RandomReward();
                 currentStep = 0;
                 ChangeSceneBg();
+                if (!save.player.hasRateUs && save.player.showExchange)
+                {
+                    needRateUs = true;
+                    save.player.hasRateUs = true;
+                }
             }
             yield return new WaitForSeconds(0.3f);
             if (i == step - 1)
@@ -465,7 +474,8 @@ public class GameManager : MonoBehaviour
                             GetExtraBonus();
                             canGetExtraBonus = false;
                         }
-                        canRollDice = true;
+                        else
+                            canRollDice = true;
                         break;
                     case 1:
                         panelManager.ShowPanel(PanelType.Jackpot, 0.3f);
@@ -710,8 +720,8 @@ public class GameManager : MonoBehaviour
             if (dice_Rig.angularVelocity == Vector3.zero && dice_Rig.velocity == Vector3.zero)
                 break;
         }
-        canRollDice = true;
         yield return JumpForStep(diceValue);
+        //canRollDice = true;
     }
     public Image img_Scene;
     const int maxSceneIndex = 4;
@@ -750,18 +760,19 @@ public class GameManager : MonoBehaviour
     {
         return save.player.stepToGetExtraBonus;
     }
-    public int GetOfflineEnergyAndNextRevertTime(out int seconds)
+    public int GetOfflineEnergyAndNextRevertTime(out int nextNeedseconds)
     {
         System.DateTime now = System.DateTime.Now;
         System.TimeSpan interval= now- save.player.lastRevertEnergyDate;
         int total = (int)interval.TotalSeconds;
-        seconds = total % SaveManager.PLAYER_SECOND;
+       int  leftseconds = total % SaveManager.PLAYER_SECOND;
         int offlineAddEnergy= total / SaveManager.PLAYER_SECOND;
         save.player.energy += offlineAddEnergy;
         if (offlineAddEnergy > 0)
-            save.player.lastRevertEnergyDate = now.AddSeconds(-seconds);
+            save.player.lastRevertEnergyDate = now.AddSeconds(-leftseconds);
         if (save.player.energy > SaveManager.PLAYER_MAXENERGY)
             save.player.energy = SaveManager.PLAYER_MAXENERGY;
+        nextNeedseconds = SaveManager.PLAYER_SECOND - leftseconds;
         return save.player.energy;
     }
     public int[] GetBrickReward()
@@ -891,10 +902,11 @@ public class GameManager : MonoBehaviour
         save.player.lastSigninDate = now;
         save.player.nextsigninDay++;
     }
-    public bool CheckFirstSignin()
+    public bool CheckFirstSignin(bool setValue)
     {
         bool result = save.player.firstLogin;
-        save.player.firstLogin = false;
+        if (result)
+            save.player.firstLogin = setValue;
         return result;
     }
     public bool GetMusicOn()
@@ -917,11 +929,16 @@ public class GameManager : MonoBehaviour
     }
     public bool GetShowExchange()
     {
+#if UNITY_EDITOR
+        return true;
+#endif
         return save.player.showExchange;
     }
     public void SetShowExchange(bool value)
     {
         save.player.showExchange = value;
+        if (value)
+            SendAdjustPackBEvent();
     }
     Config config;
     int GetConfigIndex()
@@ -1041,6 +1058,13 @@ public class GameManager : MonoBehaviour
         ps_effect2.Play(true);
     }
 
+    public void SendAdjustPackBEvent()
+    {
+#if UNITY_EDITOR
+        return;
+#endif
+        AdjustEventLogger.Instance.AdjustEventNoParam(AdjustEventLogger.TOKEN_packb);
+    }
     public void SendAdjustGameStartEvent()
     {
 #if UNITY_EDITOR

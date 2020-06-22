@@ -32,7 +32,7 @@ public class Panel_Jackpot : PanelBase
         for(int i = 0; i < Reward_Num; i++)
         {
             string spriteName = i.ToString();
-            if (i % 2 == 0)
+            if (!isGoldArray[i])
                 spriteName = canShowExchange ? i + "B" : i + "A";
             Sprite temp = jackpotAltas.GetSprite(spriteName);
             left_Icons[i].GetComponent<Image>().sprite = temp;
@@ -49,9 +49,10 @@ public class Panel_Jackpot : PanelBase
     bool isSpining = false;
     AudioSource spinAS = null;
     RewardType rewardType = RewardType.Null;
-    int[] numArray = new int[Reward_Num] { 5, 500, 25, 10000, 50, 1000, 100, 5000, 10, 0 };
-    bool[] isGoldArray = new bool[Reward_Num] { false, true, false, true, false, true, false, true, false, false };
+    int[] numArray = new int[Reward_Num] { 5, 500, 0, 25, 10000, 50, 1000, 100, 5000, 10 };
+    bool[] isGoldArray = new bool[Reward_Num] { false, true, true, false, true, false, true, false, true, false };
     bool needShowAd = false;
+    int clickAdTime = 0;
     void StartSpin()
     {
         AudioManager.Instance.PlayerSound("Button");
@@ -63,14 +64,17 @@ public class Panel_Jackpot : PanelBase
             OnRewardedCallback();
             return;
 #endif
+#if UNITY_IOS
             if (!GameManager.Instance.GetShowExchange())
             {
                 OnRewardedCallback();
                 return;
             }
+#endif
+            clickAdTime++;
             Ads._instance.SetRewardedCallBack(OnRewardedCallback);
             Ads._instance.adDes = "老虎机的广告";
-            Ads._instance.ShowRewardVideo();
+            Ads._instance.ShowRewardVideo(clickAdTime);
         }
         else
         {
@@ -140,7 +144,7 @@ public class Panel_Jackpot : PanelBase
         Middle,
         Right
     }
-    #region spin
+#region spin
     int rewardIndex_L = 0;
     int rewardIndex_M = 0;
     int rewardIndex_R = 0;
@@ -151,9 +155,9 @@ public class Panel_Jackpot : PanelBase
     {
         float time = 0;
         float maxTime_L = 1;
-        float maxTime_M = 1.1f;
-        float maxTime_R = 1.2f;
-        float spinSpeed = 4000;
+        float maxTime_M = 1.4f;
+        float maxTime_R = 1.8f;
+        float spinSpeed = 8000;
         Vector3 bottomPos = new Vector3(0, Min_Y, 0);
         bool hasSetRewardPos_L = false;
         bool hasSetRewardPos_M = false;
@@ -296,6 +300,8 @@ public class Panel_Jackpot : PanelBase
                 break;
             }
         }
+        spinAS.Stop();
+        spinAS = null;
         yield return new WaitForSeconds(2f);
 
         if (rewardIndex_L == rewardIndex_M && rewardIndex_L == rewardIndex_R)
@@ -313,8 +319,6 @@ public class Panel_Jackpot : PanelBase
             StartCoroutine("DelayShowNothanks");
         }
         btn_Spin.transform.localPosition -= Vector3.down * 40;
-        spinAS.Stop();
-        spinAS = null;
         isSpining = false;
     }
     void ResetRewardIconPos()
@@ -329,7 +333,7 @@ public class Panel_Jackpot : PanelBase
             mid_Icons[i].localPosition = new Vector3(0, Min_Y + i * Interval_Y, 0);
         }
     }
-    #endregion
+#endregion
     protected override void Close()
     {
         base.Close();
@@ -342,6 +346,7 @@ public class Panel_Jackpot : PanelBase
     public override void OnEnter()
     {
         base.OnEnter();
+        clickAdTime = 0;
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
         text_nothanks.color = new Color(1, 1, 1, 0);

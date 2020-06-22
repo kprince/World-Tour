@@ -30,47 +30,61 @@ SpriteAtlas:
       enableTightPacking: 0
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 93a9627aa2498664faf5216b3e71e080, type: 3}
-    totalSpriteSurfaceArea: 4435744
+    - {fileID: 102900000, guid: 4a9763f114d50ea45b137d902da5b24a, type: 3}
+    totalSpriteSurfaceArea: 3430456
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 7b16245043522e34ea2dcc5ba051d99e, type: 3}
+  - {fileID: 21300000, guid: c27cc0614acd4c74ea9b5e508b765a31, type: 3}
   - {fileID: 21300000, guid: d0079ad104bc37e4c99c72cfcc836a16, type: 3}
-  - {fileID: 21300000, guid: 6bf432936b6059d44b31af17cffed3d7, type: 3}
+  - {fileID: 21300000, guid: 16e32a12ae9aefc42b8e67a8bc6b8244, type: 3}
+  - {fileID: 21300000, guid: 61fd3e5205c7b1145958f4d3c80bbf39, type: 3}
+  - {fileID: 21300000, guid: 39006cf297e7fa442a7c67ea94f34e49, type: 3}
+  - {fileID: 21300000, guid: b5582b13af2a8e14faf9431a0d42f699, type: 3}
+  - {fileID: 21300000, guid: 85d01b83ec3d0f14294f52f1ccc18923, type: 3}
+  - {fileID: 21300000, guid: 40e97ac32f0c2964a9912aaadf4f598d, type: 3}
   - {fileID: 21300000, guid: 48ced4a4625fbea4aa60e28fdf622baa, type: 3}
-  - {fileID: 21300000, guid: c888667568409e94795f1d158824f936, type: 3}
+  - {fileID: 21300000, guid: a2a39665f326f5848b372fb6094bda9c, type: 3}
   - {fileID: 21300000, guid: 44d63bf562bc4bc4d8c9f9c4ec6a269c, type: 3}
-  - {fileID: 21300000, guid: 357588c6e6a568b498f581db896f31fe, type: 3}
-  - {fileID: 21300000, guid: 0d5b11f7667198347ab1dfead01377ac, type: 3}
-  - {fileID: 21300000, guid: ed1c35588ff9d02498d7f7b5bc1d555a, type: 3}
-  - {fileID: 21300000, guid: cb45c9397b842b64bba9945f8faef381, type: 3}
-  - {fileID: 21300000, guid: 0bf99f79ecde42445b4c3976fcaf35d0, type: 3}
-  - {fileID: 21300000, guid: e1fb3989daef1ef499414f3de697642c, type: 3}
+  - {fileID: 21300000, guid: 5a1bf0762a72acc4faaaed7930e38ef0, type: 3}
+  - {fileID: 21300000, guid: 816a7b76d8af88f4885bc79ae4e976a4, type: 3}
   - {fileID: 21300000, guid: a2a349994d003fb41aac30f946777942, type: 3}
-  - {fileID: 21300000, guid: 1128aeb9b1113cb49ae6df52d8b4b48d, type: 3}
-  - {fileID: 21300000, guid: 9cc67fc9ee42b204fb469c3f17acb4ae, type: 3}
-  - {fileID: 21300000, guid: 331b068ac0b4adf4f8281922ebbb5d29, type: 3}
   - {fileID: 21300000, guid: f636c91bf6d6e9e469c2085e395c00e1, type: 3}
+  - {fileID: 21300000, guid: 1e1d1b4b8f7748441ae76e07b4c7a342, type: 3}
   - {fileID: 21300000, guid: e0ecc9abcea07714e865e4e458d1e891, type: 3}
-  - {fileID: 21300000, guid: 902d9dcb59ef4774889ebd35e8f6e276, type: 3}
+  - {fileID: 21300000, guid: a8cdbb6c94f59da45907373045385d4b, type: 3}
+  - {fileID: 21300000, guid: e6f808bd03fd1a6409bd931d412d6a81, type: 3}
+  - {fileID: 21300000, guid: e169c31edceb0f34b9981233c36010ff, type: 3}
+  - {fileID: 21300000, guid: ebdd34aeb4f70574d8737cf92f736b52, type: 3}
+  - {fileID: 21300000, guid: be88993f53ce42248827f70068f3df68, type: 3}
+  - {fileID: 21300000, guid: 293b1f4f41ad5304f8184e1463147917, type: 3}
+  - {fileID: 21300000, guid: 02389fafea5f869418d8e547b5054fee, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Mutiple_1
+  - CashA
   - adget
-  - light
+  - ManyCashB
+  - Mutiple_Unknown
+  - pic_background_shuzi
+  - Gold
+  - LightB
+  - Mutiple_5
   - gift
-  - cashA
+  - backgrond_light
   - get
-  - gold
-  - extrabonus
-  - manygoldA
-  - manycashB
-  - manygoldB
-  - manycashA
-  - cashB
-  - handle
-  - sliderBg
-  - congratulations
+  - pic_background_baomadeng
+  - pic_background_tittle
+  - CashB
   - adopen
+  - Mutiple_2
   - ok
-  - sliderNum
+  - pic_icon_xuanzhong
+  - pic_button_exit
+  - Mutiple_1.5
+  - ManyGold
+  - Mutiple_3
+  - LightA
+  - ManyCashA
   m_Tag: RewardPanel
   m_IsVariant: 0

@@ -22,10 +22,12 @@ public class ShowIntersitalAds : MonoBehaviour
     private void InterstitialAdClosedEvent()
     {
         IronSource.Agent.loadInterstitial();
+        AudioManager.Instance.PauseBgm(false);
     }
 
     private void InterstitialAdOpenedEvent()
     {
+        AudioManager.Instance.PauseBgm(true);
     }
 
     private void InterstitialAdClickedEvent()

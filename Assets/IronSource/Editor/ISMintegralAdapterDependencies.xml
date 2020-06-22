@@ -1,5 +1,5 @@
 <dependencies>
-<unityversion>4.3.2</unityversion>
+<unityversion>4.3.2.1</unityversion>
 
     <androidPackages>
     <androidPackage spec="com.ironsource.adapters:mintegraladapter:4.3.2@jar">
@@ -72,7 +72,7 @@
     </androidPackage>
   </androidPackages>
   <iosPods>
-    <iosPod name="IronSourceMintegralAdapter" version="4.3.2.0">
+    <iosPod name="IronSourceMintegralAdapter" version="4.3.2.1">
       <sources>
         <source>https://github.com/CocoaPods/Specs</source>
       </sources>

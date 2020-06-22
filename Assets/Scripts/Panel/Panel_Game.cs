@@ -81,22 +81,26 @@ public class Panel_Game : PanelBase
     void OnSettingClick()
     {
         AudioManager.Instance.PlayerSound("Button");
+        if (!GameManager.Instance.canRollDice) return;
         PanelManager.Instance.ShowPanel(PanelType.Setting);
     }
     void OnSignInClick()
     {
         AudioManager.Instance.PlayerSound("Button");
+        if (!GameManager.Instance.canRollDice) return;
         PanelManager.Instance.ShowPanel(PanelType.Signin);
     }
     void OnGoldClick()
     {
         if (!GameManager.Instance.GetShowExchange()) return;
+        if (!GameManager.Instance.canRollDice) return;
         AudioManager.Instance.PlayerSound("Button");
         PanelManager.Instance.ShowPanel(PanelType.Exchange);
     }
     void OnCashClick()
     {
         if (!GameManager.Instance.GetShowExchange()) return;
+        if (!GameManager.Instance.canRollDice) return;
         AudioManager.Instance.PlayerSound("Button");
         PanelManager.Instance.ShowPanel(PanelType.Exchange);
     }
@@ -151,18 +155,26 @@ public class Panel_Game : PanelBase
     {
         base.OnResume();
         go_signRedpoint.SetActive(GameManager.Instance.CheckCanSignin());
+        if (GameManager.Instance.GetNextSigninDay() > 6)
+        {
+            btn_Signin.gameObject.SetActive(false);
+        }
     }
     public override void OnEnter()
     {
         base.OnEnter();
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
-        if (GameManager.Instance.CheckFirstSignin())
+        if (GameManager.Instance.CheckFirstSignin(true))
         {
             GameManager.Instance.GetExtraBonus();
         }
         img_cashIcon.sprite = GameManager.Instance.GetShowExchange() ?
             gameAltas.GetSprite("cashB") : gameAltas.GetSprite("cashA");
         GameManager.Instance.SetCashBrickTex();
+        if (GameManager.Instance.GetNextSigninDay() > 6)
+        {
+            btn_Signin.gameObject.SetActive(false);
+        }
     }
 }

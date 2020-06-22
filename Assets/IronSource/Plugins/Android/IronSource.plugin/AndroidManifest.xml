@@ -16,11 +16,8 @@
         
         <!--As Requiered By Admob please add your App ID-->
 
-
-      <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID"
-    android:value="ca-app-pub-8287170115208015~8496924890"/>
       <meta-data android:name="applovin.sdk.key"
-             android:value="PbbJng_h8aD16wZWrSaHN5gtVDExorX-b1ywfx8Gal1WlU7kvbWVDpzsPARTTLwex_cbeU8SGZanUXSoA1WDMx"/>
+             android:value="Fs-cUqJfRU6DI-3nHAtCUubM2g2mHMT4kl_2_v9IyohMfXicNfA0eEwvSJ6gvrtpXtmu2TpTdL-QrLAMqwaXPS"/>
 
         <!-- Amazon -->
         <activity android:name="com.amazon.device.ads.AdActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>

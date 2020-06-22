@@ -52,11 +52,12 @@ public class ShowRewardedAds : MonoBehaviour
 
     private void RewardedVideoAdClosedEvent()
     {
-
+        Ads._instance.InvokeGetRewardMethod();
+        AudioManager.Instance.PauseBgm(false);
     }
 
     private void RewardedVideoAdOpenedEvent()
     {
-
+        AudioManager.Instance.PauseBgm(true);
     }
 }

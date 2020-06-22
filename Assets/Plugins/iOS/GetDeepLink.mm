@@ -22,7 +22,7 @@ void getDeepLink(const char *name){
       if (url) {
     NSString* value =url.absoluteString;
           NSLog(@"值 %@", value);
-        UnitySendMessage("Medium", "ReceiveURI", value.UTF8String);
+        UnitySendMessage("DeepLink", "ReceiveURI", value.UTF8String);
       }
     }];
 }

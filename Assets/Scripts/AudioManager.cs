@@ -142,4 +142,11 @@ public class AudioManager : MonoBehaviour
             a.mute = !soundOn;
         }
     }
+    public void PauseBgm(bool value)
+    {
+        if (value)
+            bgm.Pause();
+        else
+            bgm.Play();
+    }
 }

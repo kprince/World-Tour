@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.1
+  bundleVersion: 6
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -167,7 +167,7 @@ PlayerSettings:
     Android: com.LuckyDice.HappyDice.IdleCasualGame.FunDay
     iOS: com.LuckyDice.HappyDice.IdleCasualGame.FunDay
   buildNumber: {}
-  AndroidBundleVersionCode: 1
+  AndroidBundleVersionCode: 6
   AndroidMinSdkVersion: 21
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -256,7 +256,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/Administrator/Desktop/HappyDice.keystore
+  AndroidKeystoreName: C:/Users/Administrator/Desktop/HappyDiceResources/HappyDice.keystore
   AndroidKeyaliasName: happydice
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1

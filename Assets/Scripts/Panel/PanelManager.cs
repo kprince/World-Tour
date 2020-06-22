@@ -13,6 +13,7 @@ public enum PanelType
     Setting,
     Exchange,
     Signin,
+    RateUs,
 }
 public class PanelManager : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class PanelManager : MonoBehaviour
         {(int)PanelType.Setting,"Panel/Panel_Setting" },
         {(int)PanelType.Exchange,"Panel/Panel_Exchange" },
         {(int)PanelType.Signin,"Panel/Panel_Signin" },
+        {(int)PanelType.RateUs,"Panel/Panel_RateUs" },
     };
     private readonly Dictionary<int, GameObject> PanelDic = new Dictionary<int, GameObject>();
 
@@ -163,6 +165,14 @@ public class PanelManager : MonoBehaviour
         {
             Debug.LogError("从未实例化过该面板，也没有显示过");
             return;
+        }
+    }
+    public void CloseTopPanel()
+    {
+        if (PanelStack.Count > 0)
+        {
+            PanelBase tempPanel = PanelStack.Pop();
+            tempPanel.OnExit();
         }
     }
     public void ClearAllPanel()

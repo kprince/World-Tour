@@ -42,7 +42,7 @@ public class Panel_Exchange : PanelBase
             string showNum = string.Empty;
             if (isGold)
             {
-                notice.text = "Reach 1m Gold to redeem the gift card!";
+                notice.text = "Reach 5b Gold to redeem the gift card!";
                 img_icon.sprite = goldSprite;
                 showNum = GameManager.Instance.GetGold().ToString();
             }

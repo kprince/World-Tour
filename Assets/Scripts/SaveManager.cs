@@ -55,7 +55,8 @@ public class SaveManager : MonoBehaviour
                 lastSigninDate = now.AddDays(-1),
                 soundOn = true,
                 musicOn = true,
-                showExchange=false,
+                showExchange = false,
+                hasRateUs = false,
             };
         }
     }
@@ -80,4 +81,5 @@ public class PlayerInfo
     public bool soundOn;
     public bool musicOn;
     public bool showExchange;
+    public bool hasRateUs;
 }
