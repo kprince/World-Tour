@@ -165,13 +165,13 @@ public class Panel_Jackpot : PanelBase
         while (true)
         {
             yield return null;
-            time += Time.deltaTime/2;
+            time += Time.deltaTime/Time.timeScale;
 
             Transform bottom_L_Trans = left_Icons[frontIndex_L];
             Transform bottom_M_Trans = mid_Icons[frontIndex_M];
             Transform bottom_R_Trans = right_Icons[frontIndex_R];
             if (time < maxTime_L)
-                bottom_L_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime/2;
+                bottom_L_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime/Time.timeScale;
             else
             {
                 if (!hasSetRewardPos_L)
@@ -189,7 +189,7 @@ public class Panel_Jackpot : PanelBase
                 }
             }
             if (time < maxTime_M)
-                bottom_M_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime/2;
+                bottom_M_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime/Time.timeScale;
             else
             {
                 if (!hasSetRewardPos_M)
@@ -207,7 +207,7 @@ public class Panel_Jackpot : PanelBase
                 }
             }
             if (time < maxTime_R)
-                bottom_R_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime/2;
+                bottom_R_Trans.localPosition += Vector3.down * spinSpeed * Time.deltaTime/Time.timeScale;
             else
             {
                 if (!hasSetRewardPos_R)
@@ -302,7 +302,7 @@ public class Panel_Jackpot : PanelBase
         }
         spinAS.Stop();
         spinAS = null;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(Time.timeScale);
 
         if (rewardIndex_L == rewardIndex_M && rewardIndex_L == rewardIndex_R)
         {
@@ -372,12 +372,12 @@ public class Panel_Jackpot : PanelBase
     }
     IEnumerator DelayShowNothanks()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(Time.timeScale);
         float alpha = 0;
         while (true)
         {
             yield return null;
-            alpha += Time.deltaTime/2;
+            alpha += Time.deltaTime/ Time.timeScale;
             if (alpha >= 0.95f)
             {
                 text_nothanks.color = Color.white;

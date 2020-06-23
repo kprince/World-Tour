@@ -94,7 +94,7 @@ public class Panel_Exchange : PanelBase
     }
     IEnumerator delayHideTip()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2 * Time.timeScale);
         go_tip.SetActive(false);
     }
     public override void OnEnter()

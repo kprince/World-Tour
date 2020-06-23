@@ -178,7 +178,7 @@ public class IronSourceDependenciesManager : EditorWindow
         var webRequest = unityWebRequest.SendWebRequest();
         while (!webRequest.isDone)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.1f * Time.timeScale);
         }
         if (!unityWebRequest.isHttpError && !unityWebRequest.isNetworkError)
         {
@@ -457,7 +457,7 @@ public class IronSourceDependenciesManager : EditorWindow
         {
             while (!downloadWebClient.isDone)
             {
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.1f * Time.timeScale);
                 if (EditorUtility.DisplayCancelableProgressBar("Download Manager", fileDownloading, downloadWebClient.downloadProgress))
                 {
                     Debug.LogError(downloadWebClient.error);

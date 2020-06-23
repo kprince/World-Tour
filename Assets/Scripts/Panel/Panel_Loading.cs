@@ -21,7 +21,7 @@ public class Panel_Loading : PanelBase
         while (true)
         {
             yield return null;
-            diceIcon.Rotate(Vector3.forward * Time.deltaTime * 500/2);
+            diceIcon.Rotate(Vector3.forward * Time.deltaTime * 500/ Time.timeScale);
         }
     }
     IEnumerator LoadResource()
@@ -47,13 +47,13 @@ public class Panel_Loading : PanelBase
                 loadNum.text = progress/10 + "%";
                 if (GameManager.Instance.GetShowExchange())
                     speed = 10;
-                maxWaitTime -= Time.deltaTime/2;
+                maxWaitTime -= Time.deltaTime/ Time.timeScale;
                 if (maxWaitTime <= 0)
                     speed = 50;
             }
             else
             {
-                time -= Time.deltaTime/2;
+                time -= Time.deltaTime/ Time.timeScale;
                 if (time <= 0)
                 {
                     if (title.activeSelf)
@@ -62,7 +62,7 @@ public class Panel_Loading : PanelBase
                         loadSlider.gameObject.SetActive(false);
                     if (diceIcon.gameObject.activeSelf)
                         diceIcon.gameObject.SetActive(false);
-                    bg.localScale -= Vector3.one * Time.deltaTime/2;
+                    bg.localScale -= Vector3.one * Time.deltaTime/ Time.timeScale;
                     if (bg.localScale.x < 0.775f)
                         break;
                 }

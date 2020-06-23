@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: HappyDice
-  productName: HappyDice
+  companyName: Travel world
+  productName: Travel world
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 6
+  bundleVersion: 1
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -164,10 +164,10 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.LuckyDice.HappyDice.IdleCasualGame.FunDay
+    Android: com.LuckyDice.CashTycoon.IdleGame.LowPolyCausalGame.WorldJourney
     iOS: com.LuckyDice.HappyDice.IdleCasualGame.FunDay
   buildNumber: {}
-  AndroidBundleVersionCode: 6
+  AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 21
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -256,8 +256,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/Administrator/Desktop/HappyDiceResources/HappyDice.keystore
-  AndroidKeyaliasName: happydice
+  AndroidKeystoreName: D:/POLYHOUSE/LuckDice/Travel world.keystore
+  AndroidKeyaliasName: travel world
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
@@ -274,7 +274,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 6fca742354e69e54c8420c30b6342993, type: 3}
+      m_Icon: {fileID: 2800000, guid: 789783da5ea37c947996051f2002e15b, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

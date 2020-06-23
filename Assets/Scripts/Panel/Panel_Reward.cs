@@ -335,7 +335,7 @@ public class Panel_Reward : PanelBase
         int handleIndex = 0;
         int maxHandleIndex = posX.Length - 1;
         int turns = 2;
-        WaitForSeconds interval = new WaitForSeconds(0.2f);
+        WaitForSeconds interval = new WaitForSeconds(0.1f * Time.timeScale);
         Coroutine lighting = StartCoroutine(StartShiningLight());
         while (true)
         {
@@ -355,18 +355,18 @@ public class Panel_Reward : PanelBase
         spinAS.Stop();
         StopCoroutine(lighting);
         spinAS = null;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f * Time.timeScale);
         GetReward();
         PanelManager.Instance.ClosePanel(PanelType.Reward);
     }
     IEnumerator DelayShowNothanks(Text needFadeText,float endAlpha=1)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1 * Time.timeScale);
         float alpha = 0;
         while (true)
         {
             yield return null;
-            alpha += Time.deltaTime;
+            alpha += Time.deltaTime/Time.timeScale;
             if (alpha >= endAlpha)
             {
                 needFadeText.color = new Color(1, 1, 1, endAlpha);
@@ -378,7 +378,7 @@ public class Panel_Reward : PanelBase
     }
     IEnumerator DelayShowCloseBtn()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1 * Time.timeScale);
         btn_close.gameObject.SetActive(true);
     }
     IEnumerator RotateLight()
@@ -387,15 +387,15 @@ public class Panel_Reward : PanelBase
         while (true)
         {
             yield return null;
-            trans_bgLight.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime);
-            trans_giftLight.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime);
+            trans_bgLight.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime/ Time.timeScale);
+            trans_giftLight.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime/ Time.timeScale);
         }
     }
     IEnumerator StartShiningLight()
     {
         Sprite lightA = Atlas.GetSprite(Atlas_Light_A_Key);
         Sprite lightB = Atlas.GetSprite(Atlas_Light_B_Key);
-        WaitForSeconds wait = new WaitForSeconds(0.2f);
+        WaitForSeconds wait = new WaitForSeconds(0.1f*Time.timeScale);
         bool isLightA = false;
         while (true)
         {

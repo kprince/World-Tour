@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 3555905ec19538f4aac0f6f4e3b59d7f, type: 3}
-    totalSpriteSurfaceArea: 454592
+    totalSpriteSurfaceArea: 351560
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -40,9 +40,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: db139db4524b9314baae99e170c99c52, type: 3}
   - {fileID: 21300000, guid: 0a24dd350c6e86d4d8dec0919b9ebf65, type: 3}
   - {fileID: 21300000, guid: cf8af2f63409b23419b888ebcdf2a126, type: 3}
-  - {fileID: 21300000, guid: be0b2f182a5236d41859f162a01ecc6d, type: 3}
-  - {fileID: 21300000, guid: f567be79e09b2634b8ed1ed23d0b04fe, type: 3}
   - {fileID: 21300000, guid: 6c362ae92b596d048930664959e0ba8e, type: 3}
+  - {fileID: 21300000, guid: 804d472bde1a4cc499779484408b6680, type: 3}
   - {fileID: 21300000, guid: 819591bb4349ca44c827cc839934ba93, type: 3}
   - {fileID: 21300000, guid: 2057b28eb18167844849212c05a03ac1, type: 3}
   - {fileID: 21300000, guid: 3432eedeb4bae21448814dbc54d4263f, type: 3}
@@ -53,9 +52,8 @@ SpriteAtlas:
   - cashB
   - 4
   - 6
-  - 8
-  - 9
   - 11
+  - 8
   - cashA
   - 3
   - 2

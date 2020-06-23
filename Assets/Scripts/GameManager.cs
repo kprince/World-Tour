@@ -22,16 +22,75 @@ public class GameManager : MonoBehaviour
     private PanelManager panelManager;
     private new AudioManager audio;
     public string notice = string.Empty;
-    public Transform player_Trans;
+    public Transform car_Trans;
     public Transform dice_Trans;
     private Rigidbody dice_Rig;
-    private Animator player_Animator;
-    public List<GameObject> Go_bricks = new List<GameObject>();
+    private Animator car_Animator;
+    Vector3[] bricks_Pos = new Vector3[28]
+    {
+        new Vector3(-9.79f,0,-5.67f),//0
+        new Vector3(-11.9f,0,-7.96f),//1
+        new Vector3(-14.17f,0,-10.13f),//2
+        new Vector3(-16.52f,0,-12.37f),//3
+        new Vector3(-18.87f,0,-13.62f),//4 左中+z
+        new Vector3(-21.26f,0,-12.48f),//5
+        new Vector3(-23.48f,0,-10.23f),//6
+        new Vector3(-25.77f,0,-7.98f),//7
+        new Vector3(-27.92f,0,-5.8f),//8
+        new Vector3(-30.23f,0,-3.52f),//9
+        new Vector3(-32.43f,0,-1.32f),//10
+        new Vector3(-33.62f,0,1.129f),//11 中上+x
+        new Vector3(-32.48f,0,3.503f),//12
+        new Vector3(-30.201f,0,5.715f),//13
+        new Vector3(-27.903f,0,8.003f),//14
+        new Vector3(-25.7f,0,10.215f),//15
+        new Vector3(-23.421f,0,12.522f),//16
+        new Vector3(-21.209f,0,14.715f),//17
+        new Vector3(-18.825f,0,16f),//18右中 -z
+        new Vector3(-16.403f,0,14.791f),//19
+        new Vector3(-14.134f,0,12.531f),//20
+        new Vector3(-11.855f,0,10.252f),//21
+        new Vector3(-9.728f,0,8.077f),//22
+        new Vector3(-7.468f,0,5.855f),//23
+        new Vector3(-5.208f,0,3.605f),//24
+        new Vector3(-4.04f,0,1.174f),//25中下-x
+        new Vector3(-5.265f,0,-1.168f),//26
+        new Vector3(-7.527f,0,-3.43f)//27
+    };
+    Quaternion[] car_step_rotation = new Quaternion[28]
+    {
+        new Quaternion(0,-0.9f,0,0.4f ),//左下
+        new Quaternion(0,-0.9f,0,0.4f ),//左下
+        new Quaternion(0,-0.9f,0,0.4f ),//左下
+        new Quaternion(0,-0.9f,0,0.4f ),//左下
+        new Quaternion(0,-0.7f,0,0.7f) ,//左中
+        new Quaternion(0,-0.4f,0,0.9f) ,//左上
+        new Quaternion(0,-0.4f,0,0.9f) ,//左上
+        new Quaternion(0,-0.4f,0,0.9f) ,//左上
+        new Quaternion(0,-0.4f,0,0.9f) ,//左上
+        new Quaternion(0,-0.4f,0,0.9f) ,//左上
+        new Quaternion(0,-0.4f,0,0.9f) ,//左上
+        new Quaternion(0,0,0,1) ,         //中上
+        new Quaternion(0,0.4f,0,0.9f) ,//右上
+        new Quaternion(0,0.4f,0,0.9f) ,//右上
+        new Quaternion(0,0.4f,0,0.9f) ,//右上
+        new Quaternion(0,0.4f,0,0.9f) ,//右上
+        new Quaternion(0,0.4f,0,0.9f) ,//右上
+        new Quaternion(0,0.4f,0,0.9f) ,//右上
+        new Quaternion(0,0.7f,0,0.7f) ,//右中
+        new Quaternion(0,-0.9f,0,-0.4f) ,//右下
+        new Quaternion(0,-0.9f,0,-0.4f) ,//右下
+        new Quaternion(0,-0.9f,0,-0.4f) ,//右下
+        new Quaternion(0,-0.9f,0,-0.4f) ,//右下
+        new Quaternion(0,-0.9f,0,-0.4f) ,//右下
+        new Quaternion(0,-0.9f,0,-0.4f) ,//右下
+        new Quaternion(0,-1,0,0) ,         //中下
+        new Quaternion(0,-0.9f,0,0.4f ) ,//左下
+        new Quaternion(0,-0.9f,0,0.4f ) ,//左下
+    };
     public List<int> cornor_index = new List<int>();
-    /// <summary>
     /// 0灰黄色1蓝色2绿色3蛋黄色
-    /// </summary>
-    public List<Material> Mat_bricks = new List<Material>();
+    //public List<Material> Mat_bricks = new List<Material>();
     private readonly Dictionary<int, int> brick_reward_Dic = new Dictionary<int, int>();
     private readonly Dictionary<int, GameObject> brick_rewardGo_Dic = new Dictionary<int, GameObject>();
     public Transform specialBrickParent;
@@ -68,7 +127,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Time.timeScale = 2;
+        Time.timeScale =4;
         panelManager = GetComponent<PanelManager>();
         config = Resources.Load<Config>("Config");
         save = GetComponent<SaveManager>();
@@ -79,63 +138,18 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         audio = GetComponent<AudioManager>();
         dice_Rig = dice_Trans.GetComponent<Rigidbody>();
-        player_Animator = player_Trans.GetComponent<Animator>();
+        car_Animator = car_Trans.GetComponent<Animator>();
+        car_Animator.SetFloat("Speed", IdleAnimationSpeed);
         audio.Init(save.player.musicOn);
         panelManager.PreLoadPanel(PanelType.Game);
     }
     private void Start()
     {
-        player_Trans.localScale = player_OriginScale;
+        car_Trans.localScale = player_OriginScale;
         currentStep = save.player.step;
-        Vector3 endPos = player_StartPos;
-        int rot = 0;
-        for (int i = 1; i <= currentStep; i++)
-        {
-            if (i <= cornor_index[0])
-                endPos.z += Z_ps;
-            else if (i > cornor_index[0] && i <= cornor_index[1])
-            {
-                rot = 1;
-                endPos.x -= X_ps;
-            }
-            else if (i > cornor_index[1] && i <= cornor_index[2])
-            {
-                rot = 2;
-                endPos.z -= Z_ps;
-            }
-            else if (i > cornor_index[2] && i <= cornor_index[3])
-            {
-                rot = 3;
-                endPos.x += X_ps;
-            }
-            else
-            {
-                rot = 4;
-                endPos.z += Z_ps;
-            }
-        }
-        switch (rot)
-        {
-            case 0:
-            case 4:
-                player_Trans.rotation = player_RightRotation;
-                break;
-            case 1:
-                player_Trans.rotation = player_UpRotation;
-                break;
-            case 2:
-                player_Trans.rotation = player_LeftRotation;
-                break;
-            case 3:
-                player_Trans.rotation = player_DownRotation;
-                break;
-            default:
-                player_Trans.rotation = player_RightRotation;
-                break;
-        }
-        player_Trans.position = endPos;
-        dice_Trans.position = dice_StartPos;
-        dice_Trans.rotation = dice_StartRotation;
+        car_Trans.position = bricks_Pos[currentStep];
+        car_Trans.rotation = car_step_rotation[currentStep];
+        dice_Trans.gameObject.SetActive(false);
         brick_reward = save.player.brickReward;
         brick_reward_get = save.player.brickRewardGet;
         prefab_gold = Resources.Load<GameObject>("SpecialBrick/GoldBrick");
@@ -178,7 +192,6 @@ public class GameManager : MonoBehaviour
             for (int i = 1; i < brick_reward.Length; i++)
             {
                 int rewardType = brick_reward[i];
-                Go_bricks[i].GetComponent<MeshRenderer>().material = Mat_bricks[rewardType];
                 switch (rewardType)
                 {
                     case 1:
@@ -190,7 +203,7 @@ public class GameManager : MonoBehaviour
                         if (brick_reward_get[i])
                             break;
                         GameObject tempJackpot = go_jackpots[jackpotsgoIndex];
-                        tempJackpot.transform.position = Go_bricks[i].transform.position;
+                        tempJackpot.transform.position = bricks_Pos[i];
                         tempJackpot.SetActive(true);
                         brick_reward_Dic.Add(i, 1);
                         brick_rewardGo_Dic.Add(i, tempJackpot);
@@ -205,7 +218,7 @@ public class GameManager : MonoBehaviour
                         if (brick_reward_get[i])
                             break;
                         GameObject tempCash = go_cashs[cashgoIndex];
-                        tempCash.transform.position = Go_bricks[i].transform.position;
+                        tempCash.transform.position = bricks_Pos[i];
                         tempCash.SetActive(true);
                         brick_reward_Dic.Add(i, 2);
                         brick_rewardGo_Dic.Add(i, tempCash);
@@ -220,7 +233,7 @@ public class GameManager : MonoBehaviour
                         if (brick_reward_get[i])
                             break;
                         GameObject tempGold = go_golds[goldgoIndex];
-                        tempGold.transform.position = Go_bricks[i].transform.position;
+                        tempGold.transform.position = bricks_Pos[i];
                         tempGold.SetActive(true);
                         brick_reward_Dic.Add(i, 3);
                         brick_rewardGo_Dic.Add(i, tempGold);
@@ -230,8 +243,6 @@ public class GameManager : MonoBehaviour
                         break;
                 }
             }
-
-        img_Scene.sprite = Resources.Load<Sprite>("Scenes/Scene" + save.player.sceneIndex);
     }
     public void SetCashBrickTex()
     {
@@ -246,12 +257,7 @@ public class GameManager : MonoBehaviour
             go_cashs[i].GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", cashTex);
         }
     }
-    static readonly Vector3 player_StartPos = new Vector3(3.42f, -0.131f, -2.14f);
-    static readonly Quaternion player_LeftRotation = new Quaternion(0, 1, 0.2f, 0);
-    static readonly Quaternion player_RightRotation = new Quaternion(0.2f, 0, 0, 1);
-    static readonly Quaternion player_UpRotation = new Quaternion(0.2f, -0.7f, -0.2f, 0.7f);
-    static readonly Quaternion player_DownRotation = new Quaternion(0.2f, 0.7f, 0.2f, 0.7f);
-    static readonly Vector3 player_OriginScale = new Vector3(102.954f, 102.954f, 102.954f);
+    static readonly Vector3 player_OriginScale = new Vector3(1.48f, 1.48f, 1.48f);
     void RandomReward()
     {
         brick_reward_Dic.Clear();
@@ -278,7 +284,7 @@ public class GameManager : MonoBehaviour
         int goldNum = Random.Range(5, 9);
         int cashNum = Random.Range(1, 3);
         int jackpotNum = Random.Range(1, 3);
-        int totalBrick = Go_bricks.Count;
+        int totalBrick = bricks_Pos.Length;
 
         for (int i = 0; i < brick_reward.Length; i++)
             brick_reward[i] = (int)RewardType.Null;
@@ -296,7 +302,7 @@ public class GameManager : MonoBehaviour
                     brick_rewardGo_Dic.Add(rewardPos, goldGo);
                     brick_reward[rewardPos] = (int)RewardType.Gold;
                     //实例化
-                    goldGo.transform.position = Go_bricks[rewardPos].transform.position;
+                    goldGo.transform.position = bricks_Pos[rewardPos];
                     goldGo.SetActive(true);
                     goldgoIndex++;
                     break;
@@ -317,7 +323,7 @@ public class GameManager : MonoBehaviour
                     brick_rewardGo_Dic.Add(rewardPos, cashGo);
                     brick_reward[rewardPos] = (int)RewardType.Cash;
                     //实例化
-                    cashGo.transform.position = Go_bricks[rewardPos].transform.position;
+                    cashGo.transform.position = bricks_Pos[rewardPos];
                     cashGo.SetActive(true);
                     cashgoIndex++;
                     break;
@@ -338,162 +344,97 @@ public class GameManager : MonoBehaviour
                     brick_rewardGo_Dic.Add(rewardPos, jackpotGo);
                     brick_reward[rewardPos] = (int)RewardType.Jackpot;
                     //实例化
-                    jackpotGo.transform.position = Go_bricks[rewardPos].transform.position;
+                    jackpotGo.transform.position = bricks_Pos[rewardPos];
                     jackpotGo.SetActive(true);
                     jackpotsgoIndex++;
                     break;
                 }
             }
         }
-
-        for (int i = 1; i < brick_reward.Length; i++)
-        {
-            Go_bricks[i].GetComponent<MeshRenderer>().material = Mat_bricks[brick_reward[i]];
-        }
     }
     int currentStep = 0;
-    const float X_ps = 0.95646f;
-    const float Z_ps = 1;
-    const float Y_Max = 0.45f;//0.45f
-    IEnumerator JumpForStep(int step)
+    float IdleAnimationSpeed = 1;
+    float MoveAnimationSpeed = 1.5f;
+    float OneStepNeedStep = 0.5f;
+    IEnumerator MoveByStep(int step)
     {
-        player_Animator.SetBool("Jump", true);
-        int cornorIndex1 = cornor_index[0];
-        int cornorIndex2 = cornor_index[1];
-        int cornorIndex3 = cornor_index[2];
-        int cornorIndex4 = cornor_index[3];
+        car_Animator.SetFloat("Speed", MoveAnimationSpeed);
+        float timer = 0;
+        Vector3 startPos;
+        Vector3 endPos;
+        Quaternion startRot;
+        Quaternion endRot;
+
         for(int i = 0; i < step; i++)
         {
-            audio.PlayerSound("Jump");
-            Vector3 oldPos = player_Trans.position;
-            //Z轴跳跃
-            if (currentStep < cornorIndex1 || (currentStep >= cornorIndex2 && currentStep < cornorIndex3) || currentStep >= cornorIndex4)
-            {
-                if (currentStep == cornorIndex2)
-                    player_Trans.rotation = player_LeftRotation;
-                if (currentStep == cornorIndex4)
-                    player_Trans.rotation = player_RightRotation;
-                float offsetZ;
-                if (currentStep >= cornorIndex2 && currentStep < cornorIndex3)
-                    offsetZ = -Z_ps;
-                else
-                    offsetZ = Z_ps;
-                Vector3 midPos = new Vector3(oldPos.x, player_StartPos.y + Y_Max, oldPos.z + offsetZ / 2);
-                while (true)
-                {
-                    player_Trans.position = Vector3.Lerp(player_Trans.position, midPos, 0.5f);
-                    yield return null;
-                    if (Vector3.Distance(player_Trans.position, midPos) < 0.02f)
-                        break;
-                }
-
-                if (i == step - 1)
-                {
-                    if (brick_rewardGo_Dic.ContainsKey(currentStep + 1))
-                    {
-                        brick_rewardGo_Dic[currentStep + 1].SetActive(false);
-                        brick_reward_get[currentStep + 1] = true;
-                    }
-                }
-
-                Vector3 endPos = new Vector3(oldPos.x, player_StartPos.y, oldPos.z + offsetZ);
-                while (true)
-                {
-                    player_Trans.position = Vector3.Lerp(player_Trans.position, endPos, 0.5f);
-                    yield return null;
-                    if (Vector3.Distance(player_Trans.position, endPos) < 0.02f)
-                        break;
-                }
-            }
-            //X轴跳跃
-            else
-            {
-                if (currentStep == cornorIndex1)
-                    player_Trans.rotation = player_UpRotation;
-                if (currentStep == cornorIndex3)
-                    player_Trans.rotation = player_DownRotation;
-                float offsetX;
-                if (currentStep >= cornorIndex1 && currentStep < cornorIndex2)
-                    offsetX = -X_ps;
-                else
-                    offsetX = X_ps;
-                Vector3 midPos = new Vector3(oldPos.x + offsetX / 2, player_StartPos.y + Y_Max, oldPos.z);
-                while (true)
-                {
-                    player_Trans.position = Vector3.Lerp(player_Trans.position, midPos, 0.5f);
-                    yield return null;
-                    if (Vector3.Distance(player_Trans.position, midPos) < 0.02f)
-                        break;
-                }
-
-
-                if (i == step - 1)
-                {
-                    if (brick_rewardGo_Dic.ContainsKey(currentStep + 1))
-                    {
-                        brick_rewardGo_Dic[currentStep + 1].SetActive(false);
-                        brick_reward_get[currentStep + 1] = true;
-                    }
-                }
-
-                Vector3 endPos = new Vector3(oldPos.x + offsetX, player_StartPos.y, oldPos.z);
-                while (true)
-                {
-                    player_Trans.position = Vector3.Lerp(player_Trans.position, endPos, 0.5f);
-                    yield return null;
-                    if (Vector3.Distance(player_Trans.position, endPos) < 0.02f)
-                        break;
-                }
-
-            }
-            currentStep++;
-            if (currentStep > Go_bricks.Count - 1)
-            {
-                player_Trans.position = player_StartPos;
-                player_Trans.rotation = player_RightRotation;
-                GetExtraBonus();
-                RandomReward();
+            timer = 0;
+            if (currentStep > bricks_Pos.Length - 1)
                 currentStep = 0;
-                ChangeSceneBg();
-                if (!save.player.hasRateUs && save.player.showExchange)
-                {
-                    needRateUs = true;
-                    save.player.hasRateUs = true;
-                }
-            }
-            yield return new WaitForSeconds(0.3f);
-            if (i == step - 1)
+            int nextStep = currentStep + 1;
+            if (nextStep > bricks_Pos.Length - 1)
+                nextStep = 0;
+            startPos = bricks_Pos[currentStep];
+            startRot = car_step_rotation[currentStep];
+            endPos = bricks_Pos[nextStep];
+            endRot = car_step_rotation[nextStep];
+            while (timer<OneStepNeedStep)
             {
-                //获得奖励
-                int rewardType = brick_reward[currentStep];
-                switch (rewardType)
-                {
-                    case 0:
-                        if (canGetExtraBonus && currentStep != 0)
-                        {
-                            GetExtraBonus();
-                            canGetExtraBonus = false;
-                        }
-                        else
-                            canRollDice = true;
-                        break;
-                    case 1:
-                        panelManager.ShowPanel(PanelType.Jackpot, 0.3f);
-                        break;
-                    case 2:
-                        GetSpecialPropsRandom(false);
-                        panelManager.ShowPanel(PanelType.Reward, 0.3f);
-                        break;
-                    case 3:
-                        GetSpecialPropsRandom(true);
-                        panelManager.ShowPanel(PanelType.Reward, 0.3f);
-                        break;
-                    default:
-                        break;
-                }
+                yield return null;
+                timer += Time.deltaTime/ Time.timeScale;
+                float progress = timer / OneStepNeedStep;
+                car_Trans.position = Vector3.Lerp(startPos, endPos, progress);
+                car_Trans.rotation = Quaternion.Lerp(startRot, endRot, progress);
+            }
+            car_Trans.position = endPos;
+            car_Trans.rotation = endRot;
+            currentStep = nextStep;
+        }
+        if (currentStep ==0)
+        {
+            GetExtraBonus();
+            RandomReward();
+            currentStep = 0;
+            ChangeSceneBg();
+            if (!save.player.hasRateUs && save.player.showExchange)
+            {
+                needRateUs = true;
+                save.player.hasRateUs = true;
             }
         }
-        player_Animator.SetBool("Jump", false);
+        yield return new WaitForSeconds(0.3f * Time.timeScale);
+        //获得奖励
+        int rewardType = brick_reward[currentStep];
+        if (brick_rewardGo_Dic.ContainsKey(currentStep))
+        {
+            brick_rewardGo_Dic[currentStep].SetActive(false);
+            brick_reward_get[currentStep] = true;
+        }
+        switch (rewardType)
+        {
+            case 0:
+                if (canGetExtraBonus && currentStep != 0)
+                {
+                    GetExtraBonus();
+                    canGetExtraBonus = false;
+                }
+                else
+                    canRollDice = true;
+                break;
+            case 1:
+                panelManager.ShowPanel(PanelType.Jackpot, 0.3f);
+                break;
+            case 2:
+                GetSpecialPropsRandom(false);
+                panelManager.ShowPanel(PanelType.Reward, 0.3f);
+                break;
+            case 3:
+                GetSpecialPropsRandom(true);
+                panelManager.ShowPanel(PanelType.Reward, 0.3f);
+                break;
+            default:
+                break;
+        }
+        car_Animator.SetFloat("Speed", IdleAnimationSpeed);
     }
     readonly List<int> nullList = new List<int>();
     readonly List<int> jackpotList = new List<int>();
@@ -519,7 +460,7 @@ public class GameManager : MonoBehaviour
         int maxCash = -1;
         int minGold = -1;
         int maxGold = -1;
-        if (currentStep < Go_bricks.Count - 6)
+        if (currentStep < bricks_Pos.Length - 6)
         {
             for (int i = currentStep + 1; i <= currentStep + 6; i++)
             {
@@ -550,7 +491,7 @@ public class GameManager : MonoBehaviour
         {
             nullList.Add(0);
             hasNull = true;
-            for(int i = currentStep + 1; i < Go_bricks.Count; i++)
+            for(int i = currentStep + 1; i < bricks_Pos.Length; i++)
             {
                 int rewardType = brick_reward[i];
                 if (rewardType == 0)
@@ -637,96 +578,71 @@ public class GameManager : MonoBehaviour
             }
         }
         if (step == 0)
-            step = Go_bricks.Count - currentStep;
+            step = bricks_Pos.Length - currentStep;
         else
             step -= currentStep;
         //Debug.Log("步数 : " + step);
         return step;
     }
-    static readonly Vector3 dice_StartPos = new Vector3(0.18f, 3.04f, -11.79f);
-    static readonly Quaternion dice_StartRotation = new Quaternion(0.5f, -0.5f, 0.5f, 0f);
-    public Vector3 dice_anglarV;
-    public Vector3 dice_moveV;
-    static readonly Vector3[][,] dice_angular_move_V = new Vector3[][,]
+    Vector3 dice_StartPos = new Vector3(16.15f, 20.02f, 1.28f);
+    Quaternion[] dice_startRotations = new Quaternion[6]
     {
-        //骰子1
-        new Vector3[,]
-        {
-            { new Vector3(10, 0 , 0) , new Vector3(0,0,8) },
-            { new Vector3(8, 2,2),new Vector3(0,0,8) },
-            { new Vector3(10,5,-5),new Vector3(0,0,7) },
-        },
-        //骰子2
-        new Vector3[,]
-        {
-            { new Vector3(5, 5, 10),new Vector3(0, 0, 8)},
-            { new Vector3(10, 10, 10),new Vector3(0, 0, 8) },
-            { new Vector3(0,0,10),new Vector3(0,0,6) },
-            { new Vector3(10,10,10), new Vector3(0,0,6)},
-            { new Vector3(5,5,-5),new Vector3(0,0,8) },
-        },
-        //骰子3
-        new Vector3[,]
-        {
-            { new Vector3(10,0,0), new Vector3(0,0,7) },
-            { new Vector3(10,0,-5),new Vector3(0,0,7) },
-            { new Vector3(10,-5,0),new Vector3(0,0,9) },
-            { new Vector3(5,5,-1),new Vector3(-2,0,8) },
-        },
-        //骰子4
-        new Vector3[,]
-        {
-            { new Vector3(0, 0, 10),new Vector3(0, 0, 8) },
-            { new Vector3(0, 0, 10),new Vector3(0, 0, 7) },
-            { new Vector3(10,5,0),new Vector3(0,0,7) },
-            { new Vector3(5,-5,5), new Vector3(0,0,6)},
-        },
-        //骰子5
-        new Vector3[,]
-        {
-            { new Vector3(10,0,0), new Vector3(0,0,9)},
-            {new Vector3(10,0,-10),  new Vector3(0,0,7)},
-            { new Vector3(2,-5,2),new Vector3(0,0,7)},
-            {new Vector3(5,5,0), new Vector3(0,0,11)},
-        },
-        //骰子6
-        new Vector3[,]
-        {
-            { new Vector3(5,0,-10), new Vector3(0, 0, 7) },
-            {new Vector3(10,-5,5),new Vector3(0,0,8) },
-            { new Vector3(3,0,0),new Vector3(-1,0,7)},
-        }
+        new Quaternion(-0.5f,1.32f,2.49f,0),
+        new Quaternion(0.47f,0.6f,0.2f,-0.25f),
+        new Quaternion(-0.5f,1.32f,0.63f,0),
+        new Quaternion(-0.36f,-0.59f,-0.58f,-0.25f),
+        new Quaternion(-0.7f,-0.6f,0.2f,-0.95f),
+        new Quaternion(0.1f,0.89f,-0.49f,1)
+    };
+    Vector3[] dice_startAngleDir = new Vector3[6]
+    {
+        new Vector3(0.55f,0,1.87f),
+        new Vector3(-0.28f,0,1.92f),
+        new Vector3(0.55f,0,1.87f),
+        new Vector3(-0.5f,0,1.87f),
+        new Vector3(0.15f,0,2.99f),
+        new Vector3(0.55f,0,1.87f),
+    };
+    Vector3[] dice_startMoveDir = new Vector3[6]
+    {
+        new Vector3(-14.03f,0,0),
+        new Vector3(-12,0,0),
+        new Vector3(-10.4f,0,0),
+        new Vector3(-11.01f,0,0),
+        new Vector3(-12.45f,0,0),
+        new Vector3(-12.3f,0,0)
     };
     public void RollDice()
     {
         if (!canRollDice) return;
         SendAdjustDiceEvent();
         canRollDice = false;
-        dice_Trans.position = dice_StartPos;
-        dice_Trans.rotation = dice_StartRotation;
         int diceValue = RandomStep();
         StartCoroutine(RollDice(diceValue));
     }
     public bool canRollDice = true;
     IEnumerator RollDice(int diceValue)
     {
-        Vector3[,] tempDiceData = dice_angular_move_V[diceValue - 1];
-        int randomIndex = Random.Range(0, tempDiceData.Rank);
-        dice_Rig.angularVelocity = tempDiceData[randomIndex, 0];
-        dice_Rig.velocity = tempDiceData[randomIndex, 1];
+        dice_Rig.isKinematic = false;
+        dice_Trans.position = dice_StartPos;
+        dice_Trans.rotation = dice_startRotations[diceValue-1];
+        dice_Trans.gameObject.SetActive(true);
+        dice_Rig.angularVelocity = dice_startAngleDir[diceValue-1];
+        dice_Rig.velocity = dice_startMoveDir[diceValue-1];
         while (true)
         {
             yield return null;
             if (dice_Rig.angularVelocity == Vector3.zero && dice_Rig.velocity == Vector3.zero)
                 break;
         }
-        yield return JumpForStep(diceValue);
+        yield return MoveByStep(diceValue);
         //canRollDice = true;
     }
     public Image img_Scene;
     const int maxSceneIndex = 4;
     void ChangeSceneBg()
     {
+        return;
         save.player.sceneIndex++;
         if (save.player.sceneIndex > maxSceneIndex)
             save.player.sceneIndex = 0;

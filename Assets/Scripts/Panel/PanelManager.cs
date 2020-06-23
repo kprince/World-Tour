@@ -210,7 +210,7 @@ public class PanelManager : MonoBehaviour
     }
     IEnumerator ShowPanelDelay(PanelType panel,float delayTime)
     {
-        yield return new WaitForSeconds(delayTime*2);
+        yield return new WaitForSeconds(delayTime * Time.timeScale);
         ShowPanel(panel);
     }
     public GameObject GetPanel(PanelType panel)

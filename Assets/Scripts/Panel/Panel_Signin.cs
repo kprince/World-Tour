@@ -174,7 +174,7 @@ public class Panel_Signin : PanelBase
         int maxHandleIndex = posX.Length - 1;
         int turns = 2;
         bool isLightA = false;
-        WaitForSeconds interval = new WaitForSeconds(0.2f);
+        WaitForSeconds interval = new WaitForSeconds(0.1f * Time.timeScale);
         while (true)
         {
             yield return interval;
@@ -223,7 +223,7 @@ public class Panel_Signin : PanelBase
             }
             if (!shake) continue;
             onetimer++;
-            todayTransform.Rotate(new Vector3(0, 0, speed * Time.deltaTime));
+            todayTransform.Rotate(new Vector3(0, 0, speed * Time.deltaTime/ Time.timeScale));
             if (!hasComp&& onetimer >= oneturns/2)
             {
                 speed = -speed;

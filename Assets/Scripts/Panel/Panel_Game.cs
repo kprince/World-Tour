@@ -108,7 +108,7 @@ public class Panel_Game : PanelBase
     {
         while (true)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(Time.timeScale);
             if (nextEnergyTime == 1)
             {
                 int currentEnergy = GameManager.Instance.AddEnergyNatural();

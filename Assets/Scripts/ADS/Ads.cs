@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class Ads : MonoBehaviour
 {
 #if UNITY_ANDROID
-	private const string APP_KEY = "c7df148d";
+	private const string APP_KEY = "c9e51615";
 #elif UNITY_IOS
-	private const string APP_KEY = "c63c67d5";
+	private const string APP_KEY = "c9e4dc8d";
 #endif
 	public static Ads _instance;
 	public string adDes = string.Empty;
@@ -86,7 +86,7 @@ public class Ads : MonoBehaviour
 		int timeOut = 6;
 		while (timeOut > 0)
 		{
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(Time.timeScale);
 			timeOut--;
 			content.Append('.');
 			noticeText.text = content.ToString();
@@ -102,13 +102,13 @@ public class Ads : MonoBehaviour
 		{
 			PanelManager.Instance.CloseTopPanel();
 			noticeText.text = text;
-			yield return new WaitForSeconds(2);
+			yield return new WaitForSeconds(2 * Time.timeScale);
 		}
 		notice.SetActive(false);
 	}
 	IEnumerator AutoHideNotice(float time)
 	{
-		yield return new WaitForSeconds(time);
+		yield return new WaitForSeconds(time * Time.timeScale);
 		notice.SetActive(false);
 	}
 	Action rewardCallback;
