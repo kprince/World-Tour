@@ -77,7 +77,7 @@ public class AdjustEventLogger : MonoBehaviour
 //#endif
         }
     }
-    private string AppName = "A013_dice";
+    private string AppName = Ads.AppName;
     private string ifa;
     private IEnumerator CheckAttributeTo()
     {

@@ -377,7 +377,7 @@ public class Panel_Jackpot : PanelBase
         while (true)
         {
             yield return null;
-            alpha += Time.deltaTime/ Time.timeScale;
+            alpha += 0.02f;
             if (alpha >= 0.95f)
             {
                 text_nothanks.color = Color.white;

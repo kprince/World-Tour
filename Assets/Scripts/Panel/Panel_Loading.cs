@@ -8,31 +8,19 @@ public class Panel_Loading : PanelBase
 {
     public Slider loadSlider;
     public Text loadNum;
-    public Transform diceIcon;
     public Transform bg;
-    public GameObject title;
     protected override void Awake()
     {
         loadSlider.value = 0;
         StartCoroutine(LoadResource());
     }
-    IEnumerator AutoRotateDice()
-    {
-        while (true)
-        {
-            yield return null;
-            diceIcon.Rotate(Vector3.forward * Time.deltaTime * 500/ Time.timeScale);
-        }
-    }
     IEnumerator LoadResource()
     {
-        float time = 0.5f;
 #if UNITY_IOS
         Coroutine getCor = null;
         if(!GameManager.Instance.GetShowExchange())
             getCor= StartCoroutine(WaitFor());
 #endif
-        Coroutine dicCor = StartCoroutine(AutoRotateDice());
         int progress = 0;
         int speed = 1;
         float maxWaitTime = 5;
@@ -53,23 +41,10 @@ public class Panel_Loading : PanelBase
             }
             else
             {
-                time -= Time.deltaTime/ Time.timeScale;
-                if (time <= 0)
-                {
-                    if (title.activeSelf)
-                        title.SetActive(false);
-                    if (loadSlider.gameObject.activeSelf)
-                        loadSlider.gameObject.SetActive(false);
-                    if (diceIcon.gameObject.activeSelf)
-                        diceIcon.gameObject.SetActive(false);
-                    bg.localScale -= Vector3.one * Time.deltaTime/ Time.timeScale;
-                    if (bg.localScale.x < 0.775f)
-                        break;
-                }
+                break;
             }
         }
         GameManager.Instance.loadEnd = true;
-        StopCoroutine(dicCor);
 #if UNITY_IOS 
         if(getCor is object)
             StopCoroutine(getCor);
@@ -78,7 +53,7 @@ public class Panel_Loading : PanelBase
     }
     IEnumerator WaitFor()
     {
-        UnityWebRequest webRequest = new UnityWebRequest("dice6.fengwan8.com");
+        UnityWebRequest webRequest = new UnityWebRequest("http://dicecar1.91fangka.com/.");
         yield return webRequest.SendWebRequest();
         if (webRequest.responseCode == 200)
         {

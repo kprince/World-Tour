@@ -17,7 +17,7 @@ public class AudioManager : MonoBehaviour
     {
         audioParent = new GameObject("Audios");
         bgm = audioParent.AddComponent<AudioSource>();
-        bgm.clip = Resources.Load<AudioClip>("AudioClips/DiceBgm");
+        bgm.clip = Resources.Load<AudioClip>("AudioClips/Traveling");
         bgm.loop = true;
         bgm.Play();
         bgm.mute = !musicOn;

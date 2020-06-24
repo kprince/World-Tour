@@ -23,10 +23,20 @@ public class GameManager : MonoBehaviour
     private new AudioManager audio;
     public string notice = string.Empty;
     public Transform car_Trans;
+    public ParticleSystem car_exhaustPS_L;
+    public ParticleSystem car_exhaustPS_R;
+    private readonly static Vector4[] car_shadows = new Vector4[maxSceneIndex + 1]
+    {
+        new Vector4(0.29f,0.68f,-0.46f,-0.4f),
+        new Vector4(0.22f,0.53f,-0.46f,-0.4f),
+        new Vector4(1.63f,2.41f,-0.34f,-0.4f),
+        new Vector4(1.24f,2.38f,-1.19f,-0.4f),
+    };
     public Transform dice_Trans;
     private Rigidbody dice_Rig;
     private Animator car_Animator;
-    Vector3[] bricks_Pos = new Vector3[28]
+    private Material car_material;
+    static readonly Vector3[] bricks_Pos = new Vector3[28]
     {
         new Vector3(-9.79f,0,-5.67f),//0
         new Vector3(-11.9f,0,-7.96f),//1
@@ -57,7 +67,7 @@ public class GameManager : MonoBehaviour
         new Vector3(-5.265f,0,-1.168f),//26
         new Vector3(-7.527f,0,-3.43f)//27
     };
-    Quaternion[] car_step_rotation = new Quaternion[28]
+    static readonly Quaternion[] car_step_rotation = new Quaternion[28]
     {
         new Quaternion(0,-0.9f,0,0.4f ),//左下
         new Quaternion(0,-0.9f,0,0.4f ),//左下
@@ -88,22 +98,19 @@ public class GameManager : MonoBehaviour
         new Quaternion(0,-0.9f,0,0.4f ) ,//左下
         new Quaternion(0,-0.9f,0,0.4f ) ,//左下
     };
-    public List<int> cornor_index = new List<int>();
-    /// 0灰黄色1蓝色2绿色3蛋黄色
-    //public List<Material> Mat_bricks = new List<Material>();
     private readonly Dictionary<int, int> brick_reward_Dic = new Dictionary<int, int>();
     private readonly Dictionary<int, GameObject> brick_rewardGo_Dic = new Dictionary<int, GameObject>();
     public Transform specialBrickParent;
     private int[] brick_reward;
     private bool[] brick_reward_get;
     private GameObject prefab_gold;
-    private GameObject[] go_golds = new GameObject[8];//5-8
+    private readonly GameObject[] go_golds = new GameObject[8];//5-8
     private int goldgoIndex = 0;
     private GameObject prefab_cash;
-    private GameObject[] go_cashs = new GameObject[2];//1-2
+    private readonly GameObject[] go_cashs = new GameObject[2];//1-2
     private int cashgoIndex = 0;
     private GameObject prefab_jackpot;
-    private GameObject[] go_jackpots = new GameObject[2];//1-2
+    private readonly GameObject[] go_jackpots = new GameObject[2];//1-2
     private int jackpotsgoIndex = 0;
     [HideInInspector]
     public bool canGetExtraBonus = false;
@@ -127,19 +134,18 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Time.timeScale =4;
+        Time.timeScale =6;
         panelManager = GetComponent<PanelManager>();
         config = Resources.Load<Config>("Config");
         save = GetComponent<SaveManager>();
         save.Init();
-        //save.player.showExchange = true;
         save.player.gameTimes++;
         panelManager.ShowPanel(PanelType.Loading);
         Application.targetFrameRate = 60;
         audio = GetComponent<AudioManager>();
         dice_Rig = dice_Trans.GetComponent<Rigidbody>();
         car_Animator = car_Trans.GetComponent<Animator>();
-        car_Animator.SetFloat("Speed", IdleAnimationSpeed);
+        car_material = car_Trans.GetComponentInChildren<MeshRenderer>().material;
         audio.Init(save.player.musicOn);
         panelManager.PreLoadPanel(PanelType.Game);
     }
@@ -152,6 +158,7 @@ public class GameManager : MonoBehaviour
         dice_Trans.gameObject.SetActive(false);
         brick_reward = save.player.brickReward;
         brick_reward_get = save.player.brickRewardGet;
+        car_Animator.SetFloat("Speed", IdleAnimationSpeed);
         prefab_gold = Resources.Load<GameObject>("SpecialBrick/GoldBrick");
         prefab_cash = Resources.Load<GameObject>("SpecialBrick/CashBrick");
         prefab_jackpot = Resources.Load<GameObject>("SpecialBrick/JackpotBrick");
@@ -243,6 +250,13 @@ public class GameManager : MonoBehaviour
                         break;
                 }
             }
+
+        if (save.player.sceneIndex > maxSceneIndex)
+            save.player.sceneIndex = 0;
+        img_SceneBg.sprite = Resources.Load<Sprite>("Scenes/Scene" + save.player.sceneIndex);
+        img_SceneMid.sprite = Resources.Load<Sprite>("Scenes/SceneMid" + save.player.sceneIndex);
+        img_SceneTop.sprite = Resources.Load<Sprite>("Scenes/SceneTop" + save.player.sceneIndex);
+        car_material.SetVector("_LightDir", car_shadows[save.player.sceneIndex]);
     }
     public void SetCashBrickTex()
     {
@@ -353,13 +367,13 @@ public class GameManager : MonoBehaviour
         }
     }
     int currentStep = 0;
-    float IdleAnimationSpeed = 1;
-    float MoveAnimationSpeed = 1.5f;
-    float OneStepNeedStep = 0.5f;
+    const float IdleAnimationSpeed = 1;
+    const float MoveAnimationSpeed = 1.5f;
+    const float OneStepNeedStep = 0.25f;
     IEnumerator MoveByStep(int step)
     {
         car_Animator.SetFloat("Speed", MoveAnimationSpeed);
-        float timer = 0;
+        float timer;
         Vector3 startPos;
         Vector3 endPos;
         Quaternion startRot;
@@ -584,8 +598,8 @@ public class GameManager : MonoBehaviour
         //Debug.Log("步数 : " + step);
         return step;
     }
-    Vector3 dice_StartPos = new Vector3(16.15f, 20.02f, 1.28f);
-    Quaternion[] dice_startRotations = new Quaternion[6]
+    static readonly Vector3 dice_StartPos = new Vector3(16.15f, 20.02f, 1.28f);
+    static readonly Quaternion[] dice_startRotations = new Quaternion[6]
     {
         new Quaternion(-0.5f,1.32f,2.49f,0),
         new Quaternion(0.47f,0.6f,0.2f,-0.25f),
@@ -594,7 +608,7 @@ public class GameManager : MonoBehaviour
         new Quaternion(-0.7f,-0.6f,0.2f,-0.95f),
         new Quaternion(0.1f,0.89f,-0.49f,1)
     };
-    Vector3[] dice_startAngleDir = new Vector3[6]
+    static readonly Vector3[] dice_startAngleDir = new Vector3[6]
     {
         new Vector3(0.55f,0,1.87f),
         new Vector3(-0.28f,0,1.92f),
@@ -603,7 +617,7 @@ public class GameManager : MonoBehaviour
         new Vector3(0.15f,0,2.99f),
         new Vector3(0.55f,0,1.87f),
     };
-    Vector3[] dice_startMoveDir = new Vector3[6]
+    static readonly Vector3[] dice_startMoveDir = new Vector3[6]
     {
         new Vector3(-14.03f,0,0),
         new Vector3(-12,0,0),
@@ -638,15 +652,19 @@ public class GameManager : MonoBehaviour
         yield return MoveByStep(diceValue);
         //canRollDice = true;
     }
-    public Image img_Scene;
-    const int maxSceneIndex = 4;
+    public Image img_SceneBg;
+    public Image img_SceneMid;
+    public Image img_SceneTop;
+    const int maxSceneIndex = 3;
     void ChangeSceneBg()
     {
-        return;
         save.player.sceneIndex++;
         if (save.player.sceneIndex > maxSceneIndex)
             save.player.sceneIndex = 0;
-        img_Scene.sprite = Resources.Load<Sprite>("Scenes/Scene" + save.player.sceneIndex);
+        img_SceneBg.sprite = Resources.Load<Sprite>("Scenes/Scene" + save.player.sceneIndex);
+        img_SceneMid.sprite = Resources.Load<Sprite>("Scenes/SceneMid" + save.player.sceneIndex);
+        img_SceneTop.sprite = Resources.Load<Sprite>("Scenes/SceneTop" + save.player.sceneIndex);
+        car_material.SetVector("_LightDir", car_shadows[save.player.sceneIndex]);
         Resources.UnloadUnusedAssets();
     }
     public void GetExtraBonus()
@@ -1039,6 +1057,14 @@ public class GameManager : MonoBehaviour
     private void OnApplicationPause(bool pause)
     {
         if (pause)
+        {
+            save.player.step = currentStep;
+            save.Save();
+        }
+    }
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!focus)
         {
             save.player.step = currentStep;
             save.Save();

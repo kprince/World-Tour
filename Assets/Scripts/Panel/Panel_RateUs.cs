@@ -14,11 +14,11 @@ public class Panel_RateUs : PanelBase
     void RateUs()
     {
 #if UNITY_ANDROID
-        Application.OpenURL("https://play.google.com/store/apps/details?id=com.LuckyDice.HappyDice.IdleCasualGame.FunDay");
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.LuckyDice.CashTycoon.IdleGame.LowPolyCausalGame.WorldTour");
 #elif UNITY_IOS
         var url = string.Format(
            "itms-apps://itunes.apple.com/cn/app/id{0}?mt=8&action=write-review",
-           "1516222643");
+           "1520171235");
         Application.OpenURL(url);
 #endif
         PanelManager.Instance.ClosePanel(PanelType.RateUs);

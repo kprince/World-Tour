@@ -31,18 +31,18 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 7d5b224d2d0790c4984b76078d7c67eb, type: 3}
-    totalSpriteSurfaceArea: 390240
+    totalSpriteSurfaceArea: 2062555
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: fe4469642fbb3db49a6c127b35774bc1, type: 3}
-  - {fileID: 21300000, guid: af93d7d4b4d4e224f983ad78c15c24d3, type: 3}
-  - {fileID: 21300000, guid: fcfdc6372125ae24d9d16acbe75ed2da, type: 3}
-  - {fileID: 21300000, guid: 1e63b5cc5e3f5bd4d897e780324913e6, type: 3}
+  - {fileID: 21300000, guid: 39ae4d23d9907314cb5e64c5d88e1ca3, type: 3}
+  - {fileID: 21300000, guid: b83ebfb98399b56459dbd1b14896a8e6, type: 3}
+  - {fileID: 21300000, guid: babf69cc1e3e5be4f8a8079f4501f139, type: 3}
+  - {fileID: 21300000, guid: 1a234a2da76577d40b4f402b65dbb3c4, type: 3}
   m_PackedSpriteNamesToIndex:
-  - happycice_jindutiao1
-  - happycice_shaizi
-  - happycice_jindutiao2
-  - happycice_logo
+  - BG
+  - SliderFill
+  - SliderBg
+  - Loading
   m_Tag: Loading
   m_IsVariant: 0

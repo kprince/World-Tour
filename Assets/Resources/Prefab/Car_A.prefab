@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1903949521565808368}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -137.22, z: 0}
 --- !u!33 &2212478047573974266
 MeshFilter:
@@ -107,7 +107,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1903949521565808368}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4512752442462841928
 MeshFilter:
@@ -182,8 +182,8 @@ Transform:
   m_LocalPosition: {x: -9.79, y: 0, z: -5.67}
   m_LocalScale: {x: 1.48, y: 1.48, z: 1.48}
   m_Children:
-  - {fileID: 4512752442462841934}
   - {fileID: 2212478047570582746}
+  - {fileID: 4512752442462841934}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -137.22, z: 0}
@@ -199,7 +199,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: da9092cd875a834459041f6409a02c0f, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 

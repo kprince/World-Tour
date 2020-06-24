@@ -14,6 +14,7 @@ public class Ads : MonoBehaviour
 #endif
 	public static Ads _instance;
 	public string adDes = string.Empty;
+	public const string AppName = "A018_DiceCar";
 	private void Awake()
 	{
 		_instance = this;
