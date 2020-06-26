@@ -23,6 +23,7 @@ public class Panel_Reward : PanelBase
     public Text text_rewardNum;
     public Text text_nothanks1;
     public Text text_nothanks2;
+    public Text text_getextraReward;
     public Button btn_adGet;
     public Button btn_adOpen;
     public Button btn_get;
@@ -71,6 +72,10 @@ public class Panel_Reward : PanelBase
         btn_close.gameObject.SetActive(false);
         StartCoroutine("RotateLight");
         bool canShowExchange = GameManager.Instance.GetShowExchange();
+        if (canShowExchange)
+            text_getextraReward.text = "You have a chance to get cash rewards!";
+        else
+            text_getextraReward.text = "You have a chance to get rewards!";
         switch (rewardType)
         {
             case RewardType.Gold:

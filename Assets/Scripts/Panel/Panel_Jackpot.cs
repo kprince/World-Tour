@@ -16,6 +16,7 @@ public class Panel_Jackpot : PanelBase
     public Transform[] mid_Icons = new Transform[Reward_Num];
     public Transform[] right_Icons = new Transform[Reward_Num];
     private Text text_nothanks;
+    public GameObject text_777;
     SpriteAtlas jackpotAltas;
     protected override void Awake()
     {
@@ -355,6 +356,7 @@ public class Panel_Jackpot : PanelBase
         needShowAd = false;
         img_Spin.sprite = spinSprite;
         img_Spin.color = Color.white;
+        text_777.SetActive(GameManager.Instance.GetShowExchange());
         ResetRewardIconPos();
     }
     public override void OnExit()

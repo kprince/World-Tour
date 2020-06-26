@@ -1482,6 +1482,7 @@ MonoBehaviour:
   text_rewardNum: {fileID: 3002952705317545606}
   text_nothanks1: {fileID: 5827255029035474329}
   text_nothanks2: {fileID: 7171418320900954070}
+  text_getextraReward: {fileID: 6557676670947438874}
   btn_adGet: {fileID: 3002952704795903980}
   btn_adOpen: {fileID: 3610910818746877680}
   btn_get: {fileID: 5689264745048012083}
@@ -1994,7 +1995,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You have a chance to get cash rewards!
+  m_Text: You have a chance to get rewards!
 --- !u!1 &7764203910819384823
 GameObject:
   m_ObjectHideFlags: 0
