@@ -15,7 +15,7 @@ public class AdjustEventLogger : MonoBehaviour
 #endif
 #if UNITY_IOS
     public const string APP_TOKEN = "wpdn1axdn7r4";
-    public const string TOKEN_open = "bk4xtj";
+    public const string TOKEN_open = "q0og3w";
     public const string TOKEN_ad = "mhox7b";
     public const string TOKEN_noads = "bk4xtj";
     public const string TOKEN_stage_end = "krvo3c";

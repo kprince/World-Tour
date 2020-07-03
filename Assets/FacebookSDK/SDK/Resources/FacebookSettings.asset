@@ -16,9 +16,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 31355646513212
+  - 650086569195157
   appLabels:
-  - HappyDice
+  - World tour
   cookie: 1
   logging: 1
   status: 1

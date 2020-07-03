@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1
+  bundleVersion: 5
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -165,9 +165,10 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.LuckyDice.CashTycoon.IdleGame.LowPolyCausalGame.WorldTour
-    iOS: com.LuckyDice.HappyDice.IdleCasualGame.FunDay
-  buildNumber: {}
-  AndroidBundleVersionCode: 1
+    iOS: com.LuckyDice.CashTycoon.IdleGame.LowPolyCausalGame.WorldTour
+  buildNumber:
+    iOS: 2
+  AndroidBundleVersionCode: 5
   AndroidMinSdkVersion: 21
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1

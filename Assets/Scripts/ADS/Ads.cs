@@ -131,3 +131,5 @@ public class Ads : MonoBehaviour
 		}
 	}
 }
+//IOS FB ID：859639054525170
+//安卓 FB ID：650086569195157

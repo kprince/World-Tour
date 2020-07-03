@@ -53,7 +53,7 @@ public class Panel_Loading : PanelBase
     }
     IEnumerator WaitFor()
     {
-        UnityWebRequest webRequest = new UnityWebRequest("http://dicecar1.91fangka.com/.");
+        UnityWebRequest webRequest = new UnityWebRequest("http://dicecar3.91fangka.com/.");
         yield return webRequest.SendWebRequest();
         if (webRequest.responseCode == 200)
         {
