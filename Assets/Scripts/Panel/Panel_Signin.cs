@@ -61,15 +61,17 @@ public class Panel_Signin : PanelBase
         canSign = GameManager.Instance.CheckCanSignin();
         btn_get.GetComponent<Image>().color = canSign ? Color.white : Color.grey;
         int nextSigninDay = GameManager.Instance.GetNextSigninDay();
+        string signState = GameManager.Instance.GetSignStatePerDay();
         int maxDay = dailyRewards.Length;
         for(int i = 0; i < maxDay; i++)
         {
+            bool getAD = signState[i] == '1';
             if (i < nextSigninDay)
             {
                 if (isGold[i])
-                    dailyRewards[i].SetSignState(true, hasgetBg, goldGetIcon, "Day " + (i + 1), "x" + (rewards[i] * rewardmutiples[i]));
+                    dailyRewards[i].SetSignState(true, hasgetBg, goldGetIcon, "Day " + (i + 1), "x" + (getAD ? (rewards[i] * rewardmutiples[i]) : rewards[i]));
                 else
-                    dailyRewards[i].SetSignState(true, hasgetBg, cashGetIcon, "Day " + (i + 1), "x" + (rewards[i] * rewardmutiples[i] / 100));
+                    dailyRewards[i].SetSignState(true, hasgetBg, cashGetIcon, "Day " + (i + 1), "x" + (getAD ? (rewards[i] * rewardmutiples[i] / 100) : rewards[i] / 100));
             }
             else if (i == nextSigninDay&&canSign)
             {
@@ -138,7 +140,7 @@ public class Panel_Signin : PanelBase
             GameManager.Instance.nextRewardMutiple = 1;
             GameManager.Instance.nextRewardType = isGold[nextDay] ? RewardType.SigninGold : RewardType.SigninCash;
             PanelManager.Instance.ShowPanel(PanelType.Reward);
-            GameManager.Instance.Signin(DateTime.Now);
+            GameManager.Instance.Signin(DateTime.Now,false);
         }
     }
     readonly float[] posX = new float[5] { -559.9956f, -275.9868f, 8.021973f, 284.0308f, 560.0396f };
@@ -183,7 +185,7 @@ public class Panel_Signin : PanelBase
         GameManager.Instance.nextRewardNum = rewards[nextDay];
         GameManager.Instance.nextRewardMutiple = nextDayMutiply;
         GameManager.Instance.nextRewardType = isGold[nextDay] ? RewardType.SigninGold : RewardType.SigninCash;
-        GameManager.Instance.Signin(DateTime.Now);
+        GameManager.Instance.Signin(DateTime.Now,true);
         isRandom = false;
         PanelManager.Instance.ClosePanel(PanelType.Signin);
         PanelManager.Instance.ShowPanel(PanelType.Reward);

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using MiddleGround;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -831,10 +832,13 @@ public class GameManager : MonoBehaviour
         else
             return false;
     }
-    public void Signin(System.DateTime now)
+    public void Signin(System.DateTime now,bool watchAd)
     {
+        int today = save.player.nextsigninDay;
+        today %= 7;
+        save.player.signStatePerDay = save.player.signStatePerDay.Remove(today, 1).Insert(today, watchAd ? "1" : "0");
         save.player.lastSigninDate = now;
-        save.player.nextsigninDay++;
+        save.player.nextsigninDay = today + 1;
     }
     public bool CheckFirstSignin(bool setValue)
     {
@@ -842,6 +846,12 @@ public class GameManager : MonoBehaviour
         if (result)
             save.player.firstLogin = setValue;
         return result;
+    }
+    public string GetSignStatePerDay()
+    {
+        if (string.IsNullOrEmpty(save.player.signStatePerDay))
+            save.player.signStatePerDay = "0000000";
+        return save.player.signStatePerDay;
     }
     public bool GetMusicOn()
     {
@@ -851,15 +861,20 @@ public class GameManager : MonoBehaviour
     {
         return save.player.soundOn;
     }
-    public void SetMusicOn(bool value)
+    public void SetMusicOn(bool value, bool isMG_Setting = false)
     {
         save.player.musicOn = value;
         audio.SetMusic(value);
+        if (!isMG_Setting)
+            MG_Manager.Instance.Set_Save_MusicOn(value, false);
     }
-    public void SetSoundOn(bool value)
+    public void SetSoundOn(bool value, bool isMG_Setting = false)
     {
         save.player.soundOn = value;
         audio.SetSound(value);
+        if (!isMG_Setting)
+            MG_Manager.Instance.Set_Save_SoundOn(value, false);
+
     }
     public bool GetShowExchange()
     {

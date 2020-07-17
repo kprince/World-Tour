@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MG_PopPanel_Wheel
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: e7e3aded380b0de468ffa677ef1fd17a, type: 3}
+    totalSpriteSurfaceArea: 1544814
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d3f0c221f1aca1244afd686bcd9065e3, type: 3}
+  - {fileID: 21300000, guid: 53da37d104dd11a4d89f841f189ba6b0, type: 3}
+  - {fileID: 21300000, guid: 4257edf17b31d0c489f2e726a0af9082, type: 3}
+  - {fileID: 21300000, guid: 7c150d5325ff4d54baff8f1df728349c, type: 3}
+  - {fileID: 21300000, guid: fc688144842e2fc48b80a7b931d8c59d, type: 3}
+  - {fileID: 21300000, guid: c3e1dba492a119447b3a3eb8299de9cc, type: 3}
+  - {fileID: 21300000, guid: d8fd96056054e7b4e98a78bddb4a2947, type: 3}
+  - {fileID: 21300000, guid: 7cd203872f5fb8645a4acf1d37ee9e9b, type: 3}
+  - {fileID: 21300000, guid: e7cef8e7269b8e8498fc63f915e18a3c, type: 3}
+  - {fileID: 21300000, guid: 7ac82758b7b17214a8cc1c8d3895a63e, type: 3}
+  - {fileID: 21300000, guid: 6cabd868104f70a4087bd792b427fd08, type: 3}
+  - {fileID: 21300000, guid: 79fb32aab94e74b4bbdcfbdf173c00ed, type: 3}
+  - {fileID: 21300000, guid: 47aac3ac99f02e54e993035c4a8e0ec9, type: 3}
+  - {fileID: 21300000, guid: 6ab1bdccb7835e649b07179d906602af, type: 3}
+  - {fileID: 21300000, guid: 74f9a5ad5b789c14d90d8ed9dd8425e5, type: 3}
+  - {fileID: 21300000, guid: f5c35d4e3bcbe9f4ebba478a55d77d85, type: 3}
+  - {fileID: 21300000, guid: e1a259befbc4711489df1985cc0845f9, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - MG_Sprite_Wheel_TicketIcon
+  - MG_Sprite_Wheel_CashA
+  - MG_Sprite_Wheel_Amazon
+  - MG_Sprite_Wheel_Lock
+  - MG_Sprite_Wheel_MidHandle
+  - MG_Sprite_Wheel_BaseIn
+  - MG_Sprite_Wheel_Close
+  - MG_Sprite_Wheel_CashB
+  - MG_Sprite_Wheel_LockMask
+  - MG_Sprite_Wheel_BaseOut
+  - MG_Sprite_Wheel_WheelTicket
+  - MG_Sprite_Wheel_Gift
+  - MG_Sprite_Wheel_CenterHandle
+  - MG_Sprite_Wheel_OutHandle
+  - MG_Sprite_Wheel_Gold
+  - MG_Sprite_Wheel_Notice
+  - MG_Sprite_Wheel_Scratch
+  m_Tag: MG_PopPanel_Wheel
+  m_IsVariant: 0

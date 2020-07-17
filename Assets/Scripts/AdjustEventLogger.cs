@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-#if UNITY_IOS && !UNITY_EDITOR
+#if UNITY_IOS
 using System.Runtime.InteropServices;
 #endif
 
@@ -29,6 +29,9 @@ public class AdjustEventLogger : MonoBehaviour
     public const string TOKEN_stage_end = "lysfol";
     public const string TOKEN_deeplink = "li74p8";
     public const string TOKEN_packb = "7muyyz";
+    public const string TOKEN_wheel = "";
+    public const string TOKEN_slots = "";
+    public const string TOKEN_ggl = "";
 #endif
     public static AdjustEventLogger Instance;
     private void Awake()
@@ -70,11 +73,8 @@ public class AdjustEventLogger : MonoBehaviour
         }
         else
         {
-            //GameManager.Instance.SendFBAttributeEvent();
-//#if UNITY_ANDROID
             if (!GameManager.Instance.loadEnd)
                 GameManager.Instance.SetShowExchange(true);
-//#endif
         }
     }
     private string AppName = Ads.AppName;

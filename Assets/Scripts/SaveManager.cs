@@ -53,6 +53,7 @@ public class SaveManager : MonoBehaviour
                 nextsigninDay = 0,
                 lastRevertEnergyDate = now.AddSeconds(-PLAYER_SECOND + 1),
                 lastSigninDate = now.AddDays(-1),
+                signStatePerDay = "0000000",
                 soundOn = true,
                 musicOn = true,
                 showExchange = false,
@@ -75,6 +76,7 @@ public class PlayerInfo
     public int stepToGetExtraBonus;
     public int nextsigninDay;
     public DateTime lastSigninDate;
+    public string signStatePerDay;
     public DateTime lastRevertEnergyDate;
     public int[] brickReward;
     public bool[] brickRewardGet;

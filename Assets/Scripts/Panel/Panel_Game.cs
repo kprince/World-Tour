@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiddleGround;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +34,9 @@ public class Panel_Game : PanelBase
         btn_Signin.onClick.AddListener(OnSignInClick);
         btn_Gold.onClick.AddListener(OnGoldClick);
         btn_Cash.onClick.AddListener(OnCashClick);
+        btn_MG_Dice.onClick.AddListener(() => { MG_Manager.Instance.ShowMenuPanel(MiddleGround.UI.MG_GamePanelType.DicePanel); });
+        btn_MG_Scratch.onClick.AddListener(() => { MG_Manager.Instance.ShowMenuPanel(MiddleGround.UI.MG_GamePanelType.ScratchPanel); });
+        btn_MG_Slots.onClick.AddListener(() => { MG_Manager.Instance.ShowMenuPanel(MiddleGround.UI.MG_GamePanelType.SlotsPanel); });
         if (gameAltas is null)
             gameAltas = Resources.Load<SpriteAtlas>("GamePanel");
 

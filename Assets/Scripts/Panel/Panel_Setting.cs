@@ -40,6 +40,8 @@ public class Panel_Setting : PanelBase
         base.OnEnter();
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
+        img_sound.sprite = settingAlats.GetSprite("sound" + (GameManager.Instance.GetSoundOn() ? "on" : "off"));
+        img_music.sprite = settingAlats.GetSprite("music" + (GameManager.Instance.GetMusicOn() ? "on" : "off"));
     }
     public override void OnExit()
     {

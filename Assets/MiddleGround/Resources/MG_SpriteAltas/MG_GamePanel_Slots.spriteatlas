@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MG_GamePanel_Slots
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 4cb84c4f8ec81ef4fb55e0ab3c948a64, type: 3}
+    totalSpriteSurfaceArea: 712069
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 61aa7013168e20540bb49803f61b35c4, type: 3}
+  - {fileID: 21300000, guid: 63ba71056a08ed44fad45f54125a0d54, type: 3}
+  - {fileID: 21300000, guid: 209e0d355b846274286e8c4dd85165e2, type: 3}
+  - {fileID: 21300000, guid: 268313854075b8a4485672ec965337a9, type: 3}
+  - {fileID: 21300000, guid: d904cae685b6f104cb216ceeece00e1f, type: 3}
+  - {fileID: 21300000, guid: e8606e07d8c4b0d4a8928953d53b6154, type: 3}
+  - {fileID: 21300000, guid: 984855ad1e963a0429dac1e5dbbd0c5d, type: 3}
+  - {fileID: 21300000, guid: 5a1e2b2e11c24c74795bb76f0bd5f3dc, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - MG_Sprite_Slots_Gold
+  - MG_Sprite_Slots_ButtonAd
+  - MG_Sprite_Slots_Lock
+  - MG_Sprite_Slots_AddMutiple
+  - MG_Sprite_Slots_ButtonBig
+  - MG_Sprite_Slots_Machine
+  - MG_Sprite_Slots_LightA
+  - MG_Sprite_Slots_LightB
+  m_Tag: MG_GamePanel_Slots
+  m_IsVariant: 0

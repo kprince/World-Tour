@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MG_PopPanel_Shop
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 0bbf4ebad9d1a3d46a12cbafceaaad93, type: 3}
+    totalSpriteSurfaceArea: 872033
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: b807d2d09c9b1e746b6598dfc9eb6cff, type: 3}
+  - {fileID: 21300000, guid: 2e1bbca10be7b244cb46351b84a9830d, type: 3}
+  - {fileID: 21300000, guid: 9751a25252019d6459223b71c4ded65a, type: 3}
+  - {fileID: 21300000, guid: cfb41b629f66e244a8a0481bad1e7933, type: 3}
+  - {fileID: 21300000, guid: 105f96d3c1db35a4986a495be8f4d481, type: 3}
+  - {fileID: 21300000, guid: bbb455949306d2f4597f88511f6cf502, type: 3}
+  - {fileID: 21300000, guid: 0f9456a40afc53b4591d93ff3d773a20, type: 3}
+  - {fileID: 21300000, guid: c0a455d48fd799741b7837ec0e9d4530, type: 3}
+  - {fileID: 21300000, guid: 6242d815bc09b4642b6744ef30f8fa90, type: 3}
+  - {fileID: 21300000, guid: 58847486c0ea4894e9e68d1fefbbe51b, type: 3}
+  - {fileID: 21300000, guid: 7a9cbec6960677d4d9443383e51d1169, type: 3}
+  - {fileID: 21300000, guid: 016f0c8967fa8d3438bdfd67c2dced3a, type: 3}
+  - {fileID: 21300000, guid: c65783b93b68b2d4697fa4fe487dfc87, type: 3}
+  - {fileID: 21300000, guid: 8649ab1a3b2368244a3c99910f796e50, type: 3}
+  - {fileID: 21300000, guid: e2d685fab10443c4cb35c654f9943784, type: 3}
+  - {fileID: 21300000, guid: 8934252be2a4b504da1e2c9747d3deb6, type: 3}
+  - {fileID: 21300000, guid: 6cf31d0cbf02af74d9167b3ed1c94f17, type: 3}
+  - {fileID: 21300000, guid: 4b128f8c06790274ebcf12983dccf5bf, type: 3}
+  - {fileID: 21300000, guid: 5ccde19c841248b41a004fe3dee7e3e0, type: 3}
+  - {fileID: 21300000, guid: 6595b7cce858d9040a875778d0d8c783, type: 3}
+  - {fileID: 21300000, guid: de5130dcce1432549af34d41aa74a137, type: 3}
+  - {fileID: 21300000, guid: 9070343d19ec3b847b21e773f214a78f, type: 3}
+  - {fileID: 21300000, guid: 27547b3dc2da94541a07eae30023d6bc, type: 3}
+  - {fileID: 21300000, guid: 5f71615de73f1e84199f6b4927b5d8dd, type: 3}
+  - {fileID: 21300000, guid: 1824119e32e8a61439439d4ac2ed3252, type: 3}
+  - {fileID: 21300000, guid: 037d23de795005b4da85053ea009b657, type: 3}
+  - {fileID: 21300000, guid: 29c869cfffe3c24439350f3a1517d91d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - MG_Sprite_Shop_AmazonCard100
+  - MG_Sprite_Shop_Orange
+  - MG_Sprite_Shop_Top
+  - MG_Sprite_Shop_OneGold
+  - MG_Sprite_Shop_BG
+  - MG_Sprite_Shop_Watermalen
+  - MG_Sprite_Shop_Gold
+  - MG_Sprite_Shop_AmazonCard500
+  - MG_Sprite_Shop_Scratch
+  - MG_Sprite_Shop_Base
+  - MG_Sprite_Shop_AmazonCard200
+  - MG_Sprite_Shop_AmazonCard1000
+  - MG_Sprite_Shop_Fruits
+  - MG_Sprite_Shop_Diamond
+  - MG_Sprite_Shop_Gfit
+  - MG_Sprite_Shop_ScratchTicket
+  - MG_Sprite_Shop_SignScratchTicket
+  - MG_Sprite_Shop_Cherry
+  - MG_Sprite_Shop_WheelTicket
+  - MG_Sprite_Shop_Amazon
+  - MG_Sprite_Shop_AmazonCard10000
+  - MG_Sprite_Shop_Back
+  - MG_Sprite_Shop_CashA
+  - MG_Sprite_Shop_CashB
+  - MG_Sprite_Shop_Paypal50
+  - MG_Sprite_Shop_SSS
+  - MG_Sprite_Shop_Paypal100
+  m_Tag: MG_PopPanel_Shop
+  m_IsVariant: 0

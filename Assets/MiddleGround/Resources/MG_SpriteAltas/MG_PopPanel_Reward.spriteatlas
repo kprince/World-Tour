@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MG_PopPanel_Reward
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 4cb383624671e7242a10e049b455ad76, type: 3}
+    totalSpriteSurfaceArea: 1569365
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: a0c84ab0aa784ec4fb8158e4cefb1513, type: 3}
+  - {fileID: 21300000, guid: 41bc411162d990548ada5706b465bb0d, type: 3}
+  - {fileID: 21300000, guid: 2f42c002f0168a24bb9c57f96077ceb2, type: 3}
+  - {fileID: 21300000, guid: be01ba128754aff43a58569b5dee7591, type: 3}
+  - {fileID: 21300000, guid: bdc4b6d242dc30b4f905d0baa0aa3a6d, type: 3}
+  - {fileID: 21300000, guid: 0c6bc604a9febaf4e904aec08a148a7c, type: 3}
+  - {fileID: 21300000, guid: ef2c9fc7a51ddb546a0b73833b674dee, type: 3}
+  - {fileID: 21300000, guid: f165f539db002e244a7de246be2cdc1a, type: 3}
+  - {fileID: 21300000, guid: 52ae45fa7e0942c4ab6ef8513ef5e9f2, type: 3}
+  - {fileID: 21300000, guid: 5c52376e4f2d45e4b976a837f1a8fe05, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - MG_Sprite_CashPop_Light
+  - MG_Sprite_CashPop_CashIconB
+  - MG_Sprite_DicePop_Giveup
+  - MG_Sprite_DicePop_Title
+  - MG_Sprite_ExtraPop_Close
+  - MG_Sprite_CashPop_CashIconA
+  - MG_Sprite_DicePop_GfitIcon
+  - MG_Sprite_DicePop_GiftBG
+  - MG_Sprite_DicePop_Close
+  - MG_Sprite_DicePop_CardBG
+  m_Tag: MG_PopPanel_Reward
+  m_IsVariant: 0

@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MG_PopPanel_Sign
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: f52dcf32b3f4a004dbfbaea940bdcbce, type: 3}
+    totalSpriteSurfaceArea: 845719
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 66d88161f61e620449a0542060d53d8a, type: 3}
+  - {fileID: 21300000, guid: 7341c755ca3b7694d82d5db6ac52d595, type: 3}
+  - {fileID: 21300000, guid: 498cc1e5095eebd46b59971164dea326, type: 3}
+  - {fileID: 21300000, guid: 61fc11b7809b70b4e8746023c7aeb63a, type: 3}
+  - {fileID: 21300000, guid: 6c0c37d7666033d4bbe36d9e2367afc5, type: 3}
+  - {fileID: 21300000, guid: be8e76386045c3b41af07c7d29a464c2, type: 3}
+  - {fileID: 21300000, guid: dbe7b349ac381a8438f6d0819dd66146, type: 3}
+  - {fileID: 21300000, guid: aa16960a412c40946b1d7fec72c913c1, type: 3}
+  - {fileID: 21300000, guid: 275b711a01957b546ae02cc9a5daaf15, type: 3}
+  - {fileID: 21300000, guid: afbfe19a0e6f5084eab93e1f4079a885, type: 3}
+  - {fileID: 21300000, guid: 2c1abbdc8c7f08443a47fa7da6a6b8d2, type: 3}
+  - {fileID: 21300000, guid: 673e9e3e2d3a4254882c61b3f6b8b17a, type: 3}
+  - {fileID: 21300000, guid: 28b8213fe91ffa54892f3053defa41f9, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - MG_Sprite_Sign_Signing
+  - MG_Sprite_Sign_Gold
+  - MG_Sprite_Sign_Sure
+  - MG_Sprite_Sign_Sign
+  - MG_Sprite_Sign_ScratchTicket
+  - MG_Sprite_Sign_SignMask
+  - MG_Sprite_Sign_CashB
+  - MG_Sprite_Sign_Signed
+  - MG_Sprite_Sign_SignDis
+  - MG_Sprite_Sign_Base
+  - MG_Sprite_Sign_SignGold
+  - MG_Sprite_Sign_CashA
+  - MG_Sprite_Sign_Nothanks
+  m_Tag: MG_PopPanel_Sign
+  m_IsVariant: 0
