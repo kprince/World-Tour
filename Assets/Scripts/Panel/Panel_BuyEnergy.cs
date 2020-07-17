@@ -16,20 +16,8 @@ public class Panel_BuyEnergy : PanelBase
     void OnAdClick()
     {
         AudioManager.Instance.PlayerSound("Button");
-#if UNITY_EDITOR
-        OnRewardedCallback();
-        return;
-#endif
-#if UNITY_IOS
-        if (!GameManager.Instance.GetShowExchange())
-        {
-            OnRewardedCallback();
-            return;
-        }
-#endif
         clickAdTime++;
-        Ads._instance.SetRewardedCallBack(OnRewardedCallback);
-        Ads._instance.ShowRewardVideo(clickAdTime);
+        Ads._instance.ShowRewardVideo(OnRewardedCallback, clickAdTime, "buyEnergy");
     }
     void OnRewardedCallback()
     {

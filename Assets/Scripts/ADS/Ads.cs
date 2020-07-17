@@ -35,7 +35,26 @@ public class Ads : MonoBehaviour
 		IronSource.Agent.loadInterstitial();
 
 	}
-	public bool ShowRewardVideo(int clickAdTime)
+	public bool ShowRewardVideo(Action callback,int clickTime,string des)
+    {
+		rewardCallback = callback;
+		adDes = des;
+#if UNITY_EDITOR
+		canGetReward = true;
+		InvokeGetRewardMethod();
+		Debug.Log("Show " + des + " of rewarded AD.");
+		return true;
+#elif UNITY_IOS
+		if (!GameManager.Instance.GetShowExchange())
+		{
+			canGetReward = true;
+			InvokeGetRewardMethod();
+			return true;
+		}
+#endif
+		return ShowRewardVideo(clickTime);
+    }
+	bool ShowRewardVideo(int clickAdTime)
 	{
 		if (IronSource.Agent.isRewardedVideoAvailable())
 		{
@@ -48,14 +67,33 @@ public class Ads : MonoBehaviour
 			return false;
 		}
 	}
+	Action interstitialCallback = null;
+	public void ShowInterstialAd(Action callback,string des)
+    {
+		adDes = des;
+		interstitialCallback = callback;
+#if UNITY_EDITOR
+		InvokeInterstialCallback();
+		Debug.Log("Show " + des + " of intersititial ad.");
+		return;
+#endif
+		ShowInterstialAd();
+	}
 	float interstialLasttime = 0;
-	public void ShowInterstialAd()
+	void ShowInterstialAd()
 	{
 #if UNITY_IOS
-		if (!GameManager.Instance.GetShowExchange()) return;
+		if (!GameManager.Instance.GetShowExchange()) 
+		{
+			InvokeInterstialCallback();
+			return;
+		}
 #endif
 		if (Time.realtimeSinceStartup - interstialLasttime < 30)
+		{
+			InvokeInterstialCallback();
 			return;
+		}
 		if (IronSource.Agent.isInterstitialReady())
 		{
 			interstialLasttime = Time.realtimeSinceStartup;
@@ -63,6 +101,7 @@ public class Ads : MonoBehaviour
 		}
 		else
 		{
+			InvokeInterstialCallback();
 			GameManager.Instance.SendAdjustPlayAdEvent(false, false, adDes);
 		}
 	}
@@ -126,10 +165,22 @@ public class Ads : MonoBehaviour
 	{
 		if (canGetReward)
 		{
-			rewardCallback();
+			if (rewardCallback is object)
+			{
+				rewardCallback();
+				rewardCallback = null;
+			}
 			canGetReward = false;
 		}
 	}
+	public void InvokeInterstialCallback()
+    {
+		if(interstitialCallback is object)
+        {
+			interstitialCallback();
+			interstitialCallback = null;
+        }
+    }
 }
 //IOS FB ID：859639054525170
 //安卓 FB ID：650086569195157

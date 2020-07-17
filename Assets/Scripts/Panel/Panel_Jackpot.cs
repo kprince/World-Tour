@@ -61,21 +61,8 @@ public class Panel_Jackpot : PanelBase
         if (needShowAd)
         {
             ResetRewardIconPos();
-#if UNITY_EDITOR
-            OnRewardedCallback();
-            return;
-#endif
-#if UNITY_IOS
-            if (!GameManager.Instance.GetShowExchange())
-            {
-                OnRewardedCallback();
-                return;
-            }
-#endif
             clickAdTime++;
-            Ads._instance.SetRewardedCallBack(OnRewardedCallback);
-            Ads._instance.adDes = "老虎机的广告";
-            Ads._instance.ShowRewardVideo(clickAdTime);
+            Ads._instance.ShowRewardVideo(OnRewardedCallback, clickAdTime, "jackpotSpin");
         }
         else
         {
@@ -339,8 +326,7 @@ public class Panel_Jackpot : PanelBase
     {
         base.Close();
         if (isSpining) return;
-        Ads._instance.adDes = "老虎机的nothanks";
-        Ads._instance.ShowInterstialAd();
+        Ads._instance.ShowInterstialAd(null, "老虎机的nothanks");
         AudioManager.Instance.PlayerSound("Button");
         PanelManager.Instance.ClosePanel(PanelType.Jackpot);
     }

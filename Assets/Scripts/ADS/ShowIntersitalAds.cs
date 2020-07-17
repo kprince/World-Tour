@@ -23,6 +23,7 @@ public class ShowIntersitalAds : MonoBehaviour
     {
         IronSource.Agent.loadInterstitial();
         AudioManager.Instance.PauseBgm(false);
+        adM.InvokeInterstialCallback();
     }
 
     private void InterstitialAdOpenedEvent()
@@ -38,6 +39,7 @@ public class ShowIntersitalAds : MonoBehaviour
     {
         IronSource.Agent.loadInterstitial();
         GameManager.Instance.SendAdjustPlayAdEvent(false, false, adM.adDes);
+        adM.InvokeInterstialCallback();
     }
 
     private void InterstitialAdShowSucceededEvent()

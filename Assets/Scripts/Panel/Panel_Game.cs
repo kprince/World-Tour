@@ -11,6 +11,9 @@ public class Panel_Game : PanelBase
     public Button btn_Roll;
     public Button btn_Setting;
     public Button btn_Signin;
+    public Button btn_MG_Dice;
+    public Button btn_MG_Scratch;
+    public Button btn_MG_Slots;
     public GameObject go_signRedpoint;
     public Button btn_Gold;
     public Text text_Gold;
