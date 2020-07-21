@@ -13,9 +13,9 @@ namespace MiddleGround.UI
         readonly Stack<MG_UIBase> Panel_Stack = new Stack<MG_UIBase>();
         readonly Dictionary<int, string> Type_Path_Dic = new Dictionary<int, string>()
         {
-            {(int)MG_GamePanelType.DicePanel,"MG_Prefabs/MG_GamePanels/MG_GamePanel_Dice" },
-            {(int)MG_GamePanelType.ScratchPanel,"MG_Prefabs/MG_GamePanels/MG_GamePanel_Scratch" },
-            {(int)MG_GamePanelType.SlotsPanel,"MG_Prefabs/MG_GamePanels/MG_GamePanel_Slots" },
+            {(int)MG_PopPanelType.DicePanel,"MG_Prefabs/MG_GamePanels/MG_GamePanel_Dice" },
+            {(int)MG_PopPanelType.ScratchPanel,"MG_Prefabs/MG_GamePanels/MG_GamePanel_Scratch" },
+            {(int)MG_PopPanelType.SlotsPanel,"MG_Prefabs/MG_GamePanels/MG_GamePanel_Slots" },
             {(int)MG_PopPanelType.DiceRewardPanel,"MG_Prefabs/MG_PopPanels/MG_PopPanel_DiceReward" },
             {(int)MG_PopPanelType.ExtraRewardPanel,"MG_Prefabs/MG_PopPanels/MG_PopPanel_ExtraReward" },
             {(int)MG_PopPanelType.SettingPanel,"MG_Prefabs/MG_PopPanels/MG_PopPanel_Setting" },
@@ -117,7 +117,7 @@ namespace MiddleGround.UI
                                             MG_Manager.Instance.isGuid = true;
                                         if (Panel_Stack.Count > 0)
                                             Panel_Stack.Peek().OnResume();
-                                        else
+                                        else if(MenuPanel is object && nextTask.t_panelType != MG_PopPanelType.ShopPanel)
                                             MenuPanel.OnResume();
                                         if (outPanel == loadedPopPanel)
                                             break;
@@ -139,7 +139,7 @@ namespace MiddleGround.UI
                                 }
                                 if (Panel_Stack.Count > 0)
                                     Panel_Stack.Peek().OnPause();
-                                else
+                                else if(MenuPanel is object && nextTask.t_panelType != MG_PopPanelType.ShopPanel)
                                     MenuPanel.OnPause();
                                 loadedPopPanel.transform.SetAsLastSibling();
                                 Panel_Stack.Push(loadedPopPanel);
@@ -174,9 +174,10 @@ namespace MiddleGround.UI
                                 }
                                 if (Panel_Stack.Count > 0)
                                     Panel_Stack.Peek().OnPause();
-                                else
+                                else if(MenuPanel is object && nextTask.t_panelType != MG_PopPanelType.ShopPanel)
                                     MenuPanel.OnPause();
-                                MG_UIBase nextShowPanel = Instantiate(Resources.Load<GameObject>(panelPath), PopPanelRoot).GetComponent<MG_UIBase>();
+                                bool isGamePanel = panelIndex == 0 || panelIndex == 1 || panelIndex == 2 || panelIndex == 3;
+                                MG_UIBase nextShowPanel = Instantiate(Resources.Load<GameObject>(panelPath), isGamePanel ? GamePanelRoot : PopPanelRoot).GetComponent<MG_UIBase>();
                                 nextShowPanel.transform.SetAsLastSibling();
                                 Panel_Stack.Push(nextShowPanel);
                                 LoadedPanel_Dic.Add(panelIndex, nextShowPanel);
@@ -218,6 +219,7 @@ namespace MiddleGround.UI
             }
             return false;
         }
+        [Obsolete("",true)]
         public bool ShowGamePanel(MG_GamePanelType _PanelType)
         {
             int panelIndex = (int)_PanelType;
@@ -268,41 +270,16 @@ namespace MiddleGround.UI
             }
             return true;
         }
-        public void ShowMenuPanel(MG_GamePanelType startGamePanel = MG_GamePanelType.DicePanel)
+        public void ShowMenuPanel()
         {
             if(MenuPanel is null)
             {
-                MG_SaveManager.Current_GamePanel = (int)startGamePanel;
                 MenuPanel = Instantiate(Resources.Load<GameObject>(MenuPanelPath), MenuPanelRoot).GetComponent<MG_MenuPanel>();
                 StartCoroutine(MenuPanel.OnEnter());
             }
             else
             {
                 StartCoroutine(MenuPanel.OnEnter());
-            }
-            switch (startGamePanel)
-            {
-                case MG_GamePanelType.DicePanel:
-                    MenuPanel.OnDiceButtonClick();
-                    break;
-                case MG_GamePanelType.ScratchPanel:
-                    MenuPanel.OnScratchButtonClick();
-                    break;
-                case MG_GamePanelType.SlotsPanel:
-                    MenuPanel.OnSlotsButtonClick();
-                    break;
-            }
-        }
-        public void CloseMenuPanel()
-        {
-            if(MenuPanel is object)
-            {
-                StartCoroutine(MenuPanel.OnExit());
-                if (Current_GamePanel is object)
-                {
-                    StartCoroutine(Current_GamePanel.OnExit());
-                    Current_GamePanel = null;
-                }
             }
         }
         public void FlyEffectTo_MenuTarget(Vector3 startPos,MG_MenuFlyTarget flyTarget,int num)
@@ -413,6 +390,9 @@ namespace MiddleGround.UI
     }
     public enum MG_PopPanelType
     {
+        ScratchPanel = 0,
+        DicePanel = 1,
+        SlotsPanel = 2,
         WheelPanel = 3,
         SignPanel = 4,
         SettingPanel = 5,

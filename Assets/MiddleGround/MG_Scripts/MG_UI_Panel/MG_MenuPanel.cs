@@ -63,7 +63,7 @@ namespace MiddleGround.UI
             btn_Gold.onClick.AddListener(OnGoldButtonClick);
             btn_Cash.onClick.AddListener(OnCashButtonClick);
             btn_SpecialToken.onClick.AddListener(OnSpecialButtonClick);
-            btn_Back.onClick.AddListener(MG_Manager.Instance.CloseMenuPanel);
+            btn_Back.onClick.AddListener(MG_Manager.Instance.CloseTopPopPanel);
             trans_guidMask.GetComponent<Button>().onClick.AddListener(OnMaskButtonClick);
 
             text_Scratch.text = "Scratch";
@@ -123,7 +123,10 @@ namespace MiddleGround.UI
         {
             MG_Manager.Play_ButtonClick();
             if (!MG_Manager.Instance.canChangeGame) return;
+            go_SpecialToken.SetActive(false);
+            MG_SaveManager.Current_GamePanel = (int)MG_PopPanelType.DicePanel;
             MG_UIManager.Instance.ShowPopPanelAsync(MG_PopPanelType.WheelPanel);
+            UpdateAllContent();
         }
         void OnSignButtonClick()
         {
@@ -138,15 +141,16 @@ namespace MiddleGround.UI
             if (go_scratchRP.activeSelf)
                 go_scratchRP.SetActive(false);
             trans_SelectGame.localPosition = new Vector3(scratchX, selectGameY);
-            MG_UIManager.Instance.ShowGamePanel(MG_GamePanelType.ScratchPanel);
-            SetSpecialToken(MG_SpecialTokenType.ScratchToken);
+            MG_SaveManager.Current_GamePanel = (int)MG_PopPanelType.ScratchPanel;
+            MG_UIManager.Instance.ShowPopPanelAsync(MG_PopPanelType.ScratchPanel);
+            UpdateAllContent();
         }
         public void OnDiceButtonClick()
         {
             MG_Manager.Play_ButtonClick();
             if (!MG_Manager.Instance.canChangeGame) return;
             trans_SelectGame.localPosition = new Vector3(diceX, selectGameY);
-            MG_UIManager.Instance.ShowGamePanel(MG_GamePanelType.DicePanel);
+            MG_UIManager.Instance.ShowPopPanelAsync(MG_PopPanelType.DicePanel);
             SetSpecialToken(MG_SpecialTokenType.DiceToken);
         }
         public void OnSlotsButtonClick()
@@ -154,8 +158,9 @@ namespace MiddleGround.UI
             MG_Manager.Play_ButtonClick();
             if (!MG_Manager.Instance.canChangeGame) return;
             trans_SelectGame.localPosition = new Vector3(slotsX, selectGameY);
-            MG_UIManager.Instance.ShowGamePanel(MG_GamePanelType.SlotsPanel);
-            SetSpecialToken(MG_SpecialTokenType.SlotsToken);
+            MG_SaveManager.Current_GamePanel = (int)MG_PopPanelType.SlotsPanel;
+            MG_UIManager.Instance.ShowPopPanelAsync(MG_PopPanelType.SlotsPanel);
+            UpdateAllContent();
         }
         void OnGoldButtonClick()
         {
@@ -346,10 +351,8 @@ namespace MiddleGround.UI
             canvasGroup.alpha = 1;
             canvasGroup.blocksRaycasts = true;
             UpdateAllContent();
-            if (MG_SaveManager.FirstCome)
-            {
-                MG_Manager.Instance.Random_DiceOrExtraReward(MG_PopRewardPanel_RewardType.Extra);
-            }
+            btn_Back.gameObject.SetActive(false);
+            rect_Top.gameObject.SetActive(false);
             yield return null;
         }
 
@@ -362,12 +365,32 @@ namespace MiddleGround.UI
 
         public override void OnPause()
         {
-
+            rect_Top.gameObject.SetActive(true);
+            btn_Scratch.gameObject.SetActive(false);
+            btn_Slots.gameObject.SetActive(false);
+            btn_Wheel.gameObject.SetActive(false);
+            btn_Back.gameObject.SetActive(true);
         }
 
         public override void OnResume()
         {
-            CheckGuid();
+            rect_Top.gameObject.SetActive(false);
+            btn_Scratch.gameObject.SetActive(true);
+            btn_Slots.gameObject.SetActive(true);
+            btn_Wheel.gameObject.SetActive(true);
+            btn_Back.gameObject.SetActive(false);
+        }
+        public void HideButton()
+        {
+            btn_Slots.gameObject.SetActive(false);
+            btn_Scratch.gameObject.SetActive(false);
+            btn_Wheel.gameObject.SetActive(false);
+        }
+        public void ShowButton()
+        {
+            btn_Slots.gameObject.SetActive(true);
+            btn_Scratch.gameObject.SetActive(true);
+            btn_Wheel.gameObject.SetActive(true);
         }
         public void CheckGuid()
         {

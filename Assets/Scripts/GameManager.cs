@@ -1,4 +1,5 @@
 ﻿using MiddleGround;
+using MiddleGround.Save;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -630,6 +631,7 @@ public class GameManager : MonoBehaviour
     public void RollDice()
     {
         if (!canRollDice) return;
+        MG_Manager.Instance.Add_Save_DiceTotalTimes();
         SendAdjustDiceEvent();
         canRollDice = false;
         int diceValue = RandomStep();
@@ -660,6 +662,7 @@ public class GameManager : MonoBehaviour
     void ChangeSceneBg()
     {
         save.player.sceneIndex++;
+        MG_SaveManager.CurrentBgIndex++;
         if (save.player.sceneIndex > maxSceneIndex)
             save.player.sceneIndex = 0;
         img_SceneBg.sprite = Resources.Load<Sprite>("Scenes/Scene" + save.player.sceneIndex);
@@ -1029,48 +1032,21 @@ public class GameManager : MonoBehaviour
 #if UNITY_EDITOR
         return;
 #endif
-        AdjustEventLogger.Instance.AdjustEvent(hasAd ? AdjustEventLogger.TOKEN_ad : AdjustEventLogger.TOKEN_noads,
-            //累计美元
-            ("value", save.player.cash.ToString()),
-            //累计金币
-            ("new_value", save.player.gold.ToString()),
-            //累计体力
-            ("stage_id", save.player.totalWasteEnergy.ToString()),
-            //广告id
-            ("id", adByWay),
-            //广告类型，0插屏1奖励视频
-            ("type", isRewardAd ? "1" : "0")
-            );
+        MG_Manager.Instance.SendAdjustPlayAdEvent(hasAd, isRewardAd, adByWay);
     }
     public void SendAdjustDiceEvent()
     {
 #if UNITY_EDITOR
         return;
 #endif
-        AdjustEventLogger.Instance.AdjustEvent(AdjustEventLogger.TOKEN_stage_end,
-            //累计美元
-            ("value", save.player.cash.ToString()),
-            //累计金币
-            ("new_value", save.player.gold.ToString()),
-            //累计体力
-            ("stage_id", save.player.totalWasteEnergy.ToString()),
-            //游戏次数
-            ("id", save.player.totalWasteEnergy.ToString())
-            );
+        MG_Manager.Instance.SendAdjustDiceEvent();
     }
-    public void SendFBAttributeEvent()
+    public void SendFBAttributeEvent(string uri)
     {
 #if UNITY_EDITOR
         return;
 #endif
-        AdjustEventLogger.Instance.AdjustEvent(AdjustEventLogger.TOKEN_deeplink,
-            //累计美元
-            ("value", save.player.cash.ToString()),
-            //累计金币
-            ("new_value", save.player.gold.ToString()),
-            //累计体力
-            ("stage_id", save.player.totalWasteEnergy.ToString())
-            );
+        MG_Manager.Instance.SendFBAttributeEvent(uri);
     }
     private void OnApplicationPause(bool pause)
     {

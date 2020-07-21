@@ -17,20 +17,12 @@ namespace MiddleGround.Audio
         };
         readonly Dictionary<int, AudioClip> dic_type_ac = new Dictionary<int, AudioClip>();
         readonly List<AudioSource> as_all = new List<AudioSource>();
-        AudioSource as_bgm;
+        //AudioSource as_bgm;
         GameObject go_root;
         public void Init(GameObject asRoot)
         {
             Instance = this;
             go_root = asRoot;
-            as_bgm = asRoot.AddComponent<AudioSource>();
-            AudioClip ac_bgm = Resources.Load<AudioClip>(dic_type_Path[(int)MG_PlayAudioType.BGM]);
-            dic_type_ac.Add((int)MG_PlayAudioType.BGM, ac_bgm);
-            as_bgm.clip = ac_bgm;
-            as_bgm.loop = true;
-            as_bgm.playOnAwake = false;
-            as_bgm.mute = !MG_Manager.Instance.Get_Save_MusicOn();
-            as_bgm.Play();
         }
         public AudioSource PlayOneShot(MG_PlayAudioType audioType)
         {
@@ -99,7 +91,6 @@ namespace MiddleGround.Audio
         }
         public void SetMusicState(bool state)
         {
-            as_bgm.mute = !state;
         }
         public void SetSoundState(bool state)
         {
@@ -110,10 +101,6 @@ namespace MiddleGround.Audio
         }
         public void PauseBgm(bool pause)
         {
-            if (pause)
-                as_bgm.Pause();
-            else
-                as_bgm.Play();
         }
     }
     public enum MG_PlayAudioType

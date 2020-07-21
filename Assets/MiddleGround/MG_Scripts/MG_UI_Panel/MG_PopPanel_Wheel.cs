@@ -19,6 +19,7 @@ namespace MiddleGround.UI
         public GameObject go_lock;
         public GameObject go_adicon;
         public Image img_midhandle;
+        public Image img_BG;
         public Text text_locktime;
         public Text text_wheelticket;
         public Text text_speedup;
@@ -203,50 +204,39 @@ namespace MiddleGround.UI
         public override IEnumerator OnEnter()
         {
             img_midhandle.color = Color.clear;
+            img_BG.sprite = MG_Manager.Instance.Get_GamePanelBg();
             UpdateWheelTicketShow();
             CheckLock();
 
-            Transform transAll = transform.GetChild(1);
-            transAll.localScale = new Vector3(0.8f, 0.8f, 1);
-            canvasGroup.alpha = 0.8f;
-            canvasGroup.blocksRaycasts = true;
-            while (transAll.localScale.x < 1)
+            while (canvasGroup.alpha < 1)
             {
                 yield return null;
-                float addValue = Time.unscaledDeltaTime * 2;
-                transAll.localScale += new Vector3(addValue, addValue);
-                canvasGroup.alpha += addValue;
+                canvasGroup.alpha += Time.unscaledDeltaTime * 4;
             }
-            transAll.localScale = Vector3.one;
             canvasGroup.alpha = 1;
-            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
         }
 
         public override IEnumerator OnExit()
         {
-            Transform transAll = transform.GetChild(1);
-            canvasGroup.interactable = false;
-            while (transAll.localScale.x > 0.8f)
+            while (canvasGroup.alpha > 0)
             {
                 yield return null;
-                float addValue = Time.unscaledDeltaTime * 2;
-                transAll.localScale -= new Vector3(addValue, addValue);
-                canvasGroup.alpha -= addValue;
+                canvasGroup.alpha -= Time.unscaledDeltaTime * 4;
             }
-            transAll.localScale = new Vector3(0.8f, 0.8f, 1);
-            MG_UIManager.Instance.UpdateWheelRP();
             canvasGroup.alpha = 0;
             canvasGroup.blocksRaycasts = false;
+            MG_UIManager.Instance.UpdateWheelRP();
         }
 
         public override void OnPause()
         {
-            btn_Close.gameObject.SetActive(false);
+            //btn_Close.gameObject.SetActive(false);
         }
 
         public override void OnResume()
         {
-            btn_Close.gameObject.SetActive(true);
+            //btn_Close.gameObject.SetActive(true);
         }
         string GetShowNumString(int num)
         {

@@ -30,7 +30,7 @@ public class DeepLink : MonoBehaviour
         Debug.unityLogger.logEnabled = false;
         if (!string.IsNullOrEmpty(uri))
         {
-            GameManager.Instance.SendFBAttributeEvent();
+            GameManager.Instance.SendFBAttributeEvent(uri);
 //#if UNITY_ANDROID
             if (!GameManager.Instance.loadEnd)
                 GameManager.Instance.SetShowExchange(true);

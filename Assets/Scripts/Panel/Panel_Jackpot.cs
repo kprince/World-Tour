@@ -62,7 +62,7 @@ public class Panel_Jackpot : PanelBase
         {
             ResetRewardIconPos();
             clickAdTime++;
-            Ads._instance.ShowRewardVideo(OnRewardedCallback, clickAdTime, "jackpotSpin");
+            Ads._instance.ShowRewardVideo(OnRewardedCallback, clickAdTime, "dice jackpotSpin");
         }
         else
         {

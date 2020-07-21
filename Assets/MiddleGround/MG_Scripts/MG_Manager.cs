@@ -55,15 +55,19 @@ namespace MiddleGround
             MG_Config = Resources.Load<ScriptableObject>("MG_ConfigAssets/MG_Dice_Config") as MG_Config;
             gameObject.AddComponent<MG_AudioManager>().Init(transform.Find("MG_AudioRoot").gameObject);
         }
-        public void ShowMenuPanel(MG_GamePanelType startGamePanel)
+        public void Init()
         {
             MG_Fly.Init();
-            MG_UIManager.Instance.ShowMenuPanel(startGamePanel);
+            MG_UIManager.Instance.ShowMenuPanel();
         }
-        public void CloseMenuPanel()
+        public void ShowPopPanel(MG_PopPanelType _PopPanelType)
+        {
+            MG_UIManager.Instance.ShowPopPanelAsync(_PopPanelType);
+        }
+        public void CloseTopPopPanel()
         {
             if (canChangeGame)
-                MG_UIManager.Instance.CloseMenuPanel();
+                MG_UIManager.Instance.CloseTopPopPanelAsync();
         }
         public bool Get_Save_SoundOn()
         {

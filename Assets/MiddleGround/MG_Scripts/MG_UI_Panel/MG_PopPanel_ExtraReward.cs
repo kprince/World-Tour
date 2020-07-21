@@ -57,15 +57,8 @@ namespace MiddleGround.UI
         void OnOpenButtonClick()
         {
             MG_Manager.Play_ButtonClick();
-            if (MG_SaveManager.FirstCome)
-            {
-                OnOpenAdCallback();
-            }
-            else
-            {
-                clickTime++;
-                MG_Manager.ShowRV(OnOpenAdCallback, clickTime, "open extra reward");
-            }
+            clickTime++;
+            MG_Manager.ShowRV(OnOpenAdCallback, clickTime, "open extra reward");
         }
         void OnOpenAdCallback()
         {
@@ -97,11 +90,6 @@ namespace MiddleGround.UI
         void OnGetButtonClick()
         {
             MG_Manager.Play_ButtonClick();
-            if (MG_SaveManager.FirstCome)
-            {
-                MG_SaveManager.FirstCome = false;
-                MG_SaveManager.TodayExtraRewardTimes++;
-            }
             switch (_rewardType)
             {
                 case MG_PopRewardPanel_RewardType.ExtraGold:
@@ -158,17 +146,15 @@ namespace MiddleGround.UI
             _rewardNum = MG_Manager.Instance.MG_PopDiceReward_Num;
             text_times.text = "Remaining:" + MG_SaveManager.TodayExtraRewardTimes.ToString();
 
-            go_AdIcon.SetActive(!MG_SaveManager.FirstCome);
-
             switch (_rewardType)
             {
                 case MG_PopRewardPanel_RewardType.ExtraGold:
-                    text_times.gameObject.SetActive(!MG_SaveManager.FirstCome);
+                    text_times.gameObject.SetActive(true);
                     text_rewardNum.text = _rewardNum.ToString();
                     img_RewardIcon.sprite = sp_gold;
                     break;
                 case MG_PopRewardPanel_RewardType.ExtraCash:
-                    text_times.gameObject.SetActive(!MG_SaveManager.FirstCome);
+                    text_times.gameObject.SetActive(true);
                     if (isPackB)
                         text_rewardCashNum.text = "$" + MG_Manager.Get_CashShowText(_rewardNum);
                     else

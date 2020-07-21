@@ -1,4 +1,5 @@
 ﻿using MiddleGround;
+using MiddleGround.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,9 +13,6 @@ public class Panel_Game : PanelBase
     public Button btn_Roll;
     public Button btn_Setting;
     public Button btn_Signin;
-    public Button btn_MG_Dice;
-    public Button btn_MG_Scratch;
-    public Button btn_MG_Slots;
     public GameObject go_signRedpoint;
     public Button btn_Gold;
     public Text text_Gold;
@@ -27,6 +25,7 @@ public class Panel_Game : PanelBase
     public Image img_cashIcon;
     private int nextEnergyTime;
     private SpriteAtlas gameAltas;
+    public RectTransform rect_Top;
     protected override void Awake()
     {
         btn_Roll.onClick.AddListener(OnRollClick);
@@ -34,11 +33,13 @@ public class Panel_Game : PanelBase
         btn_Signin.onClick.AddListener(OnSignInClick);
         btn_Gold.onClick.AddListener(OnGoldClick);
         btn_Cash.onClick.AddListener(OnCashClick);
-        btn_MG_Dice.onClick.AddListener(() => { MG_Manager.Instance.ShowMenuPanel(MiddleGround.UI.MG_GamePanelType.DicePanel); });
-        btn_MG_Scratch.onClick.AddListener(() => { MG_Manager.Instance.ShowMenuPanel(MiddleGround.UI.MG_GamePanelType.ScratchPanel); });
-        btn_MG_Slots.onClick.AddListener(() => { MG_Manager.Instance.ShowMenuPanel(MiddleGround.UI.MG_GamePanelType.SlotsPanel); });
         if (gameAltas is null)
             gameAltas = Resources.Load<SpriteAtlas>("GamePanel");
+        float lwr = Screen.height / Screen.width;
+        if (lwr > 4 / 3f)
+        {
+            rect_Top.anchoredPosition = new Vector2(0, -87);
+        }
 
         GameManager.Instance.goldTrans = text_Gold.transform;
         GameManager.Instance.cashTrans = text_Cash.transform;
@@ -102,14 +103,16 @@ public class Panel_Game : PanelBase
         if (!GameManager.Instance.GetShowExchange()) return;
         if (!GameManager.Instance.canRollDice) return;
         AudioManager.Instance.PlayerSound("Button");
-        PanelManager.Instance.ShowPanel(PanelType.Exchange);
+        //PanelManager.Instance.ShowPanel(PanelType.Exchange);
+        MG_Manager.Instance.ShowPopPanel(MiddleGround.UI.MG_PopPanelType.ShopPanel);
     }
     void OnCashClick()
     {
         if (!GameManager.Instance.GetShowExchange()) return;
         if (!GameManager.Instance.canRollDice) return;
         AudioManager.Instance.PlayerSound("Button");
-        PanelManager.Instance.ShowPanel(PanelType.Exchange);
+        //PanelManager.Instance.ShowPanel(PanelType.Exchange);
+        MG_Manager.Instance.ShowPopPanel(MiddleGround.UI.MG_PopPanelType.ShopPanel);
     }
     IEnumerator TimeClock()
     {
@@ -161,11 +164,18 @@ public class Panel_Game : PanelBase
     public override void OnResume()
     {
         base.OnResume();
+        MG_UIManager.Instance.MenuPanel.ShowButton();
         go_signRedpoint.SetActive(GameManager.Instance.CheckCanSignin());
         if (GameManager.Instance.GetNextSigninDay() > 6)
         {
             btn_Signin.gameObject.SetActive(false);
         }
+    }
+    public override void OnPause()
+    {
+        base.OnPause();
+        if (MG_UIManager.Instance.MenuPanel is object)
+            MG_UIManager.Instance.MenuPanel.HideButton();
     }
     public override void OnEnter()
     {
@@ -183,5 +193,6 @@ public class Panel_Game : PanelBase
         {
             btn_Signin.gameObject.SetActive(false);
         }
+        MG_Manager.Instance.Init();
     }
 }

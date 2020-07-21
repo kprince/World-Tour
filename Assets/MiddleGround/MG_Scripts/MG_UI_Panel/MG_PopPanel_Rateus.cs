@@ -25,7 +25,7 @@ namespace MiddleGround.UI
         {
             MG_Manager.Play_ButtonClick();
 #if UNITY_ANDROID
-            Application.OpenURL("https://play.google.com/store/apps/details?id=com.SuperLucky.FreeBigWinner.LuckyRoyale.Lottery");
+            Application.OpenURL("https://play.google.com/store/apps/details?id=com.LuckyDice.CashTycoon.IdleGame.LowPolyCausalGame.WorldTour");
 #elif UNITY_IOS
         var url = string.Format(
            "itms-apps://itunes.apple.com/cn/app/id{0}?mt=8&action=write-review",

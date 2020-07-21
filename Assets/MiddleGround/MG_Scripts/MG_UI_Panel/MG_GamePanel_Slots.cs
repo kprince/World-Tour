@@ -326,20 +326,29 @@ namespace MiddleGround.UI
         }
         public override IEnumerator OnEnter()
         {
-            canvasGroup.alpha = 1;
-            canvasGroup.blocksRaycasts = true;
             img_BG.sprite = MG_Manager.Instance.Get_GamePanelBg();
             img_L.material.SetTextureOffset(mat_mainTex_Key, new Vector2(finalOffsetX, dic_type_offsetY[(int)MG_Slots_RewardType.SSS]));
             img_M.material.SetTextureOffset(mat_mainTex_Key, new Vector2(finalOffsetX, dic_type_offsetY[(int)MG_Slots_RewardType.SSS]));
             img_R.material.SetTextureOffset(mat_mainTex_Key, new Vector2(finalOffsetX, dic_type_offsetY[(int)MG_Slots_RewardType.SSS]));
             CheckIsLock();
             UpdateSpinButtonState(MG_SaveManager.Gold);
-            yield return null;
+            while (canvasGroup.alpha < 1)
+            {
+                yield return null;
+                canvasGroup.alpha += Time.unscaledDeltaTime * 4;
+            }
+            canvasGroup.alpha = 1;
+            canvasGroup.blocksRaycasts = true;
             clickTime = 0;
         }
 
         public override IEnumerator OnExit()
         {
+            while (canvasGroup.alpha >0)
+            {
+                yield return null;
+                canvasGroup.alpha -= Time.unscaledDeltaTime * 4;
+            }
             canvasGroup.alpha = 0;
             canvasGroup.blocksRaycasts = false;
             yield return null;
@@ -351,6 +360,7 @@ namespace MiddleGround.UI
 
         public override void OnResume()
         {
+            MG_UIManager.Instance.MenuPanel.CheckGuid();
         }
         bool needAd = false;
         public void UpdateSpinButtonState(int gold)

@@ -21,6 +21,9 @@ public class AdjustEventLogger : MonoBehaviour
     public const string TOKEN_stage_end = "krvo3c";
     public const string TOKEN_deeplink = "s1bcbg";
     public const string TOKEN_packb = "h52qch";
+    public const string TOKEN_wheel = "v23mso";
+    public const string TOKEN_slots = "gw1gl8";
+    public const string TOKEN_ggl = "j38cu0";
 #elif UNITY_ANDROID
     public const string APP_TOKEN = "mxozp8pb86io";
     public const string TOKEN_open = "g9a89u";
@@ -29,9 +32,9 @@ public class AdjustEventLogger : MonoBehaviour
     public const string TOKEN_stage_end = "lysfol";
     public const string TOKEN_deeplink = "li74p8";
     public const string TOKEN_packb = "7muyyz";
-    public const string TOKEN_wheel = "";
-    public const string TOKEN_slots = "";
-    public const string TOKEN_ggl = "";
+    public const string TOKEN_wheel = "bvs9bc";
+    public const string TOKEN_slots = "p41mmh";
+    public const string TOKEN_ggl = "wbl8la";
 #endif
     public static AdjustEventLogger Instance;
     private void Awake()

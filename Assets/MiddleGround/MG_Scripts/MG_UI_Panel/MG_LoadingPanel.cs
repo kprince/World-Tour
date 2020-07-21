@@ -51,7 +51,7 @@ namespace MiddleGround.UI
         if(getCor is object)
             StopCoroutine(getCor);
 #endif
-            MG_Manager.Instance.ShowMenuPanel(MG_GamePanelType.DicePanel);
+            //MG_Manager.Instance.ShowMenuPanel(MG_GamePanelType.DicePanel);
             Destroy(gameObject);
         }
         IEnumerator WaitFor()

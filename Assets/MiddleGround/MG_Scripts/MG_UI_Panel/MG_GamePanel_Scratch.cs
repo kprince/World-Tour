@@ -148,16 +148,25 @@ namespace MiddleGround.UI
             CheckWehtherLock();
             CheckWetherNoTickets();
             img_BG.sprite = MG_Manager.Instance.Get_GamePanelBg();
-            canvasGroup.alpha = 1;
-            canvasGroup.blocksRaycasts = true;
             if (notTouch && !isNoTicket && !isLock)
                 cor_guidHandle = StartCoroutine(AutoMoveHandle());
-            yield return null;
+            while (canvasGroup.alpha<1)
+            {
+                yield return null;
+                canvasGroup.alpha += Time.unscaledDeltaTime * 4;
+            }
+            canvasGroup.alpha = 1;
+            canvasGroup.blocksRaycasts = true;
             clickTime = 0;
         }
 
         public override IEnumerator OnExit()
         {
+            while (canvasGroup.alpha > 0)
+            {
+                yield return null;
+                canvasGroup.alpha -= Time.unscaledDeltaTime * 4;
+            }
             canvasGroup.alpha = 0;
             canvasGroup.blocksRaycasts = false;
             if (cor_guidHandle is object)
@@ -171,6 +180,7 @@ namespace MiddleGround.UI
 
         public override void OnResume()
         {
+            MG_UIManager.Instance.MenuPanel.CheckGuid();
         }
         Sprite GetTargetSprite(int index)
         {

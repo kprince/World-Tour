@@ -1886,7 +1886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7886839979731155515
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2758,10 +2758,10 @@ RectTransform:
   m_Father: {fileID: 6498961606083283186}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1080, y: 2449.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6498961605912959375
 CanvasRenderer:
@@ -2784,12 +2784,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d8d9b9adbe783964195eaf055023e3a3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2891,6 +2891,7 @@ MonoBehaviour:
   go_lock: {fileID: 3602209235234636489}
   go_adicon: {fileID: 4149294544668018222}
   img_midhandle: {fileID: 7191050054252805103}
+  img_BG: {fileID: 1523983984771338276}
   text_locktime: {fileID: 6193288246412237827}
   text_wheelticket: {fileID: 4449590474772163148}
   text_speedup: {fileID: 7447752766008142625}

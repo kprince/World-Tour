@@ -257,7 +257,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: D:/POLYHOUSE/LuckDice/Travel world.keystore
+  AndroidKeystoreName: D:/OfficalProjects/WorldTour/Travel world.keystore
   AndroidKeyaliasName: travel world
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1

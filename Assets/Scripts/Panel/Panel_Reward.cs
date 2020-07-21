@@ -206,7 +206,7 @@ public class Panel_Reward : PanelBase
         AudioManager.Instance.PlayerSound("Button");
         if (isSliding) return;
         clickAdTime++;
-        Ads._instance.ShowRewardVideo(OnadGetRewardedCallBack, clickAdTime, rewardType + " get moremutiple");
+        Ads._instance.ShowRewardVideo(OnadGetRewardedCallBack, clickAdTime, rewardType + "dice marquee get moremutiple");
     }
     void OnadGetRewardedCallBack()
     {
@@ -223,8 +223,7 @@ public class Panel_Reward : PanelBase
         AudioManager.Instance.PlayerSound("Button");
         if (isSliding) return;
 #if !UNITY_EDITOR
-        Ads._instance.adDes = rewardType.ToString() + "的nothanks";
-        Ads._instance.ShowInterstialAd();
+        Ads._instance.ShowInterstialAd(null,rewardType+" no thanks");
 #endif
         if (!hasGet && rewardType == RewardType.Gold) 
         {
@@ -243,7 +242,7 @@ public class Panel_Reward : PanelBase
             return;
         }
         clickAdTime++;
-        Ads._instance.ShowRewardVideo(OnAdopenRewardedCallback, clickAdTime, "open surprise gift");
+        Ads._instance.ShowRewardVideo(OnAdopenRewardedCallback, clickAdTime, "open dice gift");
     }
     void OnAdopenRewardedCallback()
     {

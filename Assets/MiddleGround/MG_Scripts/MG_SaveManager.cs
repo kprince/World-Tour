@@ -795,21 +795,6 @@ namespace MiddleGround.Save
                 }
             }
         }
-        public static bool FirstCome
-        {
-            get
-            {
-                return PlayerPrefs.GetInt(Save_FirstCome_Key, 1) == 1;
-            }
-            set
-            {
-                if (!value)
-                {
-                    PlayerPrefs.SetInt(Save_FirstCome_Key, 0);
-                    PlayerPrefs.Save();
-                }
-            }
-        }
         public static int Get777Times
         {
             get
