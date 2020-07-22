@@ -399,7 +399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: -600}
+  m_AnchoredPosition: {x: 3, y: -572.4}
   m_SizeDelta: {x: 538.45703, y: 154.20667}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4489999689001572877
@@ -734,7 +734,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 48.5, y: -466.6}
+  m_AnchoredPosition: {x: 48.5, y: -439}
   m_SizeDelta: {x: 0, y: 87.951004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1638621183222972435
@@ -863,7 +863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50.51001, y: -722}
+  m_AnchoredPosition: {x: 50.51001, y: -694.4}
   m_SizeDelta: {x: 725.9297, y: 66.71771}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4264190229656247146
@@ -2736,7 +2736,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6498961605912959369}
   - component: {fileID: 6498961605912959375}
-  - component: {fileID: 1523983984771338276}
   m_Layer: 5
   m_Name: MG_PopWheelPanel_BG
   m_TagString: Untagged
@@ -2771,33 +2770,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6498961605912959368}
   m_CullTransparentMesh: 0
---- !u!114 &1523983984771338276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6498961605912959368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d8d9b9adbe783964195eaf055023e3a3, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
 --- !u!1 &6498961606083283149
 GameObject:
   m_ObjectHideFlags: 0
@@ -2891,7 +2863,6 @@ MonoBehaviour:
   go_lock: {fileID: 3602209235234636489}
   go_adicon: {fileID: 4149294544668018222}
   img_midhandle: {fileID: 7191050054252805103}
-  img_BG: {fileID: 1523983984771338276}
   text_locktime: {fileID: 6193288246412237827}
   text_wheelticket: {fileID: 4449590474772163148}
   text_speedup: {fileID: 7447752766008142625}

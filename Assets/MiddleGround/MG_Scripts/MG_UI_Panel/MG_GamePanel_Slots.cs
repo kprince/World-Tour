@@ -15,7 +15,6 @@ namespace MiddleGround.UI
         public Image img_L;
         public Image img_M;
         public Image img_R;
-        public Image img_BG;
         public Image img_LightUp;
         public Image img_LightDown;
         public GameObject go_ad;
@@ -320,18 +319,17 @@ namespace MiddleGround.UI
             }
             yield return null;
             CheckIsLock();
-            UpdateSpinButtonState(MG_SaveManager.Gold);
+            UpdateSpinButtonState(MG_Manager.Instance.Get_Save_Gold());
             isSpining = false;
             MG_Manager.Instance.canChangeGame = true;
         }
         public override IEnumerator OnEnter()
         {
-            img_BG.sprite = MG_Manager.Instance.Get_GamePanelBg();
             img_L.material.SetTextureOffset(mat_mainTex_Key, new Vector2(finalOffsetX, dic_type_offsetY[(int)MG_Slots_RewardType.SSS]));
             img_M.material.SetTextureOffset(mat_mainTex_Key, new Vector2(finalOffsetX, dic_type_offsetY[(int)MG_Slots_RewardType.SSS]));
             img_R.material.SetTextureOffset(mat_mainTex_Key, new Vector2(finalOffsetX, dic_type_offsetY[(int)MG_Slots_RewardType.SSS]));
             CheckIsLock();
-            UpdateSpinButtonState(MG_SaveManager.Gold);
+            UpdateSpinButtonState(MG_Manager.Instance.Get_Save_Gold());
             while (canvasGroup.alpha < 1)
             {
                 yield return null;

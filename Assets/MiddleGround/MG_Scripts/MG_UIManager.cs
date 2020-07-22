@@ -93,7 +93,7 @@ namespace MiddleGround.UI
                 {
                     if(loadedPopPanel is null)
                     {
-                        Debug.LogWarning((open ? "Show" : "Close") + " MG_PopPanel-" + panelIndex + " Error : loadedDic has key , but content is null.");
+                        Debug.LogWarning((open ? "Show" : "Close") + " MG_PopPanel-" + nextTask.t_panelType + " Error : loadedDic has key , but content is null.");
                         continue;
                     }
                     else
@@ -102,7 +102,7 @@ namespace MiddleGround.UI
                         {
                             if (open)
                             {
-                                Debug.LogWarning("Show MG_PopPanel-" + panelIndex + " Error : panel has showed.");
+                                Debug.LogWarning("Show MG_PopPanel-" + nextTask.t_panelType + " Error : panel has showed.");
                                 continue;
                             }
                             else
@@ -147,7 +147,7 @@ namespace MiddleGround.UI
                             }
                             else
                             {
-                                Debug.LogWarning("Close MG_PopPanel-" + panelIndex + " Error : panel has not show.");
+                                Debug.LogWarning("Close MG_PopPanel-" + nextTask.t_panelType + " Error : panel has not show.");
                                 continue;
                             }
                         }
@@ -161,7 +161,7 @@ namespace MiddleGround.UI
                         {
                             if (string.IsNullOrEmpty(panelPath))
                             {
-                                Debug.LogWarning("Show MG_PopPanel-" + panelIndex + " Error : panelPathDic content is null or empty.");
+                                Debug.LogWarning("Show MG_PopPanel-" + nextTask.t_panelType + " Error : panelPathDic content is null or empty.");
                                 continue;
                             }
                             else
@@ -186,13 +186,13 @@ namespace MiddleGround.UI
                         }
                         else
                         {
-                            Debug.LogWarning("Show MG_PopPanel-" + panelIndex + " Error : panelPathDic content is null or empty.");
+                            Debug.LogWarning("Show MG_PopPanel-" + nextTask.t_panelType + " Error : panelPathDic content is null or empty.");
                             continue;
                         }
                     }
                     else
                     {
-                        Debug.LogWarning("Close MG_PopPanel-" + panelIndex + " Error : panel has not loaded or show.");
+                        Debug.LogWarning("Close MG_PopPanel-" + nextTask.t_panelType + " Error : panel has not loaded or show.");
                         continue;
                     }
                 }

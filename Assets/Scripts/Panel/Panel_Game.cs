@@ -26,6 +26,7 @@ public class Panel_Game : PanelBase
     private int nextEnergyTime;
     private SpriteAtlas gameAltas;
     public RectTransform rect_Top;
+    public GameObject go_cashout;
     protected override void Awake()
     {
         btn_Roll.onClick.AddListener(OnRollClick);
@@ -182,17 +183,21 @@ public class Panel_Game : PanelBase
         base.OnEnter();
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
+        MG_Manager.Instance.Init();
         if (GameManager.Instance.CheckFirstSignin(true))
         {
             GameManager.Instance.GetExtraBonus();
         }
-        img_cashIcon.sprite = GameManager.Instance.GetShowExchange() ?
-            gameAltas.GetSprite("cashB") : gameAltas.GetSprite("cashA");
+        bool packB = GameManager.Instance.GetShowExchange();
+        go_cashout.SetActive(packB);
+        if (packB)
+            img_cashIcon.sprite = gameAltas.GetSprite("cashB");
+        else
+            img_cashIcon.sprite = gameAltas.GetSprite("cashA");
         GameManager.Instance.SetCashBrickTex();
         if (GameManager.Instance.GetNextSigninDay() > 6)
         {
             btn_Signin.gameObject.SetActive(false);
         }
-        MG_Manager.Instance.Init();
     }
 }

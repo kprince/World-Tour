@@ -882,7 +882,7 @@ public class GameManager : MonoBehaviour
     public bool GetShowExchange()
     {
 #if UNITY_EDITOR
-        return true;
+        return false;
 #endif
         return save.player.showExchange;
     }

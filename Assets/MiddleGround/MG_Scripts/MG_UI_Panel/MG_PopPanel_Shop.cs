@@ -9,6 +9,7 @@ namespace MiddleGround.UI
     public class MG_PopPanel_Shop : MG_UIBase
     {
         public RectTransform rect_Top;
+        public RectTransform rect_view;
 
         public Button btn_back;
         public Button btn_get1;
@@ -59,7 +60,11 @@ namespace MiddleGround.UI
             base.Awake();
             float lwr = Screen.height / Screen.width;
             if (lwr > 4 / 3f)
+            {
                 rect_Top.anchoredPosition = new Vector2(0, 0);
+            }
+            rect_view.anchoredPosition = new Vector2(rect_view.anchoredPosition.x, rect_view.anchoredPosition.y - 25.25f);
+            rect_view.sizeDelta = new Vector2(rect_view.sizeDelta.x, Screen.height - rect_Top.sizeDelta.y * 0.5f);
             btn_back.onClick.AddListener(OnBackButtonClick);
 
             shopAtlas = MG_UIManager.Instance.GetSpriteAtlas((int)MG_PopPanelType.ShopPanel);

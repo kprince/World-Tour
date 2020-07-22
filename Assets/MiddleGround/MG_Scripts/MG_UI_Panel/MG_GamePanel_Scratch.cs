@@ -9,7 +9,6 @@ namespace MiddleGround.UI
 {
     public class MG_GamePanel_Scratch : MG_UIBase
     {
-        public Image img_BG;
         public Image[] img_Cards = new Image[9];
         private Transform[] trans_Cards = new Transform[9];
         public Image img_TargetCard;
@@ -147,14 +146,18 @@ namespace MiddleGround.UI
         {
             CheckWehtherLock();
             CheckWetherNoTickets();
-            img_BG.sprite = MG_Manager.Instance.Get_GamePanelBg();
             if (notTouch && !isNoTicket && !isLock)
                 cor_guidHandle = StartCoroutine(AutoMoveHandle());
-            while (canvasGroup.alpha<1)
+            float progress = 0;
+            Material maskMat = img_Mask.material;
+            while (progress<1)
             {
                 yield return null;
-                canvasGroup.alpha += Time.unscaledDeltaTime * 4;
+                progress += Time.unscaledDeltaTime * 4;
+                canvasGroup.alpha = progress;
+                maskMat.SetFloat(Mat_Alpha_Key, progress);
             }
+            maskMat.SetFloat(Mat_Alpha_Key, 1);
             canvasGroup.alpha = 1;
             canvasGroup.blocksRaycasts = true;
             clickTime = 0;
@@ -162,11 +165,16 @@ namespace MiddleGround.UI
 
         public override IEnumerator OnExit()
         {
-            while (canvasGroup.alpha > 0)
+            float progress = 1;
+            Material maskMat = img_Mask.material;
+            while (progress > 0)
             {
                 yield return null;
-                canvasGroup.alpha -= Time.unscaledDeltaTime * 4;
+                progress -= Time.unscaledDeltaTime * 4;
+                canvasGroup.alpha = progress;
+                maskMat.SetFloat(Mat_Alpha_Key, progress);
             }
+            maskMat.SetFloat(Mat_Alpha_Key, 0);
             canvasGroup.alpha = 0;
             canvasGroup.blocksRaycasts = false;
             if (cor_guidHandle is object)
@@ -507,7 +515,6 @@ namespace MiddleGround.UI
             }
             CheckWehtherLock();
             CheckWetherNoTickets();
-            img_BG.sprite = MG_Manager.Instance.Get_GamePanelBg();
 
             rewardNum = MG_SaveManager.ScratchCardRewardNum;
             rewardType = MG_SaveManager.ScratchCardRewardType;

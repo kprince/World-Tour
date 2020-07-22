@@ -18142,7 +18142,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2555131934151302401}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -18212,7 +18212,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2555131934151302401}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -18322,8 +18322,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 2555131933838178393}
   - {fileID: 2555131933221358495}
+  - {fileID: 2555131933838178393}
   - {fileID: 2555131932863011084}
   - {fileID: 2555131934499726000}
   - {fileID: 2555131934284830728}
@@ -18387,6 +18387,7 @@ MonoBehaviour:
   willRateus: 0
   isGuid: 0
   next_GuidType: 0
+  isInMG: 0
   MG_SignRewardNum: 0
   MG_SignRewardMutiple: 1
 --- !u!114 &1022361409285410866

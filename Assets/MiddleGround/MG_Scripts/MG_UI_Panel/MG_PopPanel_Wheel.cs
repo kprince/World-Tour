@@ -19,7 +19,6 @@ namespace MiddleGround.UI
         public GameObject go_lock;
         public GameObject go_adicon;
         public Image img_midhandle;
-        public Image img_BG;
         public Text text_locktime;
         public Text text_wheelticket;
         public Text text_speedup;
@@ -204,7 +203,6 @@ namespace MiddleGround.UI
         public override IEnumerator OnEnter()
         {
             img_midhandle.color = Color.clear;
-            img_BG.sprite = MG_Manager.Instance.Get_GamePanelBg();
             UpdateWheelTicketShow();
             CheckLock();
 

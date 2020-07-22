@@ -37,6 +37,8 @@ namespace MiddleGround
         public bool isGuid = false;
         public MG_Guid_Type next_GuidType = MG_Guid_Type.Null;
 
+        public bool isInMG = false;
+
         MG_Config MG_Config;
         private void Awake()
         {
@@ -48,8 +50,8 @@ namespace MiddleGround
             Debug.unityLogger.logEnabled = false;
 #endif
             gameObject.AddComponent<MG_UIManager>().Init(
-                transform.GetChild(0),
                 transform.GetChild(1),
+                transform.GetChild(0),
                 transform.GetChild(2)
                 );
             MG_Config = Resources.Load<ScriptableObject>("MG_ConfigAssets/MG_Dice_Config") as MG_Config;
@@ -91,9 +93,6 @@ namespace MiddleGround
         }
         public bool Get_Save_PackB()
         {
-#if UNITY_EDITOR
-            return true;
-#endif
             return GameManager.Instance.GetShowExchange();
         }
         public void Set_Save_isPackB()
