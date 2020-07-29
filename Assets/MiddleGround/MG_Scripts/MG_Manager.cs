@@ -4,8 +4,10 @@ using MiddleGround.Save;
 using MiddleGround.UI;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MiddleGround
 {
@@ -38,7 +40,9 @@ namespace MiddleGround
         public MG_Guid_Type next_GuidType = MG_Guid_Type.Null;
 
         public bool isInMG = false;
+        public bool canBackGame = true;
 
+        Image img_BG;
         MG_Config MG_Config;
         private void Awake()
         {
@@ -51,9 +55,10 @@ namespace MiddleGround
 #endif
             gameObject.AddComponent<MG_UIManager>().Init(
                 transform.GetChild(1),
-                transform.GetChild(0),
-                transform.GetChild(2)
+                transform.GetChild(2),
+                transform.GetChild(3)
                 );
+            img_BG = transform.GetChild(0).GetComponent<Image>();
             MG_Config = Resources.Load<ScriptableObject>("MG_ConfigAssets/MG_Dice_Config") as MG_Config;
             gameObject.AddComponent<MG_AudioManager>().Init(transform.Find("MG_AudioRoot").gameObject);
         }
@@ -135,7 +140,6 @@ namespace MiddleGround
             MG_SaveManager.DiceLife += value;
             if (value < 0)
                 Add_Save_DiceTotalTimes(-value);
-            MG_UIManager.Instance.UpdateDicePanel_DiceLifeText();
         }
         public int Get_Save_ScratchTicket()
         {
@@ -216,8 +220,6 @@ namespace MiddleGround
         public void Add_Save_DiceTotalTimes(int value = 1)
         {
             MG_SaveManager.DiceTotalPlayTimes += value;
-            if (MG_SaveManager.DiceTotalPlayTimes == 3)
-                next_GuidType = MG_Guid_Type.DiceGuid;
         }
         public int Get_Save_ScratchTotalTimes()
         {
@@ -295,14 +297,51 @@ namespace MiddleGround
             }
             return rangeCount - 1;
         }
-        public Sprite Get_GamePanelBg()
+        public void StartFadeIn_Bg()
         {
             int bgindex = MG_SaveManager.CurrentBgIndex;
             if(MG_GamePanel_BG[bgindex] is null)
             {
                 MG_GamePanel_BG[bgindex] = Resources.Load<Sprite>("MG_GamePanel_BG/MG_GamePanel_BG" + bgindex);
             }
-            return MG_GamePanel_BG[bgindex];
+            img_BG.sprite = MG_GamePanel_BG[bgindex];
+            StopCoroutine("FadeBG");
+            StartCoroutine("FadeBG", true);
+        }
+        public void StartFadeOut_Bg()
+        {
+            StopCoroutine("FadeBG");
+            StartCoroutine("FadeBG", false);
+        }
+        IEnumerator FadeBG(bool isFadeIn)
+        {
+            while (!MG_Manager.Instance.canBackGame)
+            {
+                yield return null;
+            }
+            float progress = img_BG.color.a;
+            if (isFadeIn)
+            {
+                img_BG.raycastTarget = true;
+                while (progress < 1)
+                {
+                    yield return null;
+                    progress += Time.unscaledDeltaTime * 4;
+                    img_BG.color = new Color(1, 1, 1, progress);
+                }
+                img_BG.color = Color.white;
+            }
+            else
+            {
+                while (progress > 0)
+                {
+                    yield return null;
+                    progress -= Time.unscaledDeltaTime * 4;
+                    img_BG.color = new Color(1, 1, 1, progress);
+                }
+                img_BG.color = Color.clear;
+                img_BG.raycastTarget = false;
+            }
         }
         public MG_Wheel_RewardType[] Get_Config_WheelReward(out int[] rewardNum)
         {
@@ -933,6 +972,10 @@ namespace MiddleGround
         }
 
 
+        public static void ShowMGGuid()
+        {
+            MG_UIManager.Instance.MenuPanel.ShowEnterMGGuid();
+        }
         public static string Get_CashShowText(int cashValue)
         {
             cashValue = Mathf.Abs(cashValue);
@@ -975,7 +1018,7 @@ namespace MiddleGround
     {
         ScratchToken,
         SlotsToken,
-        DiceToken,
+        WheelToken,
         Null
     }
     public enum MG_PopRewardPanel_RewardType

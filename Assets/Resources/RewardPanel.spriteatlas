@@ -31,12 +31,13 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 4a9763f114d50ea45b137d902da5b24a, type: 3}
-    totalSpriteSurfaceArea: 3430456
+    totalSpriteSurfaceArea: 3505240
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 7b16245043522e34ea2dcc5ba051d99e, type: 3}
   - {fileID: 21300000, guid: c27cc0614acd4c74ea9b5e508b765a31, type: 3}
+  - {fileID: 21300000, guid: 4fc15b615804a4443a71b8cb20256cf2, type: 3}
   - {fileID: 21300000, guid: d0079ad104bc37e4c99c72cfcc836a16, type: 3}
   - {fileID: 21300000, guid: 16e32a12ae9aefc42b8e67a8bc6b8244, type: 3}
   - {fileID: 21300000, guid: 61fd3e5205c7b1145958f4d3c80bbf39, type: 3}
@@ -63,6 +64,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - Mutiple_1
   - CashA
+  - open
   - adget
   - ManyCashB
   - Mutiple_Unknown

@@ -84,6 +84,7 @@ namespace MiddleGround.UI
         }
         IEnumerator ExcuteTask()
         {
+            MG_Manager.Instance.canBackGame = false;
             while (Queue_PopPanel.Count > 0)
             {
                 PanelTask nextTask = Queue_PopPanel.Dequeue();
@@ -197,6 +198,7 @@ namespace MiddleGround.UI
                     }
                 }
             }
+            MG_Manager.Instance.canBackGame = true;
             Cor_PopPanelTask = null;
         }
         public bool CloseTopPopPanelAsync()
@@ -309,11 +311,6 @@ namespace MiddleGround.UI
                 MG_GamePanel_Slots SlotsPanel = Current_GamePanel as MG_GamePanel_Slots;
                 SlotsPanel.UpdateSpinButtonState(gold);
             }
-        }
-        public void UpdateDicePanel_DiceLifeText()
-        {
-            MG_GamePanel_Dice _GamePanel_Dice = LoadedPanel_Dic[(int)MG_GamePanelType.DicePanel] as MG_GamePanel_Dice;
-            _GamePanel_Dice.UpdateDiceLifeAndGiftStepText();
         }
         public void UpdateWheelTicketText()
         {

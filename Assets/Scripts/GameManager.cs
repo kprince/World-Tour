@@ -133,6 +133,8 @@ public class GameManager : MonoBehaviour
     public bool loadEnd = false;
     [HideInInspector]
     public bool needRateUs = false;
+    [HideInInspector]
+    public bool needShowMGGuid = false;
     private void Awake()
     {
         Instance = this;
@@ -405,6 +407,11 @@ public class GameManager : MonoBehaviour
             car_Trans.rotation = endRot;
             currentStep = nextStep;
         }
+        if (!save.player.hasShowMGGuid && save.player.totalWasteEnergy >= 3)
+        {
+            needShowMGGuid = true;
+            save.player.hasShowMGGuid = true;
+        }
         if (currentStep ==0)
         {
             GetExtraBonus();
@@ -448,6 +455,11 @@ public class GameManager : MonoBehaviour
                 panelManager.ShowPanel(PanelType.Reward, 0.3f);
                 break;
             default:
+                if (needShowMGGuid)
+                {
+                    needShowMGGuid = false;
+                    MG_Manager.ShowMGGuid();
+                }
                 break;
         }
         car_Animator.SetFloat("Speed", IdleAnimationSpeed);
@@ -882,7 +894,7 @@ public class GameManager : MonoBehaviour
     public bool GetShowExchange()
     {
 #if UNITY_EDITOR
-        return false;
+        return true;
 #endif
         return save.player.showExchange;
     }

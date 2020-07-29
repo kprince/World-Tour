@@ -39,7 +39,7 @@ public class Panel_Game : PanelBase
         float lwr = Screen.height / Screen.width;
         if (lwr > 4 / 3f)
         {
-            rect_Top.anchoredPosition = new Vector2(0, -87);
+            rect_Top.anchoredPosition = new Vector2(0, -168);
         }
 
         GameManager.Instance.goldTrans = text_Gold.transform;
@@ -105,7 +105,7 @@ public class Panel_Game : PanelBase
         if (!GameManager.Instance.canRollDice) return;
         AudioManager.Instance.PlayerSound("Button");
         //PanelManager.Instance.ShowPanel(PanelType.Exchange);
-        MG_Manager.Instance.ShowPopPanel(MiddleGround.UI.MG_PopPanelType.ShopPanel);
+        MG_Manager.Instance.ShowPopPanel(MG_PopPanelType.ShopPanel);
     }
     void OnCashClick()
     {
@@ -113,7 +113,7 @@ public class Panel_Game : PanelBase
         if (!GameManager.Instance.canRollDice) return;
         AudioManager.Instance.PlayerSound("Button");
         //PanelManager.Instance.ShowPanel(PanelType.Exchange);
-        MG_Manager.Instance.ShowPopPanel(MiddleGround.UI.MG_PopPanelType.ShopPanel);
+        MG_Manager.Instance.ShowPopPanel(MG_PopPanelType.ShopPanel);
     }
     IEnumerator TimeClock()
     {

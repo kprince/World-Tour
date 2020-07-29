@@ -78,7 +78,7 @@ namespace MiddleGround.Save
         {
             get
             {
-                return PlayerPrefs.GetInt(Save_CurrentGamePanel_Key, 1);
+                return PlayerPrefs.GetInt(Save_CurrentGamePanel_Key, 0);
             }
             set
             {

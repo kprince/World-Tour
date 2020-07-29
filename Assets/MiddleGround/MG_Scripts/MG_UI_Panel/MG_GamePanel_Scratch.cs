@@ -184,10 +184,12 @@ namespace MiddleGround.UI
 
         public override void OnPause()
         {
+            canvasGroup.blocksRaycasts = false;
         }
 
         public override void OnResume()
         {
+            canvasGroup.blocksRaycasts = true;
             MG_UIManager.Instance.MenuPanel.CheckGuid();
         }
         Sprite GetTargetSprite(int index)

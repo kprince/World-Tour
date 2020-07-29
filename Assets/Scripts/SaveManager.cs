@@ -58,6 +58,7 @@ public class SaveManager : MonoBehaviour
                 musicOn = true,
                 showExchange = false,
                 hasRateUs = false,
+                hasShowMGGuid=false,
             };
         }
     }
@@ -84,4 +85,5 @@ public class PlayerInfo
     public bool musicOn;
     public bool showExchange;
     public bool hasRateUs;
+    public bool hasShowMGGuid;
 }

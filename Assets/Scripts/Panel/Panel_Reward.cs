@@ -40,6 +40,8 @@ public class Panel_Reward : PanelBase
     const string Atlas_GoldIcon_Key = "Gold";
     const string Atlas_CashAIcon_Key = "CashA";
     const string Atlas_CashBIcon_Key = "CashB";
+    const string Atlas_AdOpen_Key = "adopen";
+    const string Atlas_Open_Key = "open";
     protected override void Awake()
     {
         base.Awake();
@@ -147,8 +149,15 @@ public class Panel_Reward : PanelBase
                 btn_adGet.gameObject.SetActive(false);
                 btn_get.gameObject.SetActive(true);
                 slider.SetActive(false);
-                if (!GameManager.Instance.CheckFirstSignin(true))
+                if (GameManager.Instance.CheckFirstSignin(true))
+                {
+                    btn_adOpen.image.sprite = Atlas.GetSprite(Atlas_Open_Key);
+                }
+                else
+                {
+                    btn_adOpen.image.sprite = Atlas.GetSprite(Atlas_AdOpen_Key);
                     StartCoroutine(DelayShowNothanks(text_nothanks2));
+                }
                 break;
             case RewardType.NoticeBonus:
                 break;
@@ -401,6 +410,12 @@ public class Panel_Reward : PanelBase
         else if (GameManager.Instance.needRateUs)
         {
             PanelManager.Instance.ShowPanel(PanelType.RateUs);
+        }
+        else if (GameManager.Instance.needShowMGGuid)
+        {
+            GameManager.Instance.needShowMGGuid = false;
+            GameManager.Instance.canRollDice = true;
+            MiddleGround.MG_Manager.ShowMGGuid();
         }
         else
             GameManager.Instance.canRollDice = true;

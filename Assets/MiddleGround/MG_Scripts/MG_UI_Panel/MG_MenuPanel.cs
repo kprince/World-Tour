@@ -9,7 +9,6 @@ namespace MiddleGround.UI
 {
     public class MG_MenuPanel : MG_UIBase
     {
-        public Image img_BG;
         public Button btn_WheelOut;
         public Button btn_ScratchOut;
         public Button btn_SlotsOut;
@@ -36,6 +35,7 @@ namespace MiddleGround.UI
         public RectTransform rect_Top;
         public Transform trans_guidMask;
         public Transform trans_guidBase;
+        public Transform trans_guid_enterMG;
         public Image img_guidBG;
         public Image img_guidIcon;
         public Text text_guidDes;
@@ -46,6 +46,7 @@ namespace MiddleGround.UI
         public GameObject go_scratchRP;
         public GameObject go_cashoutTips_cash;
         public GameObject go_cashoutTips_special;
+        public GameObject go_guide_enterMG;
         public CanvasGroup cg_menuin_bottom;
         CanvasGroup cg_menuin_top;
         Sprite sp_WheelOn = null;
@@ -79,8 +80,10 @@ namespace MiddleGround.UI
             btn_SpecialToken.onClick.AddListener(OnSpecialButtonClick);
             btn_Back.onClick.AddListener(()=> 
             { 
-                MG_Manager.Instance.CloseTopPopPanel();
-                StartCoroutine(StartFadeOutMenuBottom()); 
+                MG_UIManager.Instance.ClosePopPanelAsync((MG_PopPanelType)MG_SaveManager.Current_GamePanel);
+                StopCoroutine("StartFadeOutMenuBottom");
+                StartCoroutine("StartFadeOutMenuBottom");
+                MG_Manager.Instance.StartFadeOut_Bg();
             });
             trans_guidMask.GetComponent<Button>().onClick.AddListener(OnMaskButtonClick);
             cg_menuin_top = rect_Top.GetComponent<CanvasGroup>();
@@ -95,6 +98,9 @@ namespace MiddleGround.UI
             else
                 f_guidY = 513;
             trans_guidBase.localPosition = new Vector2(0, f_guidY);
+            startX = btn_ScratchOut.transform.localPosition.x - 240;
+            endX = btn_ScratchOut.transform.localPosition.x - 140;
+            startY = btn_ScratchOut.transform.localPosition.y;
 
             MenuAtlas = MG_UIManager.Instance.GetMenuSpriteAtlas();
             sp_ScratchToken = MenuAtlas.GetSprite("MG_Sprite_Menu_ScratchToken");
@@ -133,20 +139,26 @@ namespace MiddleGround.UI
         void OnWheelButtonClick()
         {
             MG_Manager.Play_ButtonClick();
-            if (!MG_Manager.Instance.canChangeGame) return;
+            if (!GameManager.Instance.canRollDice) return;
             go_SpecialToken.SetActive(false);
             img_meninScratchIcon.sprite = sp_ScratchOff;
             img_meninSlotsIcon.sprite = sp_SlotsOff;
             img_meninWheelIcon.sprite = sp_WheelOn;
-            MG_SaveManager.Current_GamePanel = (int)MG_PopPanelType.DicePanel;
+            MG_SaveManager.Current_GamePanel = (int)MG_PopPanelType.WheelPanel;
             MG_Manager.Instance.isInMG = false;
             MG_UIManager.Instance.ShowPopPanelAsync(MG_PopPanelType.WheelPanel);
             UpdateAllContent();
+            MG_Manager.Instance.StartFadeIn_Bg();
         }
         void OnScratchButtonClick()
         {
             MG_Manager.Play_ButtonClick();
-            if (!MG_Manager.Instance.canChangeGame) return;
+            if (!GameManager.Instance.canRollDice) return;
+            StopCoroutine("AutoMoveEnterMGGuidHand");
+            if (go_guide_enterMG.activeSelf)
+            {
+                go_guide_enterMG.SetActive(false);
+            }
             if (go_scratchRP.activeSelf)
                 go_scratchRP.SetActive(false);
             img_meninScratchIcon.sprite = sp_ScratchOn;
@@ -156,11 +168,12 @@ namespace MiddleGround.UI
             MG_Manager.Instance.isInMG = false;
             MG_UIManager.Instance.ShowPopPanelAsync(MG_PopPanelType.ScratchPanel);
             UpdateAllContent();
+            MG_Manager.Instance.StartFadeIn_Bg();
         }
         void OnSlotsButtonClick()
         {
             MG_Manager.Play_ButtonClick();
-            if (!MG_Manager.Instance.canChangeGame) return;
+            if (!GameManager.Instance.canRollDice) return;
             img_meninScratchIcon.sprite = sp_ScratchOff;
             img_meninSlotsIcon.sprite = sp_SlotsOn;
             img_meninWheelIcon.sprite = sp_WheelOff;
@@ -168,18 +181,20 @@ namespace MiddleGround.UI
             MG_Manager.Instance.isInMG = false;
             MG_UIManager.Instance.ShowPopPanelAsync(MG_PopPanelType.SlotsPanel);
             UpdateAllContent();
+            MG_Manager.Instance.StartFadeIn_Bg();
         }
         void OnMenuinWheelButtonClick()
         {
             MG_Manager.Play_ButtonClick();
             if (!MG_Manager.Instance.canChangeGame) return;
+            if (MG_SaveManager.Current_GamePanel == (int)MG_PopPanelType.WheelPanel) return;
             go_SpecialToken.SetActive(false);
             img_meninScratchIcon.sprite = sp_ScratchOff;
             img_meninSlotsIcon.sprite = sp_SlotsOff;
             img_meninWheelIcon.sprite = sp_WheelOn;
             MG_Manager.Instance.isInMG = true;
-            MG_UIManager.Instance.CloseTopPopPanelAsync();
-            MG_SaveManager.Current_GamePanel = (int)MG_PopPanelType.DicePanel;
+            MG_UIManager.Instance.ClosePopPanelAsync((MG_PopPanelType)MG_SaveManager.Current_GamePanel);
+            MG_SaveManager.Current_GamePanel = (int)MG_PopPanelType.WheelPanel;
             MG_UIManager.Instance.ShowPopPanelAsync(MG_PopPanelType.WheelPanel);
             UpdateAllContent();
         }
@@ -187,13 +202,14 @@ namespace MiddleGround.UI
         {
             MG_Manager.Play_ButtonClick();
             if (!MG_Manager.Instance.canChangeGame) return;
+            if (MG_SaveManager.Current_GamePanel == (int)MG_PopPanelType.ScratchPanel) return;
             if (go_scratchRP.activeSelf)
                 go_scratchRP.SetActive(false);
             img_meninScratchIcon.sprite = sp_ScratchOn;
             img_meninSlotsIcon.sprite = sp_SlotsOff;
             img_meninWheelIcon.sprite = sp_WheelOff;
             MG_Manager.Instance.isInMG = true;
-            MG_UIManager.Instance.CloseTopPopPanelAsync();
+            MG_UIManager.Instance.ClosePopPanelAsync((MG_PopPanelType)MG_SaveManager.Current_GamePanel);
             MG_SaveManager.Current_GamePanel = (int)MG_PopPanelType.ScratchPanel;
             MG_UIManager.Instance.ShowPopPanelAsync(MG_PopPanelType.ScratchPanel);
             UpdateAllContent();
@@ -202,11 +218,12 @@ namespace MiddleGround.UI
         {
             MG_Manager.Play_ButtonClick();
             if (!MG_Manager.Instance.canChangeGame) return;
+            if (MG_SaveManager.Current_GamePanel == (int)MG_PopPanelType.SlotsPanel) return;
             img_meninScratchIcon.sprite = sp_ScratchOff;
             img_meninSlotsIcon.sprite = sp_SlotsOn;
             img_meninWheelIcon.sprite = sp_WheelOff;
             MG_Manager.Instance.isInMG = true;
-            MG_UIManager.Instance.CloseTopPopPanelAsync();
+            MG_UIManager.Instance.ClosePopPanelAsync((MG_PopPanelType)MG_SaveManager.Current_GamePanel);
             MG_SaveManager.Current_GamePanel = (int)MG_PopPanelType.SlotsPanel;
             MG_UIManager.Instance.ShowPopPanelAsync(MG_PopPanelType.SlotsPanel);
             UpdateAllContent();
@@ -269,7 +286,7 @@ namespace MiddleGround.UI
                     text_SpecialToken.text = MG_Manager.Instance.Get_Save_Diamond().ToString();
                     go_SpecialToken.SetActive(true);
                     break;
-                case MG_SpecialTokenType.DiceToken:
+                case MG_SpecialTokenType.WheelToken:
                     if (!packB)
                         go_SpecialToken.SetActive(false);
                     else
@@ -312,15 +329,15 @@ namespace MiddleGround.UI
         public void UpdateSpecialTokenText()
         {
             int panelIndex = MG_SaveManager.Current_GamePanel;
-            if (panelIndex == (int)MG_GamePanelType.ScratchPanel)
+            if (panelIndex == (int)MG_PopPanelType.ScratchPanel)
             {
                 SetSpecialToken(MG_SpecialTokenType.ScratchToken);
             }
-            else if (panelIndex == (int)MG_GamePanelType.DicePanel)
+            else if (panelIndex == (int)MG_PopPanelType.WheelPanel)
             {
-                SetSpecialToken(MG_SpecialTokenType.DiceToken);
+                SetSpecialToken(MG_SpecialTokenType.WheelToken);
             }
-            else if (panelIndex == (int)MG_GamePanelType.SlotsPanel)
+            else if (panelIndex == (int)MG_PopPanelType.SlotsPanel)
             {
                 SetSpecialToken(MG_SpecialTokenType.SlotsToken);
             }
@@ -444,6 +461,14 @@ namespace MiddleGround.UI
             btn_SlotsOut.gameObject.SetActive(true);
             btn_ScratchOut.gameObject.SetActive(true);
             btn_WheelOut.gameObject.SetActive(true);
+        }
+        float startX = 0;
+        float startY = 0;
+        float endX = 0;
+        public void ShowEnterMGGuid()
+        {
+            go_guide_enterMG.SetActive(true);
+            StartCoroutine("AutoMoveEnterMGGuidHand");
         }
         public void CheckGuid()
         {
@@ -575,42 +600,54 @@ namespace MiddleGround.UI
         IEnumerator StartFadeOutMenuBottom()
         {
             float progress = 1;
+            while (!MG_Manager.Instance.canBackGame)
+            {
+                yield return null;
+            }
             cg_menuin_top.blocksRaycasts = false;
             cg_menuin_bottom.blocksRaycasts = false;
-            img_BG.raycastTarget = false;
             while (progress > 0)
             {
                 yield return null;
                 progress -= Time.unscaledDeltaTime * 4;
                 cg_menuin_bottom.alpha = progress;
                 cg_menuin_top.alpha = progress;
-                img_BG.color = new Color(1, 1, 1, progress);
             }
-            img_BG.color = Color.clear;
             cg_menuin_top.alpha = 0;
             cg_menuin_bottom.alpha = 0;
         }
         IEnumerator StartFadeInMenuBottom()
         {
-            img_BG.sprite = MG_Manager.Instance.Get_GamePanelBg();
             float progress = 0;
             cg_menuin_top.blocksRaycasts = false;
             cg_menuin_bottom.blocksRaycasts = false;
-            img_BG.raycastTarget = false;
             while (progress <1)
             {
                 yield return null;
                 progress += Time.unscaledDeltaTime * 4;
                 cg_menuin_bottom.alpha = progress;
                 cg_menuin_top.alpha = progress;
-                img_BG.color = new Color(1, 1, 1, progress);
             }
-            img_BG.color = Color.white;
             cg_menuin_top.alpha = 1;
             cg_menuin_bottom.alpha = 1;
-            img_BG.raycastTarget = true;
             cg_menuin_top.blocksRaycasts = true;
             cg_menuin_bottom.blocksRaycasts = true;
+        }
+        IEnumerator AutoMoveEnterMGGuidHand()
+        {
+            trans_guid_enterMG.localPosition = new Vector2(startX+1, startY);
+            float speed = -200;
+            bool isR = true;
+            while (true)
+            {
+                yield return null;
+                trans_guid_enterMG.localPosition -= new Vector3(Time.unscaledDeltaTime * speed, 0);
+                if ((isR && trans_guid_enterMG.localPosition.x >= endX) || (!isR && trans_guid_enterMG.localPosition.x <= startX))
+                {
+                    isR = !isR;
+                    speed = -speed;
+                }
+            }
         }
     }
 }

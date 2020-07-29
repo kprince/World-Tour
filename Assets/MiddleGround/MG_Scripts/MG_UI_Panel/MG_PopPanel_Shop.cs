@@ -50,8 +50,9 @@ namespace MiddleGround.UI
         Sprite sp_amazon;
         Sprite sp_sss;
         Sprite sp_fruit;
+        Sprite sp_amazon20;
+        Sprite sp_amazon50;
         Sprite sp_amazon100;
-        Sprite sp_amazon200;
         Sprite sp_amazon500;
         Sprite sp_amazon1000;
         Sprite sp_amazon10000;
@@ -74,8 +75,9 @@ namespace MiddleGround.UI
             sp_amazon = shopAtlas.GetSprite("MG_Sprite_Shop_Amazon");
             sp_sss = shopAtlas.GetSprite("MG_Sprite_Shop_SSS");
             sp_fruit = shopAtlas.GetSprite("MG_Sprite_Shop_Fruits");
-            sp_amazon100 = shopAtlas.GetSprite("MG_Sprite_Shop_Paypal50");
-            sp_amazon200 = shopAtlas.GetSprite("MG_Sprite_Shop_Paypal100");
+            sp_amazon20 = shopAtlas.GetSprite("MG_Sprite_Shop_Paypal20");
+            sp_amazon50 = shopAtlas.GetSprite("MG_Sprite_Shop_Paypal50");
+            sp_amazon100 = shopAtlas.GetSprite("MG_Sprite_Shop_Paypal100");
             sp_amazon500 = shopAtlas.GetSprite("MG_Sprite_Shop_AmazonCard500");
             sp_amazon1000 = shopAtlas.GetSprite("MG_Sprite_Shop_AmazonCard1000");
             sp_amazon10000 = shopAtlas.GetSprite("MG_Sprite_Shop_Gfit");
@@ -86,9 +88,9 @@ namespace MiddleGround.UI
             img_icon4.sprite = sp_amazon;
             img_icon5.sprite = sp_sss;
             img_icon6.sprite = sp_fruit;
-            img_rewardIcon1.sprite = sp_amazon100;
-            img_rewardIcon2.sprite = sp_amazon100;
-            img_rewardIcon3.sprite = sp_amazon200;
+            img_rewardIcon1.sprite = sp_amazon20;
+            img_rewardIcon2.sprite = sp_amazon50;
+            img_rewardIcon3.sprite = sp_amazon100;
             img_rewardIcon4.sprite = sp_amazon500;
             img_rewardIcon5.sprite = sp_amazon1000;
             img_rewardIcon6.sprite = sp_amazon10000;

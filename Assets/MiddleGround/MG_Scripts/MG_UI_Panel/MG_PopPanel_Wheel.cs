@@ -229,11 +229,13 @@ namespace MiddleGround.UI
 
         public override void OnPause()
         {
+            canvasGroup.blocksRaycasts = false;
             //btn_Close.gameObject.SetActive(false);
         }
 
         public override void OnResume()
         {
+            canvasGroup.blocksRaycasts = true;
             //btn_Close.gameObject.SetActive(true);
         }
         string GetShowNumString(int num)

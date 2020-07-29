@@ -35,6 +35,11 @@ public class Panel_RateUs : PanelBase
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
         GameManager.Instance.needRateUs = false;
+        if (GameManager.Instance.needShowMGGuid)
+        {
+            GameManager.Instance.needShowMGGuid = false;
+            MiddleGround.MG_Manager.ShowMGGuid();
+        }
     }
     protected override void Close()
     {

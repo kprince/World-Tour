@@ -42,13 +42,14 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: e5fccc039d1d8074ea92a3c4fe5150f6, type: 3}
-    totalSpriteSurfaceArea: 830845
+    totalSpriteSurfaceArea: 792879
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 14cc2960944b71c438c1f237756f6b57, type: 3}
   - {fileID: 21300000, guid: d3d252909680eb64f98a58c02d5a588b, type: 3}
   - {fileID: 21300000, guid: c5bf7cc0182615e4c9dde0023e252f39, type: 3}
+  - {fileID: 21300000, guid: 3dfdbcd008e5a4d48b5899b042193dbb, type: 3}
   - {fileID: 21300000, guid: 665505313c3a8de4b8de0096825155f6, type: 3}
   - {fileID: 21300000, guid: c759b722d365c11418fca4ff598d906c, type: 3}
   - {fileID: 21300000, guid: 878775d22d4ed344cb19e693683fcbc0, type: 3}
@@ -72,18 +73,17 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d68284f9f6653b44cb3b897cf4e2ce6c, type: 3}
   - {fileID: 21300000, guid: 4fd5381a128ee2a47986fe7438d1820a, type: 3}
   - {fileID: 21300000, guid: 6083ce6ad42bb76468955ec05a58a559, type: 3}
-  - {fileID: 21300000, guid: 4f30061be7473184a8361e259a008954, type: 3}
-  - {fileID: 21300000, guid: 8920579bca67bee40b1c7b79ff60cd43, type: 3}
-  - {fileID: 21300000, guid: 0b911aab4fbce9c4ebad4ed3d4edac45, type: 3}
   - {fileID: 21300000, guid: bfbabd9d85fa8e94599168ac052635b2, type: 3}
   - {fileID: 21300000, guid: 789cf7edb729ba54695f1d6ebc884a76, type: 3}
   - {fileID: 21300000, guid: 80799e2e4ca303248af689c6dad6a44b, type: 3}
   - {fileID: 21300000, guid: 2ff0745e75ac10046a464cfe580b73bd, type: 3}
   - {fileID: 21300000, guid: f7acb3de24c2e0b408912ae850b0c2ac, type: 3}
+  - {fileID: 21300000, guid: 7096c50f99a735646a7f080fd85974ec, type: 3}
   m_PackedSpriteNamesToIndex:
   - MG_Sprite_Menu_Guid_Amazon
   - MG_Sprite_Menu_Wheel
   - MG_Sprite_MenuIn_SlotsOn
+  - MG_Sprite_Menu_Handle
   - MG_Sprite_Menu_WheelticketNotice
   - MG_Sprite_Menu_ScratchToken_odl
   - MG_Sprite_Menu_SlotsToken
@@ -107,13 +107,11 @@ SpriteAtlas:
   - MG_Sprite_MenuIn_WheelOff
   - MG_Sprite_Menu_Guid_Cashout
   - MG_Sprite_MenuIn_ScratchOff
-  - MG_Sprite_Menu_Setting
-  - MG_Sprite_Menu_Dice
-  - MG_Sprite_Menu_Signin
   - MG_Sprite_Menu_CashB
   - MG_Sprite_Menu_ScratchToken
   - MG_Sprite_Menu_RedPoint
   - MG_Sprite_Menu_Guid_B
   - MG_Sprite_Menu_Bottom
+  - MG_Sprite_Menu_BG
   m_Tag: MG_MenuPanel
   m_IsVariant: 0

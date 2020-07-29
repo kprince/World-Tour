@@ -355,6 +355,11 @@ public class Panel_Jackpot : PanelBase
             GameManager.Instance.GetExtraBonus();
             GameManager.Instance.canGetExtraBonus = false;
         }
+        else if (GameManager.Instance.needShowMGGuid && canSpin == true)
+        {
+            GameManager.Instance.needShowMGGuid = false;
+            MiddleGround.MG_Manager.ShowMGGuid();
+        }
         else
             GameManager.Instance.canRollDice = true;
     }

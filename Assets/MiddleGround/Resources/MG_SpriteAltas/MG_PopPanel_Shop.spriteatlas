@@ -42,7 +42,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 0bbf4ebad9d1a3d46a12cbafceaaad93, type: 3}
-    totalSpriteSurfaceArea: 872033
+    totalSpriteSurfaceArea: 908240
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -57,6 +57,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6242d815bc09b4642b6744ef30f8fa90, type: 3}
   - {fileID: 21300000, guid: 58847486c0ea4894e9e68d1fefbbe51b, type: 3}
   - {fileID: 21300000, guid: 7a9cbec6960677d4d9443383e51d1169, type: 3}
+  - {fileID: 21300000, guid: 7706565717aa3ed469e8fcaec844fe90, type: 3}
   - {fileID: 21300000, guid: 016f0c8967fa8d3438bdfd67c2dced3a, type: 3}
   - {fileID: 21300000, guid: c65783b93b68b2d4697fa4fe487dfc87, type: 3}
   - {fileID: 21300000, guid: 8649ab1a3b2368244a3c99910f796e50, type: 3}
@@ -85,6 +86,7 @@ SpriteAtlas:
   - MG_Sprite_Shop_Scratch
   - MG_Sprite_Shop_Base
   - MG_Sprite_Shop_AmazonCard200
+  - MG_Sprite_Shop_Paypal20
   - MG_Sprite_Shop_AmazonCard1000
   - MG_Sprite_Shop_Fruits
   - MG_Sprite_Shop_Diamond
