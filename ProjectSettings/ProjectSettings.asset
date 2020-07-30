@@ -9,7 +9,7 @@ PlayerSettings:
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
   defaultScreenOrientation: 0
-  targetDevice: 2
+  targetDevice: 0
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: World tour
@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 5
+  bundleVersion: 6
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -166,9 +166,10 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.LuckyDice.CashTycoon.IdleGame.LowPolyCausalGame.WorldTour
     iOS: com.LuckyDice.CashTycoon.IdleGame.LowPolyCausalGame.WorldTour
+    iPhone: com.LuckyDice.CashTycoon.IdleGame.LowPolyCausalGame.WorldTour
   buildNumber:
-    iOS: 2
-  AndroidBundleVersionCode: 5
+    iOS: 6
+  AndroidBundleVersionCode: 6
   AndroidMinSdkVersion: 21
   AndroidTargetSdkVersion: 29
   AndroidPreferredInstallLocation: 1

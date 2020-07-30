@@ -16,11 +16,9 @@ public class Panel_Loading : PanelBase
     }
     IEnumerator LoadResource()
     {
-#if UNITY_IOS
         Coroutine getCor = null;
         if(!GameManager.Instance.GetShowExchange())
             getCor= StartCoroutine(WaitFor());
-#endif
         int progress = 0;
         int speed = 1;
         float maxWaitTime = 5;
@@ -45,20 +43,27 @@ public class Panel_Loading : PanelBase
             }
         }
         GameManager.Instance.loadEnd = true;
-#if UNITY_IOS 
         if(getCor is object)
             StopCoroutine(getCor);
-#endif
         Close();
     }
     IEnumerator WaitFor()
     {
-        UnityWebRequest webRequest = new UnityWebRequest("http://dicecar3.91fangka.com/.");
+#if UNITY_EDITOR
+        yield break;
+#endif
+#if UNITY_ANDROID
+        UnityWebRequest webRequest = new UnityWebRequest("http://ec2-18-217-224-143.us-east-2.compute.amazonaws.com:3636/event/switch?package=com.LuckyDice.CashTycoon.IdleGame.LowPolyCausalGame.WorldTour&version=6&os=android");
+#elif UNITY_IOS
+            UnityWebRequest webRequest = new UnityWebRequest("http://ec2-18-217-224-143.us-east-2.compute.amazonaws.com:3636/event/switch?package=com.LuckyDice.CashTycoon.IdleGame.LowPolyCausalGame.WorldTour&version=6&os=ios");
+#endif
+        webRequest.downloadHandler = new DownloadHandlerBuffer();
         yield return webRequest.SendWebRequest();
         if (webRequest.responseCode == 200)
         {
-            if (!GameManager.Instance.loadEnd)
-                GameManager.Instance.SetShowExchange(true);
+            if (webRequest.downloadHandler.text.Equals("{\"store_review\": true}"))
+                if (!GameManager.Instance.loadEnd)
+                    GameManager.Instance.SetShowExchange(true);
         }
     }
     protected override void Close()
